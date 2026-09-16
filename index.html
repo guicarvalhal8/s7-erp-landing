@@ -935,8 +935,49 @@
             return new THREE.CanvasTexture(canvas);
         }
 
+        // Gera uma geometria de caixa com cantos arredondados (evita o visual "duro" de caixas retas)
+        function createRoundedBoxGeometry(width, height, depth, radius, segments = 6) {
+            const w = width / 2 - radius;
+            const h = height / 2 - radius;
+            const shape = new THREE.Shape();
+            shape.moveTo(-w, -h - radius);
+            shape.lineTo(w, -h - radius);
+            shape.quadraticCurveTo(w + radius, -h - radius, w + radius, -h);
+            shape.lineTo(w + radius, h);
+            shape.quadraticCurveTo(w + radius, h + radius, w, h + radius);
+            shape.lineTo(-w, h + radius);
+            shape.quadraticCurveTo(-w - radius, h + radius, -w - radius, h);
+            shape.lineTo(-w - radius, -h);
+            shape.quadraticCurveTo(-w - radius, -h - radius, -w, -h - radius);
+
+            const geometry = new THREE.ExtrudeGeometry(shape, {
+                depth: Math.max(depth - radius * 2, 0.001),
+                bevelEnabled: true,
+                bevelThickness: radius,
+                bevelSize: radius,
+                bevelSegments: segments,
+                curveSegments: segments
+            });
+            geometry.center();
+            return geometry;
+        }
+
+        // Textura radial suave usada como sombra de contato sob os dispositivos flutuantes
+        function generateContactShadowTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256; canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+            gradient.addColorStop(0, 'rgba(0,0,0,0.45)');
+            gradient.addColorStop(0.6, 'rgba(0,0,0,0.18)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 256, 256);
+            return new THREE.CanvasTexture(canvas);
+        }
+
         let sceneDive, cameraDive, rendererDive;
-        let activeDeviceGroup, activeScreenMesh;
+        let activeDeviceGroup, activeScreenMesh, contactShadowMesh;
         let isAnimating = false;
         let isUserInteracting = false;
 
@@ -944,40 +985,45 @@
             const group = new THREE.Group();
 
             if (serviceKey === 'forca_vendas' || serviceKey === 'gestor_entregas') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(2.5, 5.0, 0.25), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2 }));
+                const body = new THREE.Mesh(createRoundedBoxGeometry(2.5, 5.0, 0.25, 0.09), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.35, metalness: 0.15 }));
+                body.castShadow = true;
                 group.add(body);
                 const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.7), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture(serviceKey), transparent: true }));
                 screen.position.z = 0.13;
                 group.add(screen);
                 activeScreenMesh = screen;
             } else if (serviceKey === 'portal_b2b') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(5.2, 3.6, 0.2), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3 }));
+                const body = new THREE.Mesh(createRoundedBoxGeometry(5.2, 3.6, 0.2, 0.07), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.15 }));
+                body.castShadow = true;
                 group.add(body);
                 const screen = new THREE.Mesh(new THREE.PlaneGeometry(4.9, 3.3), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('portal_b2b'), transparent: true }));
                 screen.position.z = 0.11;
                 group.add(screen);
                 activeScreenMesh = screen;
             } else if (serviceKey === 'wms') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(2.6, 4.8, 0.45), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.4 }));
+                const body = new THREE.Mesh(createRoundedBoxGeometry(2.6, 4.8, 0.45, 0.14), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.45, metalness: 0.1 }));
+                body.castShadow = true;
                 group.add(body);
                 const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.0), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('wms'), transparent: true }));
                 screen.position.z = 0.23;
                 group.add(screen);
                 activeScreenMesh = screen;
-                const laser = new THREE.Mesh(new THREE.ConeGeometry(0.8, 2.5, 16), new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.4 }));
+                const laser = new THREE.Mesh(new THREE.ConeGeometry(0.8, 2.5, 32), new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.35 }));
                 laser.rotation.x = -Math.PI / 2;
                 laser.position.set(0, 3.2, 0);
                 group.add(laser);
             } else if (serviceKey === 'bi') {
-                const monitor = new THREE.Mesh(new THREE.BoxGeometry(5.6, 3.0, 0.15), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+                const monitor = new THREE.Mesh(createRoundedBoxGeometry(5.6, 3.0, 0.15, 0.06), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.2 }));
                 monitor.position.y = 0.5;
+                monitor.castShadow = true;
                 group.add(monitor);
                 const screen = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 2.8), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('bi'), transparent: true }));
                 screen.position.set(0, 0.5, 0.09);
                 group.add(screen);
                 activeScreenMesh = screen;
-                const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.4), new THREE.MeshStandardMaterial({ color: 0x334155 }));
+                const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.4, 24), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5, metalness: 0.3 }));
                 stand.position.set(0, -0.6, 0);
+                stand.castShadow = true;
                 group.add(stand);
             }
             return group;
@@ -997,12 +1043,31 @@
             rendererDive = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
             rendererDive.setSize(w, h);
             rendererDive.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            rendererDive.shadowMap.enabled = true;
+            rendererDive.shadowMap.type = THREE.PCFSoftShadowMap;
 
-            const ambient = new THREE.AmbientLight(0xffffff, 0.85);
+            const hemi = new THREE.HemisphereLight(0xbfdbfe, 0x0f172a, 0.55);
+            sceneDive.add(hemi);
+            const ambient = new THREE.AmbientLight(0xffffff, 0.35);
             sceneDive.add(ambient);
-            const direct = new THREE.DirectionalLight(0xffffff, 1.2);
+            const direct = new THREE.DirectionalLight(0xffffff, 1.3);
             direct.position.set(5, 10, 8);
+            direct.castShadow = true;
+            direct.shadow.mapSize.set(1024, 1024);
+            direct.shadow.camera.near = 1;
+            direct.shadow.camera.far = 25;
             sceneDive.add(direct);
+            const rim = new THREE.DirectionalLight(0x3ea62b, 0.4);
+            rim.position.set(-6, 2, -6);
+            sceneDive.add(rim);
+
+            contactShadowMesh = new THREE.Mesh(
+                new THREE.PlaneGeometry(4.5, 4.5),
+                new THREE.MeshBasicMaterial({ map: generateContactShadowTexture(), transparent: true, depthWrite: false })
+            );
+            contactShadowMesh.rotation.x = -Math.PI / 2;
+            contactShadowMesh.position.y = -2.7;
+            sceneDive.add(contactShadowMesh);
 
             loadDeviceModel('forca_vendas');
             setupDiveInteraction();
@@ -1253,14 +1318,17 @@
             const group = new THREE.Group();
             nichoAnimatedElements = [];
 
-            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 }));
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.7 }));
             floor.position.y = -0.1;
+            floor.receiveShadow = true;
             group.add(floor);
 
-            const ovenGeo = new THREE.BoxGeometry(3.5, 4.5, 3.5);
-            const ovenMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.3 });
+            const ovenGeo = createRoundedBoxGeometry(3.5, 4.5, 3.5, 0.28);
+            const ovenMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.75, roughness: 0.35 });
             const oven = new THREE.Mesh(ovenGeo, ovenMat);
             oven.position.set(-3.5, 2.25, -2);
+            oven.castShadow = true;
+            oven.receiveShadow = true;
             group.add(oven);
 
             const win = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2.0), new THREE.MeshBasicMaterial({ color: 0xea580c }));
@@ -1271,22 +1339,26 @@
             ovenLight.position.set(-3.5, 2.4, 0.5);
             group.add(ovenLight);
 
-            const conveyor = new THREE.Mesh(new THREE.BoxGeometry(7.0, 0.3, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            const conveyor = new THREE.Mesh(createRoundedBoxGeometry(7.0, 0.3, 1.4, 0.06), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5, metalness: 0.2 }));
             conveyor.position.set(-0.5, 0.4, 2.2);
+            conveyor.castShadow = true;
+            conveyor.receiveShadow = true;
             group.add(conveyor);
 
             for (let i = 0; i < 4; i++) {
                 const tray = new THREE.Group();
-                const panSheet = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.05, 0.9), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.7 }));
+                const panSheet = new THREE.Mesh(createRoundedBoxGeometry(1.2, 0.05, 0.9, 0.02), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.7, roughness: 0.35 }));
+                panSheet.castShadow = true;
                 tray.add(panSheet);
 
                 for (let b = 0; b < 3; b++) {
                     const bread = new THREE.Mesh(
-                        new THREE.CylinderGeometry(0.12, 0.12, 0.6, 16),
-                        new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.7 })
+                        new THREE.CylinderGeometry(0.12, 0.12, 0.6, 24),
+                        new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.75 })
                     );
                     bread.rotation.z = Math.PI / 2;
                     bread.position.set(0, 0.12, -0.25 + (b * 0.25));
+                    bread.castShadow = true;
                     tray.add(bread);
                 }
 
@@ -1302,37 +1374,44 @@
             const group = new THREE.Group();
             nichoAnimatedElements = [];
 
-            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 }));
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 }));
             floor.position.y = -0.1;
+            floor.receiveShadow = true;
             group.add(floor);
 
-            const chamber = new THREE.Mesh(new THREE.BoxGeometry(4.5, 4.0, 4.5), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2 }));
+            const chamber = new THREE.Mesh(createRoundedBoxGeometry(4.5, 4.0, 4.5, 0.25), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3, metalness: 0.2 }));
             chamber.position.set(-3.5, 2.0, -2);
+            chamber.castShadow = true;
+            chamber.receiveShadow = true;
             group.add(chamber);
 
-            const door = new THREE.Mesh(new THREE.BoxGeometry(2.0, 3.2, 0.2), new THREE.MeshStandardMaterial({ color: 0x0284c7, metalness: 0.6 }));
+            const door = new THREE.Mesh(createRoundedBoxGeometry(2.0, 3.2, 0.2, 0.06), new THREE.MeshStandardMaterial({ color: 0x0284c7, metalness: 0.55, roughness: 0.3 }));
             door.position.set(-2.2, 1.6, 0.3);
+            door.castShadow = true;
             group.add(door);
 
-            const freezer = new THREE.Mesh(new THREE.BoxGeometry(1.8, 2.6, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3 }));
+            const freezer = new THREE.Mesh(createRoundedBoxGeometry(1.8, 2.6, 1.4, 0.13), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.15 }));
             freezer.position.set(2.2, 1.3, 1.5);
+            freezer.castShadow = true;
+            freezer.receiveShadow = true;
             group.add(freezer);
 
-            const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.2), new THREE.MeshStandardMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.5 }));
+            const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.2), new THREE.MeshStandardMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.5, roughness: 0.1, metalness: 0.1 }));
             glass.position.set(2.2, 1.3, 2.22);
             group.add(glass);
 
             for(let r = 0; r < 2; r++) {
                 for(let c = 0; c < 3; c++) {
-                    const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.4), new THREE.MeshStandardMaterial({ color: 0xf8fafc }));
+                    const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.4, 16), new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.4 }));
                     bottle.position.set(1.8 + (c * 0.35), 0.6 + (r * 0.8), 1.6);
+                    bottle.castShadow = true;
                     group.add(bottle);
                 }
             }
 
-            const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.8), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+            const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.8, 12), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 }));
             antenna.position.set(2.8, 2.9, 1.5);
-            const antennaHead = new THREE.Mesh(new THREE.SphereGeometry(0.12), new THREE.MeshBasicMaterial({ color: 0x3ea62b }));
+            const antennaHead = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), new THREE.MeshBasicMaterial({ color: 0x3ea62b }));
             antennaHead.position.set(2.8, 3.3, 1.5);
             group.add(antenna, antennaHead);
 
@@ -1349,14 +1428,19 @@
             const group = new THREE.Group();
             nichoAnimatedElements = [];
 
-            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 }));
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.7 }));
             floor.position.y = -0.1;
+            floor.receiveShadow = true;
             group.add(floor);
 
-            const carouselBase = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.7, 0.5, 32), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            const carouselBase = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.7, 0.5, 48), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5, metalness: 0.2 }));
             carouselBase.position.set(0, 0.25, 0);
-            const carouselTop = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 0.1, 32), new THREE.MeshStandardMaterial({ color: 0x9d174d, metalness: 0.5 }));
+            carouselBase.castShadow = true;
+            carouselBase.receiveShadow = true;
+            const carouselTop = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 0.1, 48), new THREE.MeshStandardMaterial({ color: 0x9d174d, metalness: 0.45, roughness: 0.35 }));
             carouselTop.position.set(0, 0.55, 0);
+            carouselTop.castShadow = true;
+            carouselTop.receiveShadow = true;
             group.add(carouselBase, carouselTop);
 
             const giftsGroup = new THREE.Group();
@@ -1365,18 +1449,20 @@
                 const r = 1.6;
 
                 const box = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.55, 0.3, 0.55),
-                    new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0xec4899 : 0xf59e0b })
+                    createRoundedBoxGeometry(0.55, 0.3, 0.55, 0.05),
+                    new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0xec4899 : 0xf59e0b, roughness: 0.4, metalness: 0.15 })
                 );
                 box.position.set(Math.cos(angle) * r, 0.75, Math.sin(angle) * r);
+                box.castShadow = true;
                 giftsGroup.add(box);
 
                 const egg = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.2, 16, 16),
-                    new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.5 })
+                    new THREE.SphereGeometry(0.2, 24, 24),
+                    new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.45, roughness: 0.3 })
                 );
                 egg.scale.set(1.0, 1.4, 1.0);
                 egg.position.set(Math.cos(angle) * r, 1.1, Math.sin(angle) * r);
+                egg.castShadow = true;
                 giftsGroup.add(egg);
             }
             group.add(giftsGroup);
@@ -1389,17 +1475,19 @@
             const group = new THREE.Group();
             nichoAnimatedElements = [];
 
-            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.8 }));
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.85 }));
             floor.position.y = -0.1;
+            floor.receiveShadow = true;
             group.add(floor);
 
-            const colMat = new THREE.MeshStandardMaterial({ color: 0xea580c, metalness: 0.6 });
-            const beamMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5 });
+            const colMat = new THREE.MeshStandardMaterial({ color: 0xea580c, metalness: 0.55, roughness: 0.35 });
+            const beamMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.45, roughness: 0.4 });
 
             for(let x of [-4.5, -2.0]) {
                 for(let z of [-2.5, -0.5]) {
                     const col = new THREE.Mesh(new THREE.BoxGeometry(0.15, 4.5, 0.15), colMat);
                     col.position.set(x, 2.25, z);
+                    col.castShadow = true;
                     group.add(col);
                 }
             }
@@ -1407,21 +1495,28 @@
             for(let lvl = 1; lvl <= 3; lvl++) {
                 const beam = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.1, 2.0), beamMat);
                 beam.position.set(-3.25, lvl * 1.2, -1.5);
+                beam.castShadow = true;
+                beam.receiveShadow = true;
                 group.add(beam);
 
                 const crate = new THREE.Mesh(
-                    new THREE.BoxGeometry(0.8, 0.4, 1.2),
-                    new THREE.MeshStandardMaterial({ color: lvl % 2 === 0 ? 0x3ea62b : 0xef4444 })
+                    createRoundedBoxGeometry(0.8, 0.4, 1.2, 0.06),
+                    new THREE.MeshStandardMaterial({ color: lvl % 2 === 0 ? 0x3ea62b : 0xef4444, roughness: 0.5, metalness: 0.1 })
                 );
                 crate.position.set(-3.25, lvl * 1.2 + 0.3, -1.5);
+                crate.castShadow = true;
+                crate.receiveShadow = true;
                 group.add(crate);
             }
 
             const truck = new THREE.Group();
-            const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.5, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            const cab = new THREE.Mesh(createRoundedBoxGeometry(1.6, 1.5, 1.4, 0.13), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.2 }));
             cab.position.set(1.8, 0.75, 0);
-            const container = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.2, 1.6), new THREE.MeshStandardMaterial({ color: 0x0284c7 }));
+            cab.castShadow = true;
+            const container = new THREE.Mesh(createRoundedBoxGeometry(3.6, 2.2, 1.6, 0.15), new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.4, metalness: 0.2 }));
             container.position.set(-0.7, 1.1, 0);
+            container.castShadow = true;
+            container.receiveShadow = true;
             truck.add(cab, container);
             truck.position.set(2.0, 0.2, 1.8);
             group.add(truck);
@@ -1444,13 +1539,29 @@
             rendererNicho = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
             rendererNicho.setSize(w, h);
             rendererNicho.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            rendererNicho.shadowMap.enabled = true;
+            rendererNicho.shadowMap.type = THREE.PCFSoftShadowMap;
 
-            const ambient = new THREE.AmbientLight(0xffffff, 1.0);
+            const hemi = new THREE.HemisphereLight(0x93c5fd, 0x0f172a, 0.65);
+            sceneNicho.add(hemi);
+            const ambient = new THREE.AmbientLight(0xffffff, 0.4);
             sceneNicho.add(ambient);
 
-            const direct = new THREE.DirectionalLight(0xffffff, 1.4);
+            const direct = new THREE.DirectionalLight(0xffffff, 1.35);
             direct.position.set(10, 15, 10);
+            direct.castShadow = true;
+            direct.shadow.mapSize.set(2048, 2048);
+            direct.shadow.camera.near = 1;
+            direct.shadow.camera.far = 40;
+            direct.shadow.camera.left = -10;
+            direct.shadow.camera.right = 10;
+            direct.shadow.camera.top = 10;
+            direct.shadow.camera.bottom = -10;
+            direct.shadow.bias = -0.0015;
             sceneNicho.add(direct);
+            const fill = new THREE.DirectionalLight(0xffffff, 0.3);
+            fill.position.set(-8, 6, -6);
+            sceneNicho.add(fill);
 
             loadNichoScene('panificacao');
         }
@@ -1515,9 +1626,16 @@
         function globalRenderLoop() {
             requestAnimationFrame(globalRenderLoop);
 
-            // Gira suavemente apenas se o usuário não estiver mexendo manualmente
+            // Gira e flutua suavemente apenas se o usuário não estiver mexendo manualmente
             if (activeDeviceGroup && !isUserInteracting && cameraDive && cameraDive.position.z > 3.0 && !isAnimating) {
                 activeDeviceGroup.rotation.y += 0.003;
+                activeDeviceGroup.position.y = Math.sin(Date.now() * 0.0011) * 0.12;
+            }
+            if (contactShadowMesh && activeDeviceGroup) {
+                const bob = activeDeviceGroup.position.y;
+                const scale = 1.0 - bob * 0.12;
+                contactShadowMesh.scale.set(scale, scale, 1);
+                contactShadowMesh.material.opacity = 0.85 - Math.abs(bob) * 0.6;
             }
             if (rendererDive && sceneDive && cameraDive) {
                 rendererDive.render(sceneDive, cameraDive);
