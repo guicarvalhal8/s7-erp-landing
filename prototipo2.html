@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S7 ERP | SN Sistemas - Especialista em Indústria & Distribuição</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --sn-green: #3ea62b;
+            --sn-green-dark: #2f8520;
+            --sn-navy: #0f172a;
+            --sn-navy-light: #1e293b;
+            --sn-blue: #0284c7;
+            --sn-orange: #ea580c;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        .sn-btn-green {
+            background-color: var(--sn-green);
+            transition: all 0.25s ease;
+        }
+        .sn-btn-green:hover {
+            background-color: var(--sn-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(62, 166, 43, 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--sn-green);
+            transition: width 0.25s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dive-btn.active {
+            background: rgba(15, 23, 42, 0.95);
+            border-color: var(--sn-green);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(62, 166, 43, 0.2);
+        }
+        .dive-btn.active h4 {
+            color: #ffffff !important;
+        }
+        .dive-btn.active span {
+            color: #94a3b8 !important;
+        }
+
+        .nicho-tab {
+            transition: all 0.25s ease;
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+        }
+        .nicho-tab.active {
+            background-color: #0f172a !important;
+            border-color: #3ea62b !important;
+            box-shadow: 0 8px 25px -4px rgba(62, 166, 43, 0.35);
+        }
+        .nicho-tab.active h4 {
+            color: #ffffff !important;
+        }
+        .nicho-tab.active .nicho-subdesc {
+            color: #cbd5e1 !important;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="relative selection:bg-[#3ea62b] selection:text-white pb-20">
+
+    <!-- Sticky Bottom Bar WhatsApp Oficial -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-[#0f172a]/95 border-t border-slate-800 py-3 px-6 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
+            <div class="flex items-center gap-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse"></span>
+                <span class="text-slate-200">Suporte Técnico Especializado das <strong>06h às 00h</strong> (365 dias no ano).</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline text-slate-400">Prefere atendimento direto?</span>
+                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" class="px-4 py-2 sn-btn-green text-white font-extrabold rounded-full uppercase tracking-wider transition flex items-center gap-2 shadow-lg">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 62 98158-0060
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Oficial SN Sistemas -->
+    <header class="sticky top-0 z-50 bg-[#0f172a] border-b border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-10 h-10 bg-[#3ea62b] rounded-xl flex items-center justify-center font-black text-white text-xl tracking-tighter shadow-md">
+                    SN
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-extrabold text-white tracking-tight leading-tight">SN <span class="text-[#3ea62b]">SISTEMAS</span></span>
+                    <span class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">S7 ERP Especialista</span>
+                </div>
+            </div>
+
+            <nav class="hidden xl:flex items-center gap-7 text-xs font-bold text-slate-300">
+                <a href="#camera-dive" class="nav-link hover:text-white">Soluções 3D</a>
+                <a href="#nichos-interativos" class="nav-link hover:text-white flex items-center gap-1">
+                    Segmentos
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#3ea62b]"></span>
+                </a>
+                <a href="#quiz-diagnostico" class="nav-link hover:text-white">Auditoria & Quiz</a>
+                <a href="#tabela-comparativa" class="nav-link hover:text-white">Diferenciais S7</a>
+                <a href="#calculadora" class="nav-link hover:text-white">Calculadora ROI</a>
+            </nav>
+
+            <div class="flex items-center gap-4 shrink-0">
+                <a href="tel:62981580060" class="hidden md:flex items-center gap-2 text-xs font-extrabold text-white hover:text-[#3ea62b] transition">
+                    <i data-lucide="phone" class="w-4 h-4 text-[#3ea62b]"></i>
+                    (62) 98158-0060
+                </a>
+                <button onclick="openModalDemo()" class="px-6 py-2.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full transition shadow-md flex items-center gap-2">
+                    Agendar Demonstração
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO OFICIAL COM FRASE DE IMPACTO -->
+    <section class="relative bg-[#ffffff] py-16 px-6 border-b border-slate-200 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-6 flex flex-col gap-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[#2f8520] text-xs font-extrabold w-fit">
+                    <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span>
+                    SISTEMA ERP ESPECIALISTA EM INDÚSTRIAS E DISTRIBUIDORAS
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl font-black text-[#0f172a] leading-[1.15] tracking-tight">
+                    O seu novo software de <span class="text-[#3ea62b]">gestão inteligente</span> e alta precisão.
+                </h1>
+
+                <p class="text-slate-600 text-base leading-relaxed">
+                    O <strong>S7 ERP</strong> automatiza processos críticos, corta desperdícios operacionais e alavanca a produtividade da sua equipe. <strong>Mais de 10 anos no mercado</strong> com tecnologia robusta, FEFO nativo e suporte especializado.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <button onclick="openModalDemo()" class="px-8 py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center gap-2">
+                        Solicite uma Demonstração
+                    </button>
+                    <a href="#camera-dive" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-xs uppercase tracking-wider rounded-full transition flex items-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4 text-[#3ea62b] fill-current"></i> Ver Sistema em 3D
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                    <div>
+                        <span class="text-2xl font-black text-[#0f172a] block">+7.000</span>
+                        <span class="text-xs text-slate-500 font-medium">Usuários ativos</span>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black text-[#3ea62b] block">24 Estados</span>
+                        <span class="text-xs text-slate-500 font-medium">E no exterior</span>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black text-[#0f172a] block">+700</span>
+                        <span class="text-xs text-slate-500 font-medium">Empresas atendidas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mockup do S7 ERP -->
+            <div class="lg:col-span-6 relative flex items-center justify-center">
+                <div class="relative w-full max-w-lg">
+                    
+                    <div class="bg-white rounded-2xl p-5 shadow-2xl border border-slate-200 transform -rotate-2 hover:rotate-0 transition duration-500">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                                <span class="text-[11px] font-bold text-slate-400 ml-2">Cockpit DRE & Faturamento S7</span>
+                            </div>
+                            <span class="text-[10px] bg-emerald-50 text-[#2f8520] font-bold px-2 py-0.5 rounded">Tempo Real</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <span class="text-[10px] text-slate-500 font-semibold block">Faturamento Bruto:</span>
+                                <span class="text-base font-extrabold text-[#0f172a] block">R$ 1.444.083,51</span>
+                                <span class="text-[9px] text-[#3ea62b] font-bold mt-1 block">▲ +14.2% meta do mês</span>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <span class="text-[10px] text-slate-500 font-semibold block">Faturamento Líquido:</span>
+                                <span class="text-base font-extrabold text-[#0284c7] block">R$ 1.274.414,94</span>
+                                <span class="text-[9px] text-slate-400 font-bold mt-1 block">Margem: 18.4%</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-2">
+                            <span class="text-[10px] font-bold text-slate-600">Evolução de Faturamento por Rota</span>
+                            <div class="h-16 flex items-end gap-2 justify-around pt-2">
+                                <div class="w-7 bg-[#0084FF] rounded-t" style="height: 45%;"></div>
+                                <div class="w-7 bg-[#003B71] rounded-t" style="height: 70%;"></div>
+                                <div class="w-7 bg-[#3ea62b] rounded-t" style="height: 90%;"></div>
+                                <div class="w-7 bg-[#0284c7] rounded-t" style="height: 60%;"></div>
+                                <div class="w-7 bg-[#ea580c] rounded-t" style="height: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-8 -right-4 w-[92%] bg-white rounded-2xl p-4 shadow-2xl border border-slate-200 transform rotate-3 hover:rotate-0 transition duration-500 hidden sm:block">
+                        <div class="flex justify-between text-xs font-bold text-[#0f172a] border-b border-slate-100 pb-2 mb-2">
+                            <span>Top 10 Faturamento x Vendedor</span>
+                            <span class="text-[#3ea62b] font-extrabold">FEFO Validado</span>
+                        </div>
+                        <div class="flex flex-col gap-1.5 text-[11px] text-slate-600">
+                            <div class="flex justify-between items-center">
+                                <span>1. Carlos Silva (Panificação)</span>
+                                <span class="font-bold text-[#0f172a]">R$ 94.217,00</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-[#3ea62b] h-full" style="width: 88%;"></div>
+                            </div>
+                            <div class="flex justify-between items-center pt-1">
+                                <span>2. Marcos Souza (Perecíveis)</span>
+                                <span class="font-bold text-[#0f172a]">R$ 82.114,50</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                <div class="bg-[#0284c7] h-full" style="width: 76%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- NÚCLEO 1: CAMERA DIVE / INFINITE ZOOM NOS 5 APPS NATIVOS -->
+    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="camera-dive">
+        <div class="max-w-7xl mx-auto flex flex-col gap-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest flex items-center gap-1.5">
+                        <i data-lucide="scan-eye" class="w-4 h-4"></i> Demonstração Guiada em 3 Atos
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a] mt-1">Conheça os 5 Aplicativos Móveis Nativos</h2>
+                    <p class="text-slate-600 text-xs mt-1">A câmera enquadra o dispositivo (Zoom 1), mergulha na tela (Zoom 2) e revela como a ferramenta protege seu caixa.</p>
+                </div>
+
+                <button onclick="resetGeneralView()" class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-full text-xs font-bold text-[#0f172a] transition flex items-center gap-2 shadow-sm">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Vista Isométrica Geral
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[560px]">
+                
+                <div class="lg:col-span-4 flex flex-col justify-between gap-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Selecione o Aplicativo para Testar:</span>
+
+                    <div class="flex flex-col gap-2.5">
+                        <button onclick="triggerServiceAnimation('forca_vendas', this)" class="dive-btn active p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-[#3ea62b] flex items-center justify-center font-bold shrink-0">
+                                    <i data-lucide="smartphone" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#0f172a]">1. Força de Vendas</h4>
+                                    <span class="text-[10px] text-slate-500">Smartphone 3D com Catálogo Offline</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
+                        </button>
+
+                        <button onclick="triggerServiceAnimation('gestor_entregas', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-amber-50 text-[#ea580c] flex items-center justify-center font-bold shrink-0">
+                                    <i data-lucide="truck" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#0f172a]">2. Gestor de Entregas</h4>
+                                    <span class="text-[10px] text-slate-500">Roteirização GPS & Canhoto Digital</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
+                        </button>
+
+                        <button onclick="triggerServiceAnimation('portal_b2b', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-sky-50 text-[#0284c7] flex items-center justify-center font-bold shrink-0">
+                                    <i data-lucide="tablet" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#0f172a]">3. Portal B2B</h4>
+                                    <span class="text-[10px] text-slate-500">Tablet do Lojista (Recompra 24h)</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
+                        </button>
+
+                        <button onclick="triggerServiceAnimation('wms', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold shrink-0">
+                                    <i data-lucide="scan-barcode" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#0f172a]">4. Conferência WMS</h4>
+                                    <span class="text-[10px] text-slate-500">Coletor com Bipagem Laser FEFO</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
+                        </button>
+
+                        <button onclick="triggerServiceAnimation('bi', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0">
+                                    <i data-lucide="monitor" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-[#0f172a]">5. BI Diretoria</h4>
+                                    <span class="text-[10px] text-slate-500">Cockpit Ultra-wide com DRE</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex items-center gap-2 text-[11px] text-slate-600">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-[#3ea62b] shrink-0"></i>
+                        <span>Todos os 5 aplicativos são 100% nativos da SN Sistemas.</span>
+                    </div>
+                </div>
+
+                <!-- Container 3D do Camera Dive com Área de Arraste Total -->
+                <div id="dive-container" class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-slate-200 bg-[#0f172a] shadow-xl flex items-center justify-center min-h-[520px] select-none">
+                    
+                    <div class="absolute top-4 left-4 z-20 sn-glass px-3.5 py-1.5 rounded-xl border border-slate-700 flex items-center gap-2.5 shadow-lg pointer-events-none">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse" id="dive-status-dot"></span>
+                        <div>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block" id="dive-phase">Ato 1: Enquadramento</span>
+                            <h4 class="text-xs font-bold text-white" id="dive-title">Visualizando Dispositivo em 3D</h4>
+                        </div>
+                    </div>
+
+                    <!-- Badge informativa para quando o usuário puder girar o mouse -->
+                    <div id="interactive-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 sn-glass px-4 py-2 rounded-full border border-emerald-500/50 flex items-center gap-2 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
+                        <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-[#3ea62b] animate-bounce"></i>
+                        <span class="text-xs font-bold text-emerald-300">Clique e arraste em qualquer lugar para girar | Roda para Zoom</span>
+                    </div>
+
+                    <!-- Overlay de Texto Revelado no Ato 3 -->
+                    <div id="dive-overlay" class="absolute inset-0 z-20 flex items-center justify-center p-6 pointer-events-none opacity-0 scale-90 transition-all duration-500">
+                        <div class="max-w-lg w-full bg-[#0f172a]/95 border-2 border-[#3ea62b] rounded-3xl p-7 shadow-2xl flex flex-col gap-4 pointer-events-auto backdrop-blur-md">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-xl bg-[#3ea62b]/20 text-[#3ea62b] flex items-center justify-center font-bold" id="dive-card-icon">
+                                        <i data-lucide="smartphone" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] uppercase font-bold text-emerald-400 tracking-wider" id="dive-card-badge">Impacto Operacional Comprovado</span>
+                                        <h3 class="text-base font-extrabold text-white" id="dive-card-title">Elimina a Ruptura de Estoque no PDV</h3>
+                                    </div>
+                                </div>
+                                <button onclick="revisitDeviceScreen()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="Voltar e explorar dispositivo">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+
+                            <p class="text-xs text-slate-300 leading-relaxed" id="dive-card-desc">
+                                O aplicativo funciona 100% offline. O vendedor emite o pedido em frente à gôndola, enquanto a IA calcula a sugestão de compra pelo giro da loja, sem ligação para o estoque.
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-3 pt-1">
+                                <div class="bg-[#020C19] p-3 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] text-slate-400 block" id="dive-metric-lbl-1">Transmissão SEFAZ:</span>
+                                    <span class="text-sm font-extrabold text-emerald-400 block mt-0.5" id="dive-metric-val-1">15 segundos</span>
+                                </div>
+                                <div class="bg-[#020C19] p-3 rounded-xl border border-slate-800">
+                                    <span class="text-[10px] text-slate-400 block" id="dive-metric-lbl-2">Ruptura Evitada:</span>
+                                    <span class="text-sm font-extrabold text-[#ea580c] block mt-0.5" id="dive-metric-val-2">-92% falta de item</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                                <span class="text-[10px] text-slate-400">Nativo ao S7 ERP</span>
+                                <button onclick="revisitDeviceScreen()" class="text-xs font-bold text-[#3ea62b] hover:underline flex items-center gap-1">
+                                    ← Voltar e Mexer no Dispositivo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <canvas id="dive-canvas" class="w-full h-full block" style="min-height: 520px;"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NÚCLEO 2: SIMULADOR 3D POR NICHO INDUSTRIAL -->
+    <section class="py-20 px-6 bg-white border-b border-slate-200" id="nichos-interativos">
+        <div class="max-w-7xl mx-auto flex flex-col gap-10">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div>
+                    <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest flex items-center gap-1.5">
+                        <i data-lucide="boxes" class="w-4 h-4"></i> Segmentos Atendidos pela SN Sistemas
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a] mt-1">Cenário 3D Específico por Nicho</h2>
+                    <p class="text-slate-600 text-xs mt-1">O 3D se reconstrói para cada setor: fornos na panificação, câmara fria nos laticínios, carrossel de kits nos doces e docas no atacarejo.</p>
+                </div>
+
+                <button onclick="triggerNichoCameraReset()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-full text-xs font-bold text-[#0f172a] transition flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="rotate-cw" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Resetar Câmera
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <button onclick="switchNichoScenario('panificacao', this)" class="nicho-tab active p-4 rounded-2xl text-left flex items-center gap-3.5 group">
+                    <span class="text-2xl p-2.5 rounded-xl bg-amber-100 text-amber-600 shrink-0">🥖</span>
+                    <div>
+                        <h4 class="text-xs font-extrabold text-[#0f172a]">Panificação & Congelados</h4>
+                        <span class="text-[10px] text-slate-500 font-medium nicho-subdesc block mt-0.5">Forno rotativo, assadeiras & FEFO</span>
+                    </div>
+                </button>
+
+                <button onclick="switchNichoScenario('pereciveis', this)" class="nicho-tab p-4 rounded-2xl text-left flex items-center gap-3.5 group hover:border-[#3ea62b]">
+                    <span class="text-2xl p-2.5 rounded-xl bg-sky-100 text-sky-600 shrink-0">❄️</span>
+                    <div>
+                        <h4 class="text-xs font-extrabold text-[#0f172a]">Perecíveis & Laticínios</h4>
+                        <span class="text-[10px] text-slate-500 font-medium nicho-subdesc block mt-0.5">Câmara fria & freezer com GPS</span>
+                    </div>
+                </button>
+
+                <button onclick="switchNichoScenario('doces', this)" class="nicho-tab p-4 rounded-2xl text-left flex items-center gap-3.5 group hover:border-[#3ea62b]">
+                    <span class="text-2xl p-2.5 rounded-xl bg-pink-100 text-pink-600 shrink-0">🍫</span>
+                    <div>
+                        <h4 class="text-xs font-extrabold text-[#0f172a]">Doces & Chocolates</h4>
+                        <span class="text-[10px] text-slate-500 font-medium nicho-subdesc block mt-0.5">Kits sazonais & embalagem</span>
+                    </div>
+                </button>
+
+                <button onclick="switchNichoScenario('atacarejo', this)" class="nicho-tab p-4 rounded-2xl text-left flex items-center gap-3.5 group hover:border-[#3ea62b]">
+                    <span class="text-2xl p-2.5 rounded-xl bg-orange-100 text-orange-600 shrink-0">🚚</span>
+                    <div>
+                        <h4 class="text-xs font-extrabold text-[#0f172a]">Atacarejo & Bebidas</h4>
+                        <span class="text-[10px] text-slate-500 font-medium nicho-subdesc block mt-0.5">Porta-pallets & carga pesada</span>
+                    </div>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[500px]">
+                
+                <div class="lg:col-span-7 relative h-[500px] w-full rounded-2xl overflow-hidden border border-slate-200 bg-[#0f172a] shadow-xl">
+                    <div class="absolute top-4 left-4 z-20 sn-glass p-3 rounded-xl border border-slate-700 flex items-center gap-3 shadow-lg">
+                        <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse" id="nicho-pulse-dot"></span>
+                        <div>
+                            <span class="text-[9px] uppercase font-bold text-slate-400 block" id="nicho-tag-top">Linha de Forno & Resfriamento</span>
+                            <h4 class="text-xs font-bold text-white" id="nicho-tag-title">Panificação Industrial (Forno + Assadeiras)</h4>
+                        </div>
+                    </div>
+
+                    <canvas id="nicho-canvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="min-height: 500px;"></canvas>
+                </div>
+
+                <div class="lg:col-span-5 bg-white p-7 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-5">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Regra Crítica do Setor:</span>
+                            <span class="text-xs font-extrabold text-[#2f8520] bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full" id="nicho-badge-status">
+                                Regra FEFO Ativa
+                            </span>
+                        </div>
+
+                        <h3 class="text-lg font-black text-[#0f172a]" id="nicho-painel-title">
+                            Zero Inversão de Lote em Pães Congelados
+                        </h3>
+
+                        <p class="text-xs text-slate-600 leading-relaxed" id="nicho-painel-desc">
+                            Na panificação, a perda de shelf-life não perdoa. O S7 ERP organiza a separação cega WMS para forçar o despacho do lote mais próximo do vencimento, avisando o vendedor no app quando o supermercado está prestes a pedir devolução por excesso.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-[10px] text-slate-500 font-semibold block" id="nicho-metric-label-1">Redução de Trocas PDV:</span>
+                            <span class="text-base font-extrabold text-[#3ea62b] block mt-0.5" id="nicho-metric-val-1">-92% perdas</span>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-[10px] text-slate-500 font-semibold block" id="nicho-metric-label-2">Rastreio de Farinhas:</span>
+                            <span class="text-base font-extrabold text-[#0f172a] block mt-0.5" id="nicho-metric-val-2">100% digital</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openModalDemo()" class="w-full py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
+                        Solicitar Demonstração Deste Nicho
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- AUDITORIA & QUIZ INTERATIVO B2B -->
+    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="quiz-diagnostico">
+        <div class="max-w-4xl mx-auto flex flex-col gap-8">
+            <div class="text-center flex flex-col gap-2">
+                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest">Auditoria Gratuita</span>
+                <h2 class="text-3xl font-black text-[#0f172a]">Descubra o Gargalo que Custa Mais Caro na Sua Operação</h2>
+                <p class="text-slate-600 text-xs">Responda 3 perguntas rápidas para receber uma estimativa instantânea de retorno financeiro.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-6">
+                <div class="flex flex-col gap-3">
+                    <span class="text-xs font-bold text-[#0f172a]">1. Qual o maior desafio da sua rotina hoje?</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectQuiz('desafio', 'validade', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            🥖 Trocas e perda com produtos vencidos
+                        </button>
+                        <button onclick="selectQuiz('desafio', 'canhoto', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            🚚 Acerto de motoristas & canhotos lentos
+                        </button>
+                        <button onclick="selectQuiz('desafio', 'vendas', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            📱 Vendedores sem catálogo ou estoque online
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <span class="text-xs font-bold text-[#0f172a]">2. Qual o volume aproximado da sua equipe de rua?</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button onclick="selectQuiz('porte', 'pequeno', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            Até 10 veículos / vendedores
+                        </button>
+                        <button onclick="selectQuiz('porte', 'medio', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            De 11 a 40 veículos / vendedores
+                        </button>
+                        <button onclick="selectQuiz('porte', 'grande', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            Mais de 40 na rua
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <span class="text-xs font-bold text-[#0f172a]">3. Qual seu segmento principal?</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="selectQuiz('segmento', 'pan', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Panificação
+                        </button>
+                        <button onclick="selectQuiz('segmento', 'per', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Perecíveis & Laticínios
+                        </button>
+                        <button onclick="selectQuiz('segmento', 'doc', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Doces & Chocolates
+                        </button>
+                        <button onclick="selectQuiz('segmento', 'ata', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Atacarejo & Bebidas
+                        </button>
+                    </div>
+                </div>
+
+                <div id="quiz-resultado" class="hidden p-5 rounded-2xl bg-[#0f172a] text-white flex flex-col sm:flex-row justify-between items-center gap-4 shadow-md">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[10px] uppercase font-extrabold text-[#3ea62b] tracking-wider">Resultado da Auditoria S7</span>
+                        <h4 class="text-base font-extrabold text-white" id="quiz-res-titulo">Potencial de Recuperação: R$ 38.400 / mês</h4>
+                        <p class="text-xs text-slate-300" id="quiz-res-desc">Módulos indicados para retorno imediato: WMS + Gestor de Entregas.</p>
+                    </div>
+                    <button onclick="openModalDemo()" class="px-6 py-3 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md shrink-0">
+                        Apresentar Auditoria Técnica
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TABELA COMPARATIVA (S7 ERP vs. ERPs GENÉRICOS) -->
+    <section class="py-20 px-6 bg-white border-b border-slate-200" id="tabela-comparativa">
+        <div class="max-w-5xl mx-auto flex flex-col gap-10">
+            <div class="text-center flex flex-col gap-2">
+                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest">Comparativo de Mercado</span>
+                <h2 class="text-3xl font-black text-[#0f172a]">Por Que os ERPs Genéricos Falham no Seu Setor</h2>
+                <p class="text-slate-600 text-xs">Veja a diferença entre contratar um software genérico e um especialista em alimentos e frotas.</p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-200 bg-slate-50 text-slate-700">
+                                <th class="p-4 font-bold w-1/3">Recurso Operacional</th>
+                                <th class="p-4 font-extrabold text-[#2f8520] bg-emerald-50/70 w-1/3">S7 ERP (SN Sistemas)</th>
+                                <th class="p-4 font-bold text-slate-500 w-1/3">ERPs Tradicionais / Genéricos</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-700">
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="p-4 font-bold text-[#0f172a]">Regra de Validade FEFO Automática</td>
+                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
+                                        <span>Nativa na esteira e faturamento</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-rose-500">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                                        <span>Requer customizações caras</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="p-4 font-bold text-[#0f172a]">5 Aplicativos Móveis Nativos</td>
+                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
+                                        <span>Inclusos e sem intermediários</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-rose-500">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                                        <span>Cobrados à parte via terceiros</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="p-4 font-bold text-[#0f172a]">Canhoto Eletrônico com GPS</td>
+                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
+                                        <span>Baixa fiscal instantânea em 0 min</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-rose-500">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                                        <span>Depende de digitalização manual</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="p-4 font-bold text-[#0f172a]">Controle de Comodatos (Freezers/Caixas)</td>
+                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
+                                        <span>Rastreio de patrimônio no PDV</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-rose-500">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                                        <span>Inexistente ou via planilhas</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/60 transition">
+                                <td class="p-4 font-bold text-[#0f172a]">Suporte em Finais de Semana e Feriados</td>
+                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
+                                        <span>Das 06h às 00h (365 dias)</span>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-rose-500">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
+                                        <span>Horário comercial padrão (8h às 18h)</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULADORA DE ROI -->
+    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="calculadora">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 flex flex-col gap-4">
+                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest">Calculadora de ROI</span>
+                <h2 class="text-3xl font-black text-[#0f172a] leading-tight">Calcule quanto sua empresa pode economizar com o S7 ERP</h2>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                    O S7 ERP organiza o despacho usando o algoritmo <strong>FEFO (First Expire, First Out)</strong>, garantindo que o produto com vencimento mais próximo seja faturado e entregue primeiro.
+                </p>
+                <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl mt-2 flex items-center gap-3">
+                    <i data-lucide="trending-up" class="w-8 h-8 text-[#3ea62b] shrink-0"></i>
+                    <p class="text-[11px] text-[#2f8520]">
+                        Empresas do segmento reduzem em média <strong>92% das perdas de shelf-life</strong> e economizam até <strong>22% em rotas de combustível</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500 font-semibold">Representantes:</span>
+                            <span class="font-bold text-[#0f172a] text-sm" id="calc-txt-vend">35</span>
+                        </div>
+                        <input type="range" id="calc-vend" min="5" max="150" value="35" class="accent-[#3ea62b] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500 font-semibold">Entregas/Dia:</span>
+                            <span class="font-bold text-[#0f172a] text-sm" id="calc-txt-ent">25</span>
+                        </div>
+                        <input type="range" id="calc-ent" min="5" max="120" value="25" class="accent-[#3ea62b] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-500 font-semibold">Perda Vencimento:</span>
+                            <span class="font-bold text-[#ea580c] text-sm" id="calc-txt-perd">R$ 20.000</span>
+                        </div>
+                        <input type="range" id="calc-perd" min="2000" max="100000" step="2000" value="20000" class="accent-[#ea580c] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col gap-2">
+                    <div class="flex justify-between text-xs">
+                        <span class="text-slate-500 font-semibold">Veículos na Frota (Consumo Diesel):</span>
+                        <span class="font-bold text-[#0284c7] text-sm" id="calc-txt-caminhoes">12 veículos</span>
+                    </div>
+                    <input type="range" id="calc-caminhoes" min="2" max="60" value="12" class="accent-[#0284c7] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-[11px] text-slate-500 block">Economia Anual Estimada:</span>
+                        <span class="text-xl font-extrabold text-[#3ea62b] block mt-1" id="res-anual">R$ 784.800</span>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-[11px] text-slate-500 block">Diesel Economizado:</span>
+                        <span class="text-xl font-extrabold text-[#0284c7] block mt-1" id="res-diesel">R$ 9.400 / mês</span>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-[11px] text-slate-500 block">Redução de Perdas FEFO:</span>
+                        <span class="text-xl font-extrabold text-[#ea580c] block mt-1">92%</span>
+                    </div>
+                </div>
+
+                <button onclick="openModalDemo()" class="w-full py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
+                    Quero Esta Redução de Custos na Minha Empresa
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-[#0f172a] py-12 px-6 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2.5">
+                <span class="font-extrabold text-white text-sm">SN SISTEMAS</span>
+                <span>•</span>
+                <span>S7 ERP Especialista em Gestão</span>
+            </div>
+            <p>© 2026 SN Sistemas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Agendamento -->
+    <div id="modal-demo" class="fixed inset-0 z-50 bg-[#0f172a]/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 relative flex flex-col gap-4 shadow-2xl">
+            <button onclick="closeModalDemo()" class="absolute top-4 right-4 text-slate-400 hover:text-[#0f172a]"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div>
+                <span class="text-[10px] font-bold text-[#3ea62b] uppercase tracking-wider">SN Sistemas Oficial</span>
+                <h3 class="text-lg font-black text-[#0f172a] mt-1">Agendar Demonstração Gratuita</h3>
+                <p class="text-xs text-slate-600 mt-1">Conheça o sistema funcionando com o cenário real da sua indústria ou distribuidora.</p>
+            </div>
+            <form onsubmit="alert('Obrigado! Nossa equipe entrará em contato para agendar sua demonstração.'); closeModalDemo(); return false;" class="flex flex-col gap-3">
+                <input type="text" placeholder="Seu Nome Completo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="email" placeholder="Seu E-mail Corporativo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="tel" placeholder="WhatsApp para Contato" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <button type="submit" class="w-full py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
+                    Confirmar Agendamento
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS THREE.JS + GSAP -->
+    <script>
+        gsap.registerPlugin(ScrollToPlugin);
+        lucide.createIcons();
+
+        // 1. DADOS DOS 5 APPS
+        const serviceDatabase = {
+            forca_vendas: {
+                title: "Smartphone Força de Vendas",
+                cardTitle: "Elimina a Ruptura de Estoque no PDV",
+                badge: "Automação Comercial de Campo",
+                icon: "smartphone",
+                desc: "O aplicativo funciona 100% offline. O vendedor emite o pedido em frente à gôndola com cálculo automático de impostos. A inteligência artificial calcula a sugestão exata de compra pelo giro daquele supermercado, sem ligação para o estoque.",
+                m1Lbl: "Transmissão SEFAZ:", m1Val: "15 segundos",
+                m2Lbl: "Ruptura Evitada:", m2Val: "-92% falta de item"
+            },
+            gestor_entregas: {
+                title: "Gestor de Entregas & Rota",
+                cardTitle: "Acerto de Motoristas em 0 Minutos",
+                badge: "Logística & Baixa em Tempo Real",
+                icon: "truck",
+                desc: "O motorista segue o roteirizador inteligente com GPS integrado. Na entrega, coleta a assinatura digital na tela e a foto do comprovante. A baixa é disparada em tempo real para a SEFAZ e o financeiro sem esperar o caminhão voltar ao pátio.",
+                m1Lbl: "Baixa de Canhoto:", m1Val: "Tempo Real (0 min)",
+                m2Lbl: "Economia de Diesel:", m2Val: "Até -22% em combustível"
+            },
+            portal_b2b: {
+                title: "Tablet Portal B2B",
+                cardTitle: "Autoatendimento e Recompra 24 Horas",
+                badge: "Vendas Omnichannel B2B",
+                icon: "tablet",
+                desc: "Um canal direto onde supermercados e padarias recompõem estoque de produtos perecíveis de madrugada ou em feriados, com tabela de preços personalizada e consulta de faturas.",
+                m1Lbl: "Aumento em Recompras:", m1Val: "+38% no faturamento",
+                m2Lbl: "Disponibilidade:", m2Val: "24/7 sem atendente"
+            },
+            wms: {
+                title: "Coletor de Separação WMS",
+                cardTitle: "Separação Cega e Blindagem de FEFO",
+                badge: "Armazém & Expedição",
+                icon: "scan-barcode",
+                desc: "A conferência por bipagem laser impede que caixas trocadas ou lotes fora da ordem de validade (First Expire, First Out) entrem no caminhão. Se o lote estiver errado, o coletor trava na hora.",
+                m1Lbl: "Perdas de Validade:", m1Val: "-92% com regra FEFO",
+                m2Lbl: "Erros de Inversão:", m2Val: "Zero mercadoria trocada"
+            },
+            bi: {
+                title: "Cockpit Executivo Ultra-wide",
+                cardTitle: "DRE Consolidado e Margem por Rota",
+                badge: "Decisão da Diretoria",
+                icon: "monitor",
+                desc: "Gráficos executivos que mostram o faturamento minuto a minuto, margem de contribuição por vendedor e rentabilidade de cada caminhão na rua.",
+                m1Lbl: "Fechamento de DRE:", m1Val: "Minuto a minuto",
+                m2Lbl: "Visibilidade de Margem:", m2Val: "100% de precisão"
+            }
+        };
+
+        function generateDeviceScreenTexture(serviceKey) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+
+            if (serviceKey === 'forca_vendas') {
+                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 140);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('FORÇA DE VENDAS', 35, 70);
+                ctx.font = '22px sans-serif'; ctx.fillStyle = '#3ea62b'; ctx.fillText('Supermercado Central', 35, 110);
+                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 160, 452, 230);
+                ctx.fillStyle = '#ea580c'; ctx.fillRect(50, 180, 120, 120);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 28px sans-serif'; ctx.fillText('PÃO FRANCÊS 10KG', 190, 220);
+                ctx.fillStyle = '#3ea62b'; ctx.font = '24px sans-serif'; ctx.fillText('R$ 64,50 • Estoque: 420 cx', 190, 260);
+                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 880, 452, 90);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('TRANSMITIR PEDIDO SEFAZ', 60, 935);
+            } else if (serviceKey === 'gestor_entregas') {
+                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 1024);
+                ctx.fillStyle = '#ea580c'; ctx.fillRect(0, 0, 512, 120);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px sans-serif'; ctx.fillText('GESTOR DE ENTREGAS GPS', 30, 70);
+                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 150, 452, 380);
+                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 560, 452, 260);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('CANHOTO ELETRÔNICO', 60, 620);
+                ctx.font = '22px sans-serif'; ctx.fillText('Assinatura & Foto OK', 60, 670);
+            } else if (serviceKey === 'portal_b2b') {
+                canvas.width = 1024; canvas.height = 680;
+                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 1024, 680);
+                ctx.fillStyle = '#3ea62b'; ctx.font = 'bold 36px sans-serif'; ctx.fillText('PORTAL DO LOJISTA B2B 24H', 40, 70);
+                for (let i = 0; i < 3; i++) {
+                    ctx.fillStyle = '#1e293b'; ctx.fillRect(40 + (i * 320), 140, 290, 480);
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 24px sans-serif'; ctx.fillText('LOTE #' + (i + 1), 65 + (i * 320), 380);
+                }
+            } else if (serviceKey === 'wms') {
+                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 1024);
+                ctx.fillStyle = '#d97706'; ctx.fillRect(0, 0, 512, 130);
+                ctx.fillStyle = '#000000'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('CONFERÊNCIA WMS', 35, 75);
+                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 160, 452, 220);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('PALLET VALIDADO (FEFO)', 50, 240);
+            } else if (serviceKey === 'bi') {
+                canvas.width = 1024; canvas.height = 512;
+                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 1024, 512);
+                ctx.fillStyle = '#3ea62b'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('COCKPIT EXECUTIVO DRE', 35, 50);
+                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 110, 460, 360);
+                ctx.fillRect(520, 110, 470, 360);
+            }
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        let sceneDive, cameraDive, rendererDive;
+        let activeDeviceGroup, activeScreenMesh;
+        let isAnimating = false;
+        let isUserInteracting = false;
+
+        function createDeviceModel(serviceKey) {
+            const group = new THREE.Group();
+
+            if (serviceKey === 'forca_vendas' || serviceKey === 'gestor_entregas') {
+                const body = new THREE.Mesh(new THREE.BoxGeometry(2.5, 5.0, 0.25), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2 }));
+                group.add(body);
+                const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.7), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture(serviceKey), transparent: true }));
+                screen.position.z = 0.13;
+                group.add(screen);
+                activeScreenMesh = screen;
+            } else if (serviceKey === 'portal_b2b') {
+                const body = new THREE.Mesh(new THREE.BoxGeometry(5.2, 3.6, 0.2), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3 }));
+                group.add(body);
+                const screen = new THREE.Mesh(new THREE.PlaneGeometry(4.9, 3.3), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('portal_b2b'), transparent: true }));
+                screen.position.z = 0.11;
+                group.add(screen);
+                activeScreenMesh = screen;
+            } else if (serviceKey === 'wms') {
+                const body = new THREE.Mesh(new THREE.BoxGeometry(2.6, 4.8, 0.45), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.4 }));
+                group.add(body);
+                const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.0), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('wms'), transparent: true }));
+                screen.position.z = 0.23;
+                group.add(screen);
+                activeScreenMesh = screen;
+                const laser = new THREE.Mesh(new THREE.ConeGeometry(0.8, 2.5, 16), new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.4 }));
+                laser.rotation.x = -Math.PI / 2;
+                laser.position.set(0, 3.2, 0);
+                group.add(laser);
+            } else if (serviceKey === 'bi') {
+                const monitor = new THREE.Mesh(new THREE.BoxGeometry(5.6, 3.0, 0.15), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+                monitor.position.y = 0.5;
+                group.add(monitor);
+                const screen = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 2.8), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('bi'), transparent: true }));
+                screen.position.set(0, 0.5, 0.09);
+                group.add(screen);
+                activeScreenMesh = screen;
+                const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.4), new THREE.MeshStandardMaterial({ color: 0x334155 }));
+                stand.position.set(0, -0.6, 0);
+                group.add(stand);
+            }
+            return group;
+        }
+
+        function initDive3D() {
+            const canvas = document.getElementById('dive-canvas');
+            const w = canvas.clientWidth || 700;
+            const h = canvas.clientHeight || 520;
+
+            sceneDive = new THREE.Scene();
+            sceneDive.background = new THREE.Color(0x0f172a);
+
+            cameraDive = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+            cameraDive.position.set(0, 0, 10);
+
+            rendererDive = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            rendererDive.setSize(w, h);
+            rendererDive.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.85);
+            sceneDive.add(ambient);
+            const direct = new THREE.DirectionalLight(0xffffff, 1.2);
+            direct.position.set(5, 10, 8);
+            sceneDive.add(direct);
+
+            loadDeviceModel('forca_vendas');
+            setupDiveInteraction();
+        }
+
+        function loadDeviceModel(key) {
+            if (activeDeviceGroup) sceneDive.remove(activeDeviceGroup);
+            activeDeviceGroup = createDeviceModel(key);
+            sceneDive.add(activeDeviceGroup);
+        }
+
+        function triggerServiceAnimation(serviceKey, btnElement) {
+            if (isAnimating) return;
+            isAnimating = true;
+            isUserInteracting = false;
+            
+            const container = document.getElementById('dive-container');
+            container.style.cursor = 'default';
+            document.getElementById('interactive-hint').classList.add('opacity-0');
+
+            document.querySelectorAll('.dive-btn').forEach(b => b.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const overlay = document.getElementById('dive-overlay');
+            overlay.classList.add('opacity-0', 'scale-90');
+            overlay.classList.remove('opacity-100', 'scale-100');
+            overlay.classList.remove('pointer-events-none');
+            overlay.classList.add('pointer-events-auto');
+
+            loadDeviceModel(serviceKey);
+
+            const dot = document.getElementById('dive-status-dot');
+            const phase = document.getElementById('dive-phase');
+            const title = document.getElementById('dive-title');
+
+            const tl = gsap.timeline({ onComplete: () => { isAnimating = false; } });
+
+            tl.call(() => {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+                phase.innerText = "Ato 1: Enquadramento";
+                title.innerText = "Exibindo interface do sistema...";
+            })
+            .set(cameraDive.position, { x: 0, y: 0, z: 9 })
+            .set(activeDeviceGroup.rotation, { y: 0.3, x: 0.1 })
+            .to(cameraDive.position, { z: 6.2, duration: 1.2, ease: "power2.out", onUpdate: () => cameraDive.lookAt(0, 0, 0) })
+            .to(activeDeviceGroup.rotation, { y: 0, x: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.6")
+            .to({}, { duration: 1.0 })
+            .call(() => {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping";
+                phase.innerText = "Ato 2: Mergulho na Tela";
+                title.innerText = "Cruzando para a inteligência de processos...";
+            })
+            .to(cameraDive.position, { z: 2.1, duration: 1.1, ease: "power3.in" })
+            .to(activeScreenMesh.material, { opacity: 0.15, duration: 0.4, ease: "power1.in" }, "-=0.3")
+            .call(() => {
+                dot.className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+                phase.innerText = "Ato 3: Resolução do Gargalo";
+                title.innerText = "Como este app protege seu caixa";
+
+                const data = serviceDatabase[serviceKey];
+                document.getElementById('dive-card-title').innerText = data.cardTitle;
+                document.getElementById('dive-card-desc').innerText = data.desc;
+                document.getElementById('dive-card-badge').innerText = data.badge;
+                document.getElementById('dive-metric-lbl-1').innerText = data.m1Lbl;
+                document.getElementById('dive-metric-val-1').innerText = data.m1Val;
+                document.getElementById('dive-metric-lbl-2').innerText = data.m2Lbl;
+                document.getElementById('dive-metric-val-2').innerText = data.m2Val;
+
+                overlay.classList.remove('opacity-0', 'scale-90');
+                overlay.classList.add('opacity-100', 'scale-100');
+            });
+        }
+
+        function revisitDeviceScreen() {
+            const overlay = document.getElementById('dive-overlay');
+            overlay.classList.add('opacity-0', 'scale-90');
+            overlay.classList.remove('opacity-100', 'scale-100');
+            
+            // Permite que o mouse clique e arraste pelo canvas através do container
+            overlay.classList.remove('pointer-events-auto');
+            overlay.classList.add('pointer-events-none');
+
+            gsap.to(cameraDive.position, {
+                x: 0,
+                y: 0,
+                z: 6.2,
+                duration: 1.0,
+                ease: "power2.out",
+                onUpdate: () => cameraDive.lookAt(0, 0, 0),
+                onComplete: () => {
+                    isUserInteracting = true;
+                    const container = document.getElementById('dive-container');
+                    container.style.cursor = 'grab';
+                    document.getElementById('interactive-hint').classList.remove('opacity-0');
+                }
+            });
+
+            gsap.to(activeDeviceGroup.rotation, {
+                x: 0.1,
+                y: -0.2,
+                duration: 0.8
+            });
+
+            gsap.to(activeScreenMesh.material, {
+                opacity: 1.0,
+                duration: 0.6
+            });
+
+            document.getElementById('dive-phase').innerText = "Interação Livre";
+            document.getElementById('dive-title').innerText = "Explore o dispositivo em 360° com o mouse";
+        }
+
+        function resetGeneralView() {
+            const overlay = document.getElementById('dive-overlay');
+            overlay.classList.add('opacity-0', 'scale-90');
+            overlay.classList.remove('opacity-100', 'scale-100');
+            overlay.classList.remove('pointer-events-auto');
+            overlay.classList.add('pointer-events-none');
+
+            isUserInteracting = true;
+            const container = document.getElementById('dive-container');
+            container.style.cursor = 'grab';
+            document.getElementById('interactive-hint').classList.remove('opacity-0');
+
+            gsap.to(cameraDive.position, { x: 3, y: 2, z: 8.5, duration: 1.4, ease: "power2.inOut", onUpdate: () => cameraDive.lookAt(0, 0, 0) });
+            gsap.to(activeDeviceGroup.rotation, { y: 0.5, x: 0.2, duration: 1.2 });
+            gsap.to(activeScreenMesh.material, { opacity: 1.0, duration: 0.6 });
+
+            document.getElementById('dive-phase').innerText = "Visão Geral";
+            document.getElementById('dive-title').innerText = "Explore o modelo 3D com o mouse";
+        }
+
+        // Sistema de Controle com o Mouse com Área Total e Sensibilidade Otimizada
+        function setupDiveInteraction() {
+            const targetArea = document.getElementById('dive-container');
+            let isDragging = false;
+            let prevMousePos = { x: 0, y: 0 };
+
+            targetArea.addEventListener('mousedown', (e) => {
+                if (!isUserInteracting || !activeDeviceGroup) return;
+                isDragging = true;
+                targetArea.style.cursor = 'grabbing';
+                prevMousePos = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    if (isUserInteracting) targetArea.style.cursor = 'grab';
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging || !activeDeviceGroup || !isUserInteracting) return;
+                const deltaX = e.clientX - prevMousePos.x;
+                const deltaY = e.clientY - prevMousePos.y;
+
+                // Sensibilidade dobrada para 0.016 para rotação fluida e imediata
+                activeDeviceGroup.rotation.y += deltaX * 0.016;
+                activeDeviceGroup.rotation.x += deltaY * 0.016;
+
+                activeDeviceGroup.rotation.x = Math.max(-1.3, Math.min(1.3, activeDeviceGroup.rotation.x));
+                prevMousePos = { x: e.clientX, y: e.clientY };
+            });
+
+            // Touch mobile em toda a área
+            targetArea.addEventListener('touchstart', (e) => {
+                if (!isUserInteracting || !activeDeviceGroup) return;
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging || !activeDeviceGroup || !isUserInteracting || e.touches.length !== 1) return;
+                const deltaX = e.touches[0].clientX - prevMousePos.x;
+                const deltaY = e.touches[0].clientY - prevMousePos.y;
+
+                activeDeviceGroup.rotation.y += deltaX * 0.02;
+                activeDeviceGroup.rotation.x += deltaY * 0.02;
+                prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
+            // Zoom suave com a roda do mouse
+            targetArea.addEventListener('wheel', (e) => {
+                if (!isUserInteracting) return;
+                e.preventDefault();
+                cameraDive.position.z += e.deltaY * 0.006;
+                cameraDive.position.z = Math.max(3.2, Math.min(13.0, cameraDive.position.z));
+            }, { passive: false });
+        }
+
+        // =========================================================================
+        // 3. CENA 3D DOS NICHOS INDUSTRIAIS (TOTALMENTE VISÍVEL)
+        // =========================================================================
+        let sceneNicho, cameraNicho, rendererNicho;
+        let currentNichoGroup = null;
+        let nichoAnimatedElements = [];
+        let currentNichoKey = 'panificacao';
+
+        const nichoDatabase = {
+            panificacao: {
+                tagTop: "Linha de Forno & Resfriamento",
+                tagTitle: "Panificação Industrial (Pães Congelados)",
+                painelTitle: "Zero Inversão de Lote em Pães Congelados",
+                painelDesc: "Na panificação, a perda de shelf-life não perdoa. O S7 ERP organiza a separação cega WMS para forçar o despacho do lote mais próximo do vencimento, avisando o vendedor no app quando o supermercado está prestes a pedir devolução por excesso.",
+                badge: "Regra FEFO Ativa",
+                m1Lbl: "Redução de Trocas PDV:", m1Val: "-92% perdas",
+                m2Lbl: "Rastreio de Farinhas:", m2Val: "100% digital",
+                camPos: { x: 8, y: 6, z: 11 }
+            },
+            pereciveis: {
+                tagTop: "Cadeia do Frio & Telemetria",
+                tagTitle: "Câmara Fria & Freezers em Comodato",
+                painelTitle: "Gestão de Freezers em Comodato com GPS",
+                painelDesc: "Laticínios e embutidos exigem controle rígido de temperatura e localização de ativos. O S7 audita os freezers e estufas cedidos aos lojistas com coordenadas GPS e alerta quando o produto atinge a faixa crítica de shelf-life.",
+                badge: "Telemetria & Comodato",
+                m1Lbl: "Perda de Ativos/Freezers:", m1Val: "0 extravios",
+                m2Lbl: "Auditoria no PDV:", m2Val: "Geolocalizada",
+                camPos: { x: -3, y: 5, z: 9 }
+            },
+            doces: {
+                tagTop: "Planejamento Sazonal com IA",
+                tagTitle: "Carrossel de Kits, Chocolates & Ovos de Páscoa",
+                painelTitle: "Combos Promocionais e Sugestão Preditiva",
+                painelDesc: "Para indústrias de chocolates e balas, a sazonalidade é o maior multiplicador de lucro. O S7 calcula automaticamente a composição de kits promocionais, venda fracionada por caixa e sugere a recompra certa no Portal B2B.",
+                badge: "Venda Fracionada & Kits",
+                m1Lbl: "Aumento em Sazonais:", m1Val: "+44% volume",
+                m2Lbl: "Giro de Estoque:", m2Val: "3x mais rápido",
+                camPos: { x: 1, y: 5, z: 8.5 }
+            },
+            atacarejo: {
+                tagTop: "Logística Pesada & Distribuição",
+                tagTitle: "Porta-Pallets de Atacado & Retorno de Vasilhames",
+                painelTitle: "Cargas Paletizadas e Retorno de Vasilhames",
+                painelDesc: "Operações densas exigem controle de retorno de caixas plásticas e vasilhames vazios no caminhão. O Gestor de Entregas S7 faz a conciliação do que desceu e do que retornou, liquidando o acerto de motoristas em minutos.",
+                badge: "Retorno de Vasilhames",
+                m1Lbl: "Acerto de Vasilhames:", m1Val: "100% conferido",
+                m2Lbl: "Economia de Diesel:", m2Val: "Até -24%",
+                camPos: { x: 7, y: 4, z: 8.5 }
+            }
+        };
+
+        function buildPanificacaoModel() {
+            const group = new THREE.Group();
+            nichoAnimatedElements = [];
+
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 }));
+            floor.position.y = -0.1;
+            group.add(floor);
+
+            const ovenGeo = new THREE.BoxGeometry(3.5, 4.5, 3.5);
+            const ovenMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.3 });
+            const oven = new THREE.Mesh(ovenGeo, ovenMat);
+            oven.position.set(-3.5, 2.25, -2);
+            group.add(oven);
+
+            const win = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 2.0), new THREE.MeshBasicMaterial({ color: 0xea580c }));
+            win.position.set(-3.5, 2.4, -0.24);
+            group.add(win);
+
+            const ovenLight = new THREE.PointLight(0xea580c, 2.5, 8);
+            ovenLight.position.set(-3.5, 2.4, 0.5);
+            group.add(ovenLight);
+
+            const conveyor = new THREE.Mesh(new THREE.BoxGeometry(7.0, 0.3, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            conveyor.position.set(-0.5, 0.4, 2.2);
+            group.add(conveyor);
+
+            for (let i = 0; i < 4; i++) {
+                const tray = new THREE.Group();
+                const panSheet = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.05, 0.9), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.7 }));
+                tray.add(panSheet);
+
+                for (let b = 0; b < 3; b++) {
+                    const bread = new THREE.Mesh(
+                        new THREE.CylinderGeometry(0.12, 0.12, 0.6, 16),
+                        new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.7 })
+                    );
+                    bread.rotation.z = Math.PI / 2;
+                    bread.position.set(0, 0.12, -0.25 + (b * 0.25));
+                    tray.add(bread);
+                }
+
+                tray.position.set(-3.2 + (i * 1.8), 0.58, 2.2);
+                group.add(tray);
+                nichoAnimatedElements.push({ mesh: tray, speed: 0.02, minX: -3.5, maxX: 2.8 });
+            }
+
+            return group;
+        }
+
+        function buildPereciveisModel() {
+            const group = new THREE.Group();
+            nichoAnimatedElements = [];
+
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 }));
+            floor.position.y = -0.1;
+            group.add(floor);
+
+            const chamber = new THREE.Mesh(new THREE.BoxGeometry(4.5, 4.0, 4.5), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2 }));
+            chamber.position.set(-3.5, 2.0, -2);
+            group.add(chamber);
+
+            const door = new THREE.Mesh(new THREE.BoxGeometry(2.0, 3.2, 0.2), new THREE.MeshStandardMaterial({ color: 0x0284c7, metalness: 0.6 }));
+            door.position.set(-2.2, 1.6, 0.3);
+            group.add(door);
+
+            const freezer = new THREE.Mesh(new THREE.BoxGeometry(1.8, 2.6, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.3 }));
+            freezer.position.set(2.2, 1.3, 1.5);
+            group.add(freezer);
+
+            const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 2.2), new THREE.MeshStandardMaterial({ color: 0x7dd3fc, transparent: true, opacity: 0.5 }));
+            glass.position.set(2.2, 1.3, 2.22);
+            group.add(glass);
+
+            for(let r = 0; r < 2; r++) {
+                for(let c = 0; c < 3; c++) {
+                    const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.4), new THREE.MeshStandardMaterial({ color: 0xf8fafc }));
+                    bottle.position.set(1.8 + (c * 0.35), 0.6 + (r * 0.8), 1.6);
+                    group.add(bottle);
+                }
+            }
+
+            const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.8), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+            antenna.position.set(2.8, 2.9, 1.5);
+            const antennaHead = new THREE.Mesh(new THREE.SphereGeometry(0.12), new THREE.MeshBasicMaterial({ color: 0x3ea62b }));
+            antennaHead.position.set(2.8, 3.3, 1.5);
+            group.add(antenna, antennaHead);
+
+            const ring = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.35, 16), new THREE.MeshBasicMaterial({ color: 0x3ea62b, side: THREE.DoubleSide, transparent: true, opacity: 0.8 }));
+            ring.rotation.x = -Math.PI / 2;
+            ring.position.set(2.8, 3.32, 1.5);
+            group.add(ring);
+            nichoAnimatedElements.push({ mesh: ring, type: 'pulse' });
+
+            return group;
+        }
+
+        function buildDocesModel() {
+            const group = new THREE.Group();
+            nichoAnimatedElements = [];
+
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 }));
+            floor.position.y = -0.1;
+            group.add(floor);
+
+            const carouselBase = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.7, 0.5, 32), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            carouselBase.position.set(0, 0.25, 0);
+            const carouselTop = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 0.1, 32), new THREE.MeshStandardMaterial({ color: 0x9d174d, metalness: 0.5 }));
+            carouselTop.position.set(0, 0.55, 0);
+            group.add(carouselBase, carouselTop);
+
+            const giftsGroup = new THREE.Group();
+            for (let i = 0; i < 5; i++) {
+                const angle = (i / 5) * Math.PI * 2;
+                const r = 1.6;
+
+                const box = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.55, 0.3, 0.55),
+                    new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0xec4899 : 0xf59e0b })
+                );
+                box.position.set(Math.cos(angle) * r, 0.75, Math.sin(angle) * r);
+                giftsGroup.add(box);
+
+                const egg = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.2, 16, 16),
+                    new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.5 })
+                );
+                egg.scale.set(1.0, 1.4, 1.0);
+                egg.position.set(Math.cos(angle) * r, 1.1, Math.sin(angle) * r);
+                giftsGroup.add(egg);
+            }
+            group.add(giftsGroup);
+            nichoAnimatedElements.push({ mesh: giftsGroup, type: 'rotate' });
+
+            return group;
+        }
+
+        function buildAtacarejoModel() {
+            const group = new THREE.Group();
+            nichoAnimatedElements = [];
+
+            const floor = new THREE.Mesh(new THREE.BoxGeometry(16, 0.2, 14), new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.8 }));
+            floor.position.y = -0.1;
+            group.add(floor);
+
+            const colMat = new THREE.MeshStandardMaterial({ color: 0xea580c, metalness: 0.6 });
+            const beamMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5 });
+
+            for(let x of [-4.5, -2.0]) {
+                for(let z of [-2.5, -0.5]) {
+                    const col = new THREE.Mesh(new THREE.BoxGeometry(0.15, 4.5, 0.15), colMat);
+                    col.position.set(x, 2.25, z);
+                    group.add(col);
+                }
+            }
+
+            for(let lvl = 1; lvl <= 3; lvl++) {
+                const beam = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.1, 2.0), beamMat);
+                beam.position.set(-3.25, lvl * 1.2, -1.5);
+                group.add(beam);
+
+                const crate = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.8, 0.4, 1.2),
+                    new THREE.MeshStandardMaterial({ color: lvl % 2 === 0 ? 0x3ea62b : 0xef4444 })
+                );
+                crate.position.set(-3.25, lvl * 1.2 + 0.3, -1.5);
+                group.add(crate);
+            }
+
+            const truck = new THREE.Group();
+            const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.5, 1.4), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+            cab.position.set(1.8, 0.75, 0);
+            const container = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.2, 1.6), new THREE.MeshStandardMaterial({ color: 0x0284c7 }));
+            container.position.set(-0.7, 1.1, 0);
+            truck.add(cab, container);
+            truck.position.set(2.0, 0.2, 1.8);
+            group.add(truck);
+
+            return group;
+        }
+
+        function initNicho3D() {
+            const canvas = document.getElementById('nicho-canvas');
+            const w = canvas.clientWidth || 600;
+            const h = canvas.clientHeight || 500;
+
+            sceneNicho = new THREE.Scene();
+            sceneNicho.background = new THREE.Color(0x0f172a);
+
+            cameraNicho = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+            cameraNicho.position.set(8, 6, 11);
+            cameraNicho.lookAt(0, 1, 0);
+
+            rendererNicho = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            rendererNicho.setSize(w, h);
+            rendererNicho.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const ambient = new THREE.AmbientLight(0xffffff, 1.0);
+            sceneNicho.add(ambient);
+
+            const direct = new THREE.DirectionalLight(0xffffff, 1.4);
+            direct.position.set(10, 15, 10);
+            sceneNicho.add(direct);
+
+            loadNichoScene('panificacao');
+        }
+
+        function loadNichoScene(key) {
+            if (currentNichoGroup) {
+                sceneNicho.remove(currentNichoGroup);
+            }
+
+            if (key === 'panificacao') currentNichoGroup = buildPanificacaoModel();
+            else if (key === 'pereciveis') currentNichoGroup = buildPereciveisModel();
+            else if (key === 'doces') currentNichoGroup = buildDocesModel();
+            else if (key === 'atacarejo') currentNichoGroup = buildAtacarejoModel();
+
+            sceneNicho.add(currentNichoGroup);
+        }
+
+        function switchNichoScenario(nichoKey, btnEl) {
+            currentNichoKey = nichoKey;
+            document.querySelectorAll('.nicho-tab').forEach(b => b.classList.remove('active'));
+            btnEl.classList.add('active');
+
+            const data = nichoDatabase[nichoKey];
+
+            document.getElementById('nicho-tag-top').innerText = data.tagTop;
+            document.getElementById('nicho-tag-title').innerText = data.tagTitle;
+            document.getElementById('nicho-painel-title').innerText = data.painelTitle;
+            document.getElementById('nicho-painel-desc').innerText = data.painelDesc;
+            document.getElementById('nicho-badge-status').innerText = data.badge;
+            document.getElementById('nicho-metric-label-1').innerText = data.m1Lbl;
+            document.getElementById('nicho-metric-val-1').innerText = data.m1Val;
+            document.getElementById('nicho-metric-label-2').innerText = data.m2Lbl;
+            document.getElementById('nicho-metric-val-2').innerText = data.m2Val;
+
+            loadNichoScene(nichoKey);
+
+            gsap.to(cameraNicho.position, {
+                x: data.camPos.x,
+                y: data.camPos.y,
+                z: data.camPos.z,
+                duration: 1.3,
+                ease: "power2.inOut",
+                onUpdate: () => cameraNicho.lookAt(0, 1, 0)
+            });
+        }
+
+        function triggerNichoCameraReset() {
+            const data = nichoDatabase[currentNichoKey];
+            gsap.to(cameraNicho.position, {
+                x: data.camPos.x,
+                y: data.camPos.y,
+                z: data.camPos.z,
+                duration: 1.2,
+                ease: "power2.inOut",
+                onUpdate: () => cameraNicho.lookAt(0, 1, 0)
+            });
+        }
+
+        // =========================================================================
+        // 4. LOOP DE ANIMAÇÃO UNIFICADO
+        // =========================================================================
+        function globalRenderLoop() {
+            requestAnimationFrame(globalRenderLoop);
+
+            // Gira suavemente apenas se o usuário não estiver mexendo manualmente
+            if (activeDeviceGroup && !isUserInteracting && cameraDive && cameraDive.position.z > 3.0 && !isAnimating) {
+                activeDeviceGroup.rotation.y += 0.003;
+            }
+            if (rendererDive && sceneDive && cameraDive) {
+                rendererDive.render(sceneDive, cameraDive);
+            }
+
+            nichoAnimatedElements.forEach(item => {
+                if (item.speed) {
+                    item.mesh.position.x += item.speed;
+                    if (item.mesh.position.x > item.maxX) {
+                        item.mesh.position.x = item.minX;
+                    }
+                } else if (item.type === 'rotate') {
+                    item.mesh.rotation.y += 0.008;
+                } else if (item.type === 'pulse') {
+                    const scale = 1.0 + Math.sin(Date.now() * 0.005) * 0.3;
+                    item.mesh.scale.set(scale, scale, 1);
+                }
+            });
+
+            if (rendererNicho && sceneNicho && cameraNicho) {
+                rendererNicho.render(sceneNicho, cameraNicho);
+            }
+        }
+
+        // =========================================================================
+        // 5. AUDITORIA & QUIZ INTERATIVO B2B
+        // =========================================================================
+        let quizState = { desafio: null, porte: null, segmento: null };
+        function selectQuiz(type, value, btn) {
+            quizState[type] = value;
+            const groupSelector = '.quiz-btn-' + (type === 'segmento' ? 'seg' : type);
+            document.querySelectorAll(groupSelector).forEach(b => {
+                b.className = b.className.replace(/border-\[#3ea62b\]|bg-\[#0f172a\]|text-white/g, '').trim();
+                b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+            });
+
+            btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+            btn.classList.add('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
+
+            if(quizState.desafio && quizState.porte && quizState.segmento) {
+                const res = document.getElementById('quiz-resultado');
+                const tit = document.getElementById('quiz-res-titulo');
+                const desc = document.getElementById('quiz-res-desc');
+                res.classList.remove('hidden');
+
+                if(quizState.desafio === 'validade') {
+                    tit.innerText = "Potencial de Recuperação: R$ 42.000 a R$ 90.000 / mês";
+                    desc.innerText = "Módulos indicados: WMS (Separação Cega FEFO) + Controle de Lote.";
+                } else if(quizState.desafio === 'canhoto') {
+                    tit.innerText = "Potencial de Recuperação: 180 horas e R$ 28.000 / mês";
+                    desc.innerText = "Módulos indicados: Gestor de Entregas (Canhoto Digital) + Roteirizador IA.";
+                } else {
+                    tit.innerText = "Potencial de Crescimento: +35% em Recompras B2B";
+                    desc.innerText = "Módulos indicados: Força de Vendas Offline + Portal B2B do Lojista.";
+                }
+                gsap.fromTo(res, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+            }
+        }
+
+        // =========================================================================
+        // 6. CALCULADORA DE ROI
+        // =========================================================================
+        const slVend = document.getElementById('calc-vend');
+        const slEnt = document.getElementById('calc-ent');
+        const slPerd = document.getElementById('calc-perd');
+        const slCam = document.getElementById('calc-caminhoes');
+
+        function updateMath() {
+            const v = parseInt(slVend.value);
+            const e = parseInt(slEnt.value);
+            const p = parseInt(slPerd.value);
+            const c = parseInt(slCam.value);
+
+            document.getElementById('calc-txt-vend').innerText = v;
+            document.getElementById('calc-txt-ent').innerText = e;
+            document.getElementById('calc-txt-perd').innerText = 'R$ ' + p.toLocaleString('pt-BR');
+            document.getElementById('calc-txt-caminhoes').innerText = c + ' veículos';
+
+            const economiaDiesel = c * 780;
+            const economiaAnual = ((v * 1150) + (e * 380) + (p * 0.92) + economiaDiesel) * 12;
+
+            document.getElementById('res-anual').innerText = 'R$ ' + Math.round(economiaAnual).toLocaleString('pt-BR');
+            document.getElementById('res-diesel').innerText = 'R$ ' + Math.round(economiaDiesel).toLocaleString('pt-BR') + ' / mês';
+        }
+
+        slVend.addEventListener('input', updateMath);
+        slEnt.addEventListener('input', updateMath);
+        slPerd.addEventListener('input', updateMath);
+        slCam.addEventListener('input', updateMath);
+
+        function openModalDemo() { document.getElementById('modal-demo').style.display = 'flex'; }
+        function closeModalDemo() { document.getElementById('modal-demo').style.display = 'none'; }
+
+        // Redimensionamento
+        window.addEventListener('resize', () => {
+            const cDive = document.getElementById('dive-canvas');
+            if (cDive && rendererDive && cameraDive) {
+                const w = cDive.clientWidth || 700;
+                const h = cDive.clientHeight || 520;
+                cameraDive.aspect = w / h;
+                cameraDive.updateProjectionMatrix();
+                rendererDive.setSize(w, h);
+            }
+            const cNicho = document.getElementById('nicho-canvas');
+            if (cNicho && rendererNicho && cameraNicho) {
+                const w = cNicho.clientWidth || 600;
+                const h = cNicho.clientHeight || 500;
+                cameraNicho.aspect = w / h;
+                cameraNicho.updateProjectionMatrix();
+                rendererNicho.setSize(w, h);
+            }
+        });
+
+        // Inicialização
+        window.onload = () => {
+            initDive3D();
+            initNicho3D();
+            globalRenderLoop();
+            updateMath();
+            setTimeout(() => {
+                const first = document.querySelector('.dive-btn');
+                if(first) triggerServiceAnimation('forca_vendas', first);
+            }, 600);
+        };
+    </script>
+</body>
+</html>
