@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJL7Z1XD66"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CJL7Z1XD66');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S7 ERP | SN Sistemas - Especialista em Indústria & Distribuição</title>
@@ -150,7 +158,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <span class="hidden sm:inline text-slate-400">Prefere atendimento direto?</span>
-                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" class="px-4 py-2 sn-btn-green text-white font-extrabold rounded-full uppercase tracking-wider transition flex items-center gap-2 shadow-lg">
+                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" onclick="gtag('event', 'generate_lead', { source: 'barra_fixa', method: 'whatsapp' })" class="px-4 py-2 sn-btn-green text-white font-extrabold rounded-full uppercase tracking-wider transition flex items-center gap-2 shadow-lg">
                     <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 62 98158-0060
                 </a>
             </div>
@@ -177,9 +185,8 @@
                     Segmentos
                     <span class="w-1.5 h-1.5 rounded-full bg-[#3ea62b]"></span>
                 </a>
-                <a href="#quiz-diagnostico" class="nav-link hover:text-white">Auditoria & Quiz</a>
                 <a href="#tabela-comparativa" class="nav-link hover:text-white">Diferenciais S7</a>
-                <a href="#calculadora" class="nav-link hover:text-white">Calculadora ROI</a>
+                <a href="#diagnostico" class="nav-link hover:text-white">Diagnóstico Gratuito</a>
             </nav>
 
             <div class="flex items-center gap-4 shrink-0">
@@ -187,7 +194,7 @@
                     <i data-lucide="phone" class="w-4 h-4 text-[#3ea62b]"></i>
                     (62) 98158-0060
                 </a>
-                <button onclick="openModalDemo()" class="px-6 py-2.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full transition shadow-md flex items-center gap-2">
+                <button onclick="openModalDemo('header')" class="px-6 py-2.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full transition shadow-md flex items-center gap-2">
                     Agendar Demonstração
                 </button>
             </div>
@@ -214,7 +221,7 @@
                 </p>
 
                 <div class="flex flex-wrap items-center gap-4 pt-2">
-                    <button onclick="openModalDemo()" class="px-8 py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center gap-2">
+                    <button onclick="openModalDemo('hero')" class="px-8 py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center gap-2">
                         Solicite uma Demonstração
                     </button>
                     <a href="#camera-dive" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-xs uppercase tracking-wider rounded-full transition flex items-center gap-2">
@@ -563,7 +570,7 @@
                         </div>
                     </div>
 
-                    <button onclick="openModalDemo()" class="w-full py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
+                    <button onclick="openModalDemo('nichos')" class="w-full py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
                         Solicitar Demonstração Deste Nicho
                     </button>
                 </div>
@@ -574,74 +581,57 @@
     </section>
 
     <!-- AUDITORIA & QUIZ INTERATIVO B2B -->
-    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="quiz-diagnostico">
+    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="diagnostico">
         <div class="max-w-4xl mx-auto flex flex-col gap-8">
             <div class="text-center flex flex-col gap-2">
-                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest">Auditoria Gratuita</span>
-                <h2 class="text-3xl font-black text-[#0f172a]">Descubra o Gargalo que Custa Mais Caro na Sua Operação</h2>
-                <p class="text-slate-600 text-xs">Responda 3 perguntas rápidas para receber uma estimativa instantânea de retorno financeiro.</p>
+                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest animate-pulse">⚡ Diagnóstico Gratuito em 30 Segundos</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a]">Descubra Agora Quanto Sua Operação Está Perdendo</h2>
+                <p class="text-slate-600 text-xs">Preencha abaixo e fale <strong>direto com um especialista pelo WhatsApp</strong> — sem espera, sem robô, sem formulário genérico.</p>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-6">
+            <form onsubmit="return submitDiagnostico(event)" class="bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
                 <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">1. Qual o maior desafio da sua rotina hoje?</span>
+                    <span class="text-xs font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje? <span class="text-slate-400 font-normal">(opcional)</span></span>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button onclick="selectQuiz('desafio', 'validade', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('desafio', 'Trocas e perda com produtos vencidos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
                             🥖 Trocas e perda com produtos vencidos
                         </button>
-                        <button onclick="selectQuiz('desafio', 'canhoto', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('desafio', 'Acerto de motoristas e canhotos lentos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
                             🚚 Acerto de motoristas & canhotos lentos
                         </button>
-                        <button onclick="selectQuiz('desafio', 'vendas', this)" class="quiz-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('desafio', 'Vendedores sem catálogo ou estoque online', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
                             📱 Vendedores sem catálogo ou estoque online
                         </button>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">2. Qual o volume aproximado da sua equipe de rua?</span>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button onclick="selectQuiz('porte', 'pequeno', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            Até 10 veículos / vendedores
-                        </button>
-                        <button onclick="selectQuiz('porte', 'medio', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            De 11 a 40 veículos / vendedores
-                        </button>
-                        <button onclick="selectQuiz('porte', 'grande', this)" class="quiz-btn-porte p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            Mais de 40 na rua
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">3. Qual seu segmento principal?</span>
+                    <span class="text-xs font-bold text-[#0f172a]">Qual seu segmento principal? <span class="text-slate-400 font-normal">(opcional)</span></span>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <button onclick="selectQuiz('segmento', 'pan', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('segmento', 'Panificação', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
                             Panificação
                         </button>
-                        <button onclick="selectQuiz('segmento', 'per', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('segmento', 'Perecíveis & Laticínios', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
                             Perecíveis & Laticínios
                         </button>
-                        <button onclick="selectQuiz('segmento', 'doc', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('segmento', 'Doces & Chocolates', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
                             Doces & Chocolates
                         </button>
-                        <button onclick="selectQuiz('segmento', 'ata', this)" class="quiz-btn-seg p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                        <button type="button" onclick="selectDiag('segmento', 'Atacarejo & Bebidas', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
                             Atacarejo & Bebidas
                         </button>
                     </div>
                 </div>
 
-                <div id="quiz-resultado" class="hidden p-5 rounded-2xl bg-[#0f172a] text-white flex flex-col sm:flex-row justify-between items-center gap-4 shadow-md">
-                    <div class="flex flex-col gap-1">
-                        <span class="text-[10px] uppercase font-extrabold text-[#3ea62b] tracking-wider">Resultado da Auditoria S7</span>
-                        <h4 class="text-base font-extrabold text-white" id="quiz-res-titulo">Potencial de Recuperação: R$ 38.400 / mês</h4>
-                        <p class="text-xs text-slate-300" id="quiz-res-desc">Módulos indicados para retorno imediato: WMS + Gestor de Entregas.</p>
-                    </div>
-                    <button onclick="openModalDemo()" class="px-6 py-3 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md shrink-0">
-                        Apresentar Auditoria Técnica
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-slate-200">
+                    <input type="text" id="diag-nome" placeholder="Seu Nome" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                    <input type="tel" id="diag-telefone" placeholder="Seu WhatsApp" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                    <button type="submit" class="px-6 py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center justify-center gap-2 animate-pulse">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Falar com Especialista
                     </button>
                 </div>
-            </div>
+                <p class="text-[10px] text-slate-400 text-center">Resposta imediata, direto no seu WhatsApp. Sem compromisso.</p>
+            </form>
         </div>
     </section>
 
@@ -747,81 +737,6 @@
         </div>
     </section>
 
-    <!-- CALCULADORA DE ROI -->
-    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="calculadora">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-5 flex flex-col gap-4">
-                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest">Calculadora de ROI</span>
-                <h2 class="text-3xl font-black text-[#0f172a] leading-tight">Calcule quanto sua empresa pode economizar com o S7 ERP</h2>
-                <p class="text-slate-600 text-xs leading-relaxed">
-                    O S7 ERP organiza o despacho usando o algoritmo <strong>FEFO (First Expire, First Out)</strong>, garantindo que o produto com vencimento mais próximo seja faturado e entregue primeiro.
-                </p>
-                <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl mt-2 flex items-center gap-3">
-                    <i data-lucide="trending-up" class="w-8 h-8 text-[#3ea62b] shrink-0"></i>
-                    <p class="text-[11px] text-[#2f8520]">
-                        Empresas do segmento reduzem em média <strong>92% das perdas de shelf-life</strong> e economizam até <strong>22% em rotas de combustível</strong>.
-                    </p>
-                </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between text-xs">
-                            <span class="text-slate-500 font-semibold">Representantes:</span>
-                            <span class="font-bold text-[#0f172a] text-sm" id="calc-txt-vend">35</span>
-                        </div>
-                        <input type="range" id="calc-vend" min="5" max="150" value="35" class="accent-[#3ea62b] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between text-xs">
-                            <span class="text-slate-500 font-semibold">Entregas/Dia:</span>
-                            <span class="font-bold text-[#0f172a] text-sm" id="calc-txt-ent">25</span>
-                        </div>
-                        <input type="range" id="calc-ent" min="5" max="120" value="25" class="accent-[#3ea62b] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
-                    </div>
-
-                    <div class="flex flex-col gap-2">
-                        <div class="flex justify-between text-xs">
-                            <span class="text-slate-500 font-semibold">Perda Vencimento:</span>
-                            <span class="font-bold text-[#ea580c] text-sm" id="calc-txt-perd">R$ 20.000</span>
-                        </div>
-                        <input type="range" id="calc-perd" min="2000" max="100000" step="2000" value="20000" class="accent-[#ea580c] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
-                    </div>
-                </div>
-
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex flex-col gap-2">
-                    <div class="flex justify-between text-xs">
-                        <span class="text-slate-500 font-semibold">Veículos na Frota (Consumo Diesel):</span>
-                        <span class="font-bold text-[#0284c7] text-sm" id="calc-txt-caminhoes">12 veículos</span>
-                    </div>
-                    <input type="range" id="calc-caminhoes" min="2" max="60" value="12" class="accent-[#0284c7] h-1.5 bg-slate-200 rounded-lg cursor-pointer">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200">
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <span class="text-[11px] text-slate-500 block">Economia Anual Estimada:</span>
-                        <span class="text-xl font-extrabold text-[#3ea62b] block mt-1" id="res-anual">R$ 784.800</span>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <span class="text-[11px] text-slate-500 block">Diesel Economizado:</span>
-                        <span class="text-xl font-extrabold text-[#0284c7] block mt-1" id="res-diesel">R$ 9.400 / mês</span>
-                    </div>
-
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <span class="text-[11px] text-slate-500 block">Redução de Perdas FEFO:</span>
-                        <span class="text-xl font-extrabold text-[#ea580c] block mt-1">92%</span>
-                    </div>
-                </div>
-
-                <button onclick="openModalDemo()" class="w-full py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
-                    Quero Esta Redução de Custos na Minha Empresa
-                </button>
-            </div>
-        </div>
-    </section>
 
     <!-- Rodapé -->
     <footer class="bg-[#0f172a] py-12 px-6 text-xs text-slate-400">
@@ -844,12 +759,12 @@
                 <h3 class="text-lg font-black text-[#0f172a] mt-1">Agendar Demonstração Gratuita</h3>
                 <p class="text-xs text-slate-600 mt-1">Conheça o sistema funcionando com o cenário real da sua indústria ou distribuidora.</p>
             </div>
-            <form onsubmit="alert('Obrigado! Nossa equipe entrará em contato para agendar sua demonstração.'); closeModalDemo(); return false;" class="flex flex-col gap-3">
-                <input type="text" placeholder="Seu Nome Completo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                <input type="email" placeholder="Seu E-mail Corporativo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                <input type="tel" placeholder="WhatsApp para Contato" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+            <form onsubmit="return submitDemoForm(event)" class="flex flex-col gap-3">
+                <input type="text" id="demo-nome" placeholder="Seu Nome Completo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="email" id="demo-email" placeholder="Seu E-mail Corporativo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="tel" id="demo-telefone" placeholder="WhatsApp para Contato" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
                 <button type="submit" class="w-full py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
-                    Confirmar Agendamento
+                    Confirmar e Abrir WhatsApp
                 </button>
             </form>
         </div>
@@ -1999,12 +1914,12 @@
         }
 
         // =========================================================================
-        // 5. AUDITORIA & QUIZ INTERATIVO B2B
+        // 5. FORMULÁRIO DE DIAGNÓSTICO DIRETO
         // =========================================================================
-        let quizState = { desafio: null, porte: null, segmento: null };
-        function selectQuiz(type, value, btn) {
-            quizState[type] = value;
-            const groupSelector = '.quiz-btn-' + (type === 'segmento' ? 'seg' : type);
+        let diagState = { desafio: null, segmento: null };
+        function selectDiag(type, value, btn) {
+            diagState[type] = value;
+            const groupSelector = '.diag-btn-' + type;
             document.querySelectorAll(groupSelector).forEach(b => {
                 b.className = b.className.replace(/border-\[#3ea62b\]|bg-\[#0f172a\]|text-white/g, '').trim();
                 b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
@@ -2012,60 +1927,47 @@
 
             btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
             btn.classList.add('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
-
-            if(quizState.desafio && quizState.porte && quizState.segmento) {
-                const res = document.getElementById('quiz-resultado');
-                const tit = document.getElementById('quiz-res-titulo');
-                const desc = document.getElementById('quiz-res-desc');
-                res.classList.remove('hidden');
-
-                if(quizState.desafio === 'validade') {
-                    tit.innerText = "Potencial de Recuperação: R$ 42.000 a R$ 90.000 / mês";
-                    desc.innerText = "Módulos indicados: WMS (Separação Cega FEFO) + Controle de Lote.";
-                } else if(quizState.desafio === 'canhoto') {
-                    tit.innerText = "Potencial de Recuperação: 180 horas e R$ 28.000 / mês";
-                    desc.innerText = "Módulos indicados: Gestor de Entregas (Canhoto Digital) + Roteirizador IA.";
-                } else {
-                    tit.innerText = "Potencial de Crescimento: +35% em Recompras B2B";
-                    desc.innerText = "Módulos indicados: Força de Vendas Offline + Portal B2B do Lojista.";
-                }
-                gsap.fromTo(res, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
-            }
         }
 
-        // =========================================================================
-        // 6. CALCULADORA DE ROI
-        // =========================================================================
-        const slVend = document.getElementById('calc-vend');
-        const slEnt = document.getElementById('calc-ent');
-        const slPerd = document.getElementById('calc-perd');
-        const slCam = document.getElementById('calc-caminhoes');
+        function submitDiagnostico(event) {
+            event.preventDefault();
+            const nome = document.getElementById('diag-nome').value.trim();
+            const telefone = document.getElementById('diag-telefone').value.trim();
 
-        function updateMath() {
-            const v = parseInt(slVend.value);
-            const e = parseInt(slEnt.value);
-            const p = parseInt(slPerd.value);
-            const c = parseInt(slCam.value);
+            let mensagem = `Olá! Quero um diagnóstico gratuito da minha operação.\n\nNome: ${nome}\nWhatsApp: ${telefone}`;
+            if (diagState.desafio) mensagem += `\nMaior desafio: ${diagState.desafio}`;
+            if (diagState.segmento) mensagem += `\nSegmento: ${diagState.segmento}`;
 
-            document.getElementById('calc-txt-vend').innerText = v;
-            document.getElementById('calc-txt-ent').innerText = e;
-            document.getElementById('calc-txt-perd').innerText = 'R$ ' + p.toLocaleString('pt-BR');
-            document.getElementById('calc-txt-caminhoes').innerText = c + ' veículos';
-
-            const economiaDiesel = c * 780;
-            const economiaAnual = ((v * 1150) + (e * 380) + (p * 0.92) + economiaDiesel) * 12;
-
-            document.getElementById('res-anual').innerText = 'R$ ' + Math.round(economiaAnual).toLocaleString('pt-BR');
-            document.getElementById('res-diesel').innerText = 'R$ ' + Math.round(economiaDiesel).toLocaleString('pt-BR') + ' / mês';
+            const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
+            gtag('event', 'generate_lead', { source: 'diagnostico', method: 'whatsapp', desafio: diagState.desafio, segmento: diagState.segmento });
+            window.open(url, '_blank');
+            event.target.reset();
+            return false;
         }
 
-        slVend.addEventListener('input', updateMath);
-        slEnt.addEventListener('input', updateMath);
-        slPerd.addEventListener('input', updateMath);
-        slCam.addEventListener('input', updateMath);
-
-        function openModalDemo() { document.getElementById('modal-demo').style.display = 'flex'; }
+        let modalSource = 'desconhecida';
+        function openModalDemo(source) {
+            modalSource = source || 'desconhecida';
+            document.getElementById('modal-demo').style.display = 'flex';
+            gtag('event', 'demo_modal_open', { source: modalSource });
+        }
         function closeModalDemo() { document.getElementById('modal-demo').style.display = 'none'; }
+
+        function submitDemoForm(event) {
+            event.preventDefault();
+            const nome = document.getElementById('demo-nome').value.trim();
+            const email = document.getElementById('demo-email').value.trim();
+            const telefone = document.getElementById('demo-telefone').value.trim();
+
+            const mensagem = `Olá! Gostaria de agendar uma demonstração do S7 ERP.\n\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${telefone}`;
+            const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
+
+            gtag('event', 'generate_lead', { source: modalSource, method: 'whatsapp' });
+            window.open(url, '_blank');
+            event.target.reset();
+            closeModalDemo();
+            return false;
+        }
 
         // Redimensionamento
         window.addEventListener('resize', () => {
@@ -2092,7 +1994,6 @@
             initDive3D();
             initNicho3D();
             globalRenderLoop();
-            updateMath();
             setTimeout(() => {
                 const first = document.querySelector('.dive-btn');
                 if(first) triggerServiceAnimation('forca_vendas', first);
