@@ -1292,12 +1292,21 @@
                 bgClass: 'scene-panificacao',
                 html: `
                     <div class="w-full h-full flex items-center justify-center relative">
-                        <div class="scene-anim absolute w-48 h-48 rounded-full border-8 border-slate-700"></div>
-                        <div class="scene-anim oven-glow w-36 h-36 rounded-full" style="background: radial-gradient(circle, #fbbf24 0%, #ea580c 55%, #7c2d12 85%); box-shadow: 0 0 60px 14px rgba(234,88,12,0.4);"></div>
-                        <div class="absolute bottom-14 left-0 right-0 h-1.5 bg-slate-700 overflow-hidden">
-                            <div class="conveyor-item absolute w-10 h-4 rounded-full bg-amber-600" style="bottom:2px; animation-delay:0s;"></div>
-                            <div class="conveyor-item absolute w-10 h-4 rounded-full bg-amber-600" style="bottom:2px; animation-delay:1.3s;"></div>
-                            <div class="conveyor-item absolute w-10 h-4 rounded-full bg-amber-600" style="bottom:2px; animation-delay:2.6s;"></div>
+                        <div class="scene-anim relative" style="width:210px; height:250px;">
+                            <div class="absolute inset-0 rounded-2xl border border-slate-600" style="background: linear-gradient(155deg, #334155, #1e293b);"></div>
+                            <div class="absolute flex gap-2" style="top:14px; right:16px;">
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                            </div>
+                            <div class="absolute rounded-full border-[7px] border-slate-400" style="width:142px; height:142px; top:34px; left:34px; background:#0f172a;">
+                                <div class="oven-glow absolute rounded-full" style="inset:12px; background: radial-gradient(circle, #fde68a 0%, #ea580c 55%, #7c2d12 90%);"></div>
+                            </div>
+                            <div class="absolute bg-slate-400 rounded-full" style="width:64px; height:7px; bottom:36px; left:73px;"></div>
+                        </div>
+                        <div class="absolute bottom-10 left-10 right-10 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                            <div class="conveyor-item absolute w-9 h-3.5 rounded-full bg-amber-600" style="bottom:1px; animation-delay:0s;"></div>
+                            <div class="conveyor-item absolute w-9 h-3.5 rounded-full bg-amber-600" style="bottom:1px; animation-delay:1.3s;"></div>
+                            <div class="conveyor-item absolute w-9 h-3.5 rounded-full bg-amber-600" style="bottom:1px; animation-delay:2.6s;"></div>
                         </div>
                     </div>`
             },
