@@ -722,13 +722,13 @@
     <!-- FORMULÁRIO DE DIAGNÓSTICO DIRETO -->
     <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="diagnostico">
         <div class="max-w-4xl mx-auto flex flex-col gap-8">
-            <div class="text-center flex flex-col gap-2">
+            <div class="reveal-up text-center flex flex-col gap-2">
                 <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest animate-pulse">⚡ Diagnóstico Gratuito em 30 Segundos</span>
                 <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a]">Descubra Agora Quanto Sua Operação Está Perdendo</h2>
                 <p class="text-slate-600 text-xs">Preencha abaixo e fale <strong>direto com um especialista pelo WhatsApp</strong> — sem espera, sem robô, sem formulário genérico.</p>
             </div>
 
-            <form onsubmit="return submitDiagnostico(event)" class="bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
+            <form onsubmit="return submitDiagnostico(event)" class="reveal-up bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
                 <div class="flex flex-col gap-3">
                     <span class="text-xs font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje? <span class="text-slate-400 font-normal">(opcional)</span></span>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -2082,6 +2082,8 @@
 
             btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
             btn.classList.add('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
+
+            gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.3, ease: 'back.out(3)' });
         }
 
         function submitDiagnostico(event) {
