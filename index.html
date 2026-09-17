@@ -1096,21 +1096,43 @@
             gestor_entregas: {
                 frame: 'frame-phone',
                 html: `
-                    <div class="w-full h-full flex flex-col">
-                        <div class="screen-anim bg-[#ea580c] px-4 py-4">
-                            <h5 class="text-white font-bold text-sm">GESTOR DE ENTREGAS GPS</h5>
-                        </div>
-                        <div class="flex-1 p-4 flex flex-col gap-3">
-                            <div class="screen-anim relative bg-slate-800 rounded-xl h-32 overflow-hidden">
-                                <svg viewBox="0 0 200 100" class="w-full h-full">
-                                    <path id="route-path" d="M10,80 Q60,10 100,50 T190,20" fill="none" stroke="#3ea62b" stroke-width="3" stroke-dasharray="300" stroke-dashoffset="300"/>
-                                    <circle cx="10" cy="80" r="4" fill="#3ea62b"/>
-                                    <circle cx="190" cy="20" r="4" fill="#ea580c"/>
-                                </svg>
+                    <div class="w-full h-full flex flex-col bg-slate-100">
+                        <div class="screen-anim bg-[#3ea62b] px-4 pt-4 pb-0">
+                            <h5 class="text-white font-bold text-sm mb-3">Gestor de Entrega</h5>
+                            <div class="flex gap-5 text-[11px] font-bold text-white">
+                                <span class="pb-2 border-b-2 border-white">RESUMO</span>
+                                <span class="pb-2 text-white/60">ENTREGAS</span>
                             </div>
-                            <div class="screen-anim bg-[#3ea62b] rounded-xl p-3">
-                                <h6 class="text-white font-bold text-xs">CANHOTO ELETRÔNICO</h6>
-                                <span class="text-white/90 text-[11px]">Assinatura & Foto OK ✓</span>
+                        </div>
+                        <div class="flex-1 p-3.5 flex flex-col gap-3">
+                            <div class="screen-anim flex flex-col gap-1.5">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wide">Informação do Carregamento</span>
+                                <div class="bg-white rounded-lg p-3 flex flex-col gap-2 border border-slate-200">
+                                    <div class="flex items-center gap-2 text-[10.5px] text-slate-700 font-semibold">
+                                        <i data-lucide="building" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i> Padaria Estrela Dourada Ltda
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[10.5px] text-slate-700 font-semibold">
+                                        <i data-lucide="list" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i> Num. Carga: 1147
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[10.5px] text-slate-700 font-semibold">
+                                        <i data-lucide="truck" class="w-3.5 h-3.5 text-slate-400 shrink-0"></i> 7788901 - FIORINO 02
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="screen-anim flex flex-col gap-1.5 flex-1">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wide">Acompanhamento</span>
+                                <div class="bg-white rounded-lg border border-slate-200 flex-1 flex items-center justify-center">
+                                    <div class="relative w-24 h-24">
+                                        <svg viewBox="0 0 100 100" class="w-full h-full -rotate-90">
+                                            <circle cx="50" cy="50" r="42" fill="none" stroke="#e2e8f0" stroke-width="9"/>
+                                            <circle id="progress-ring" cx="50" cy="50" r="42" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-2">
+                                            <span class="text-[10px] font-bold text-slate-700 leading-tight">2 Pedidos<br>entregues</span>
+                                            <span class="text-[8.5px] text-slate-400 mt-0.5">de 3 pedidos</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>`
@@ -1203,8 +1225,8 @@
             tl.to(items, { opacity: 1, y: 0, duration: 0.45, stagger: 0.22, ease: "power2.out" });
 
             if (serviceKey === 'gestor_entregas') {
-                const path = screen.querySelector('#route-path');
-                if (path) tl.to(path, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, "-=0.3");
+                const ring = screen.querySelector('#progress-ring');
+                if (ring) tl.to(ring, { strokeDashoffset: 88, duration: 0.9, ease: "power2.out" }, "-=0.3");
             }
             if (serviceKey === 'wms') {
                 const scan = screen.querySelector('#scan-line');
