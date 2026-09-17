@@ -207,20 +207,20 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div class="lg:col-span-6 flex flex-col gap-6">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[#2f8520] text-xs font-extrabold w-fit">
+                <div class="hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[#2f8520] text-xs font-extrabold w-fit">
                     <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span>
                     SISTEMA ERP ESPECIALISTA EM INDÚSTRIAS E DISTRIBUIDORAS
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl font-black text-[#0f172a] leading-[1.15] tracking-tight">
+                <h1 class="hero-anim text-4xl sm:text-5xl font-black text-[#0f172a] leading-[1.15] tracking-tight">
                     O seu novo software de <span class="text-[#3ea62b]">gestão inteligente</span> e alta precisão.
                 </h1>
 
-                <p class="text-slate-600 text-base leading-relaxed">
+                <p class="hero-anim text-slate-600 text-base leading-relaxed">
                     O <strong>S7 ERP</strong> automatiza processos críticos, corta desperdícios operacionais e alavanca a produtividade da sua equipe. <strong>Mais de 10 anos no mercado</strong> com tecnologia robusta, FEFO nativo e suporte especializado.
                 </p>
 
-                <div class="flex flex-wrap items-center gap-4 pt-2">
+                <div class="hero-anim flex flex-wrap items-center gap-4 pt-2">
                     <button onclick="openModalDemo('hero')" class="px-8 py-4 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center gap-2">
                         Solicite uma Demonstração
                     </button>
@@ -229,22 +229,22 @@
                     </a>
                 </div>
 
-                <div class="flex items-center gap-2 -mt-2">
+                <div class="hero-anim flex items-center gap-2 -mt-2">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#3ea62b] shrink-0"></i>
                     <span class="text-[11px] text-slate-500 font-medium">Sem compromisso — resposta em minutos pelo WhatsApp</span>
                 </div>
 
                 <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
-                    <div>
-                        <span class="text-2xl font-black text-[#0f172a] block">+7.000</span>
+                    <div class="hero-anim">
+                        <span class="text-2xl font-black text-[#0f172a] block" id="stat-users">0</span>
                         <span class="text-xs text-slate-500 font-medium">Usuários ativos</span>
                     </div>
-                    <div>
-                        <span class="text-2xl font-black text-[#3ea62b] block">24 Estados</span>
+                    <div class="hero-anim">
+                        <span class="text-2xl font-black text-[#3ea62b] block" id="stat-states">0 Estados</span>
                         <span class="text-xs text-slate-500 font-medium">E no exterior</span>
                     </div>
-                    <div>
-                        <span class="text-2xl font-black text-[#0f172a] block">+700</span>
+                    <div class="hero-anim">
+                        <span class="text-2xl font-black text-[#0f172a] block" id="stat-companies">0</span>
                         <span class="text-xs text-slate-500 font-medium">Empresas atendidas</span>
                     </div>
                 </div>
@@ -794,6 +794,40 @@
     <script>
         gsap.registerPlugin(ScrollToPlugin);
         lucide.createIcons();
+
+        // =========================================================================
+        // ANIMAÇÃO DE ENTRADA DO HERO
+        // =========================================================================
+        (function animateHero() {
+            const items = gsap.utils.toArray('.hero-anim');
+            gsap.set(items, { opacity: 0, y: 20 });
+            gsap.to(items, {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                stagger: 0.12,
+                ease: 'power2.out',
+                delay: 0.15
+            });
+
+            function animateCounter(id, end, { prefix = '', suffix = '' } = {}) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const obj = { val: 0 };
+                gsap.to(obj, {
+                    val: end,
+                    duration: 1.4,
+                    delay: 0.5,
+                    ease: 'power2.out',
+                    onUpdate: () => {
+                        el.textContent = prefix + Math.round(obj.val).toLocaleString('pt-BR') + suffix;
+                    }
+                });
+            }
+            animateCounter('stat-users', 7000, { prefix: '+' });
+            animateCounter('stat-states', 24, { suffix: ' Estados' });
+            animateCounter('stat-companies', 700, { prefix: '+' });
+        })();
 
         // =========================================================================
         // 0. CAPTURA DE UTM (persiste durante a sessão, mesmo navegando pela âncora)
