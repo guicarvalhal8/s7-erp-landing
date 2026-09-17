@@ -339,6 +339,10 @@
                         </div>
                     </div>
 
+                    <button onclick="openAppExplanation()" class="absolute top-4 right-4 z-20 px-3 py-2 rounded-xl border border-slate-700 bg-[#0f172a]/80 hover:bg-[#0f172a] flex items-center gap-1.5 shadow-lg text-white text-xs font-bold transition">
+                        <i data-lucide="info" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Entenda como funciona
+                    </button>
+
                     <div id="dive-overlay" class="absolute inset-0 z-20 flex items-center justify-center p-6 pointer-events-none opacity-0 scale-90 transition-all duration-500">
                         <div class="max-w-lg w-full bg-[#0f172a]/95 border-2 border-[#3ea62b] rounded-3xl p-7 shadow-2xl flex flex-col gap-4 pointer-events-auto backdrop-blur-md">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -351,8 +355,8 @@
                                         <h3 class="text-base font-extrabold text-white" id="dive-card-title">Elimina a Ruptura de Estoque no PDV</h3>
                                     </div>
                                 </div>
-                                <button onclick="replayAppDemo()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="Ver a simulação novamente">
-                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                <button onclick="closeAppExplanation()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="Continuar testando o app">
+                                    <i data-lucide="x" class="w-4 h-4"></i>
                                 </button>
                             </div>
 
@@ -373,8 +377,8 @@
 
                             <div class="flex items-center justify-between pt-2 border-t border-slate-800">
                                 <span class="text-xs text-slate-400">Nativo ao S7 ERP</span>
-                                <button onclick="replayAppDemo()" class="text-xs font-bold text-[#3ea62b] hover:underline flex items-center gap-1">
-                                    ← Ver Novamente
+                                <button onclick="closeAppExplanation()" class="text-xs font-bold text-[#3ea62b] hover:underline flex items-center gap-1">
+                                    ← Continuar Testando
                                 </button>
                             </div>
                         </div>
@@ -801,12 +805,11 @@
 
             const tl = gsap.timeline({
                 onComplete: () => {
-                    if (serviceKey !== 'forca_vendas') {
-                        revealAppExplanation(serviceKey);
-                    } else {
-                        document.getElementById('dive-phase').innerText = "Navegue pelo app";
-                        document.getElementById('dive-title').innerText = "Toque nas abas ou no ícone de menu para explorar";
-                    }
+                    // O card de explicação não abre sozinho: fica disponível pelo botão
+                    // "Entenda como funciona", pra não interromper o usuário testando o app
+                    document.getElementById('dive-status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+                    document.getElementById('dive-phase').innerText = "Demonstração pronta";
+                    document.getElementById('dive-title').innerText = "Teste à vontade ou toque em “Entenda como funciona”";
                     isDemoAnimating = false;
                 }
             });
@@ -831,9 +834,8 @@
             tl.to({}, { duration: 0.5 });
         }
 
-        function revealAppExplanation(serviceKey) {
-            const data = serviceDatabase[serviceKey];
-            document.getElementById('dive-status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+        function openAppExplanation() {
+            const data = serviceDatabase[currentDemoKey];
             document.getElementById('dive-phase').innerText = "Resultado comprovado";
             document.getElementById('dive-title').innerText = "Como este app protege seu caixa";
             document.getElementById('dive-card-title').innerText = data.cardTitle;
@@ -847,6 +849,15 @@
             const overlay = document.getElementById('dive-overlay');
             overlay.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
             overlay.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+            gtag('event', 'app_explanation_open', { app: currentDemoKey });
+        }
+
+        function closeAppExplanation() {
+            const overlay = document.getElementById('dive-overlay');
+            overlay.classList.add('opacity-0', 'scale-90', 'pointer-events-none');
+            overlay.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+            document.getElementById('dive-phase').innerText = "Demonstração pronta";
+            document.getElementById('dive-title').innerText = "Teste à vontade ou toque em “Entenda como funciona”";
         }
 
         function replayAppDemo() {
