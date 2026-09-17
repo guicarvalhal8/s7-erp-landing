@@ -515,8 +515,8 @@
     <!-- NÚCLEO 2: SIMULADOR 3D POR NICHO INDUSTRIAL -->
     <section class="py-20 px-6 bg-white border-b border-slate-200" id="nichos-interativos">
         <div class="max-w-7xl mx-auto flex flex-col gap-10">
-            
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+
+            <div class="reveal-up flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest flex items-center gap-1.5">
                         <i data-lucide="boxes" class="w-4 h-4"></i> Segmentos Atendidos pela SN Sistemas
@@ -530,7 +530,7 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button onclick="switchNichoScenario('panificacao', this)" class="nicho-tab active p-4 rounded-2xl text-left flex items-center gap-3.5 group">
                     <span class="text-2xl p-2.5 rounded-xl bg-amber-100 text-amber-600 shrink-0">🥖</span>
                     <div>
@@ -564,8 +564,8 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[500px]">
-                
+            <div class="reveal-up grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[500px]">
+
                 <div class="lg:col-span-7 relative h-[500px] w-full rounded-2xl overflow-hidden border border-slate-200 bg-[#0f172a] shadow-xl">
                     <div class="absolute top-4 left-4 z-20 sn-glass p-3 rounded-xl border border-slate-700 flex items-center gap-3 shadow-lg">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse" id="nicho-pulse-dot"></span>
@@ -578,7 +578,7 @@
                     <canvas id="nicho-canvas" class="w-full h-full block cursor-grab active:cursor-grabbing" style="min-height: 500px;"></canvas>
                 </div>
 
-                <div class="lg:col-span-5 bg-white p-7 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-5">
+                <div id="nicho-painel" class="lg:col-span-5 bg-white p-7 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between gap-5">
                     <div class="flex flex-col gap-3">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Regra Crítica do Setor:</span>
@@ -1984,16 +1984,23 @@
             btnEl.classList.add('active');
 
             const data = nichoDatabase[nichoKey];
+            const painel = document.getElementById('nicho-painel');
 
-            document.getElementById('nicho-tag-top').innerText = data.tagTop;
-            document.getElementById('nicho-tag-title').innerText = data.tagTitle;
-            document.getElementById('nicho-painel-title').innerText = data.painelTitle;
-            document.getElementById('nicho-painel-desc').innerText = data.painelDesc;
-            document.getElementById('nicho-badge-status').innerText = data.badge;
-            document.getElementById('nicho-metric-label-1').innerText = data.m1Lbl;
-            document.getElementById('nicho-metric-val-1').innerText = data.m1Val;
-            document.getElementById('nicho-metric-label-2').innerText = data.m2Lbl;
-            document.getElementById('nicho-metric-val-2').innerText = data.m2Val;
+            gsap.to(painel, {
+                opacity: 0.25, y: 6, duration: 0.18, ease: 'power1.in',
+                onComplete: () => {
+                    document.getElementById('nicho-tag-top').innerText = data.tagTop;
+                    document.getElementById('nicho-tag-title').innerText = data.tagTitle;
+                    document.getElementById('nicho-painel-title').innerText = data.painelTitle;
+                    document.getElementById('nicho-painel-desc').innerText = data.painelDesc;
+                    document.getElementById('nicho-badge-status').innerText = data.badge;
+                    document.getElementById('nicho-metric-label-1').innerText = data.m1Lbl;
+                    document.getElementById('nicho-metric-val-1').innerText = data.m1Val;
+                    document.getElementById('nicho-metric-label-2').innerText = data.m2Lbl;
+                    document.getElementById('nicho-metric-val-2').innerText = data.m2Val;
+                    gsap.to(painel, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+                }
+            });
 
             loadNichoScene(nichoKey);
 
