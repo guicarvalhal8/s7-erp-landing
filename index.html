@@ -1097,65 +1097,50 @@
         let isUserInteracting = false;
 
         // Figura humana estilizada (baixo-poli, sem rosto/roupa detalhada) que interage
-        // com o dispositivo antes do zoom para a explicação. Braço articulado por dois
-        // pivôs (ombro e cotovelo) para poder "erguer e tocar" a tela com GSAP.
+        // com o dispositivo antes do zoom para a explicação. Braço de peça única (um só
+        // pivô no ombro) para reduzir a chance de erro e ficar visualmente legível: pele
+        // e camisa em cores bem contrastantes entre si e com o fundo escuro da cena.
         function createPersonFigure() {
             const person = new THREE.Group();
-            const skinMat = new THREE.MeshStandardMaterial({ color: 0xc9a888, roughness: 0.65, metalness: 0.02 });
-            const shirtMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.55, metalness: 0.05 });
+            const skinMat = new THREE.MeshStandardMaterial({ color: 0xe0ac76, roughness: 0.55, metalness: 0.02 });
+            const shirtMat = new THREE.MeshStandardMaterial({ color: 0x3ea62b, roughness: 0.5, metalness: 0.05 });
 
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 20, 20), skinMat);
-            head.position.y = 1.55;
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.34, 20, 20), skinMat);
+            head.position.y = 1.15;
             head.castShadow = true;
             person.add(head);
 
-            const torso = new THREE.Mesh(createRoundedBoxGeometry(1.15, 1.6, 0.6, 0.2), shirtMat);
-            torso.position.y = 0.45;
+            const torso = new THREE.Mesh(createRoundedBoxGeometry(0.95, 1.25, 0.55, 0.18), shirtMat);
+            torso.position.y = 0.35;
             torso.castShadow = true;
             person.add(torso);
 
-            // Braço que se ergue para tocar a tela: ombro (pivô 1) -> braço -> cotovelo (pivô 2) -> antebraço + mão
+            // Braço que se ergue para tocar a tela: um único pivô no ombro, sem cotovelo
             const shoulderPivot = new THREE.Group();
-            shoulderPivot.position.set(0.62, 1.05, 0.12);
+            shoulderPivot.position.set(0.55, 0.78, 0.08);
             person.add(shoulderPivot);
 
-            const upperArm = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.12, 0.68, 12), shirtMat);
-            upperArm.position.y = -0.34;
-            upperArm.castShadow = true;
-            shoulderPivot.add(upperArm);
-
-            const elbowPivot = new THREE.Group();
-            elbowPivot.position.y = -0.68;
-            shoulderPivot.add(elbowPivot);
-
-            const forearm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.62, 12), skinMat);
-            forearm.position.y = -0.31;
-            forearm.castShadow = true;
-            elbowPivot.add(forearm);
+            const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 1.0, 12), skinMat);
+            arm.position.y = -0.5;
+            arm.castShadow = true;
+            shoulderPivot.add(arm);
 
             const hand = new THREE.Mesh(new THREE.SphereGeometry(0.115, 14, 14), skinMat);
-            hand.position.y = -0.66;
+            hand.position.y = -1.02;
             hand.castShadow = true;
-            elbowPivot.add(hand);
+            shoulderPivot.add(hand);
 
             // Braço de apoio, parado ao longo do corpo
-            const shoulderPivot2 = new THREE.Group();
-            shoulderPivot2.position.set(-0.62, 1.05, 0.12);
-            person.add(shoulderPivot2);
-            const upperArm2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.12, 0.68, 12), shirtMat);
-            upperArm2.position.y = -0.34;
-            shoulderPivot2.add(upperArm2);
-            const forearm2 = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.6, 12), skinMat);
-            forearm2.position.y = -0.66;
-            forearm2.rotation.z = 0.1;
-            shoulderPivot2.add(forearm2);
+            const armRest = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.9, 12), skinMat);
+            armRest.position.set(-0.55, 0.05, 0.08);
+            armRest.rotation.z = 0.12;
+            armRest.castShadow = true;
+            person.add(armRest);
 
             // Pose inicial: braço direito relaxado ao lado do corpo
-            shoulderPivot.rotation.z = 0.12;
-            elbowPivot.rotation.z = 0.05;
+            shoulderPivot.rotation.z = 0.1;
 
             person.userData.shoulderPivot = shoulderPivot;
-            person.userData.elbowPivot = elbowPivot;
             return person;
         }
 
@@ -1259,8 +1244,9 @@
             if (activePersonGroup) { sceneDive.remove(activePersonGroup); activePersonGroup = null; }
             if (key === 'forca_vendas') {
                 activePersonGroup = createPersonFigure();
-                activePersonGroup.position.set(-1.85, -1.2, 0.35);
-                activePersonGroup.rotation.y = 0.35;
+                activePersonGroup.scale.set(0.6, 0.6, 0.6);
+                activePersonGroup.position.set(-2.5, -1.9, -1.4);
+                activePersonGroup.rotation.y = 0.5;
                 sceneDive.add(activePersonGroup);
             }
         }
@@ -1305,12 +1291,10 @@
 
             if (serviceKey === 'forca_vendas' && activePersonGroup) {
                 const shoulder = activePersonGroup.userData.shoulderPivot;
-                const elbow = activePersonGroup.userData.elbowPivot;
-                tl.to(shoulder.rotation, { z: -1.55, x: -0.35, duration: 0.7, ease: "power2.out" }, "-=0.3")
-                  .to(elbow.rotation, { z: -0.55, duration: 0.5, ease: "power2.out" }, "-=0.5")
-                  .to({}, { duration: 0.4 })
-                  .to(activePersonGroup.position, { x: -2.6, y: -1.8, z: -0.5, duration: 0.7, ease: "power2.in" })
-                  .to(activePersonGroup.scale, { x: 0.7, y: 0.7, z: 0.7, duration: 0.7, ease: "power2.in" }, "-=0.7");
+                tl.to(shoulder.rotation, { z: -1.9, x: -0.3, duration: 0.7, ease: "power2.out" }, "-=0.3")
+                  .to({}, { duration: 0.5 })
+                  .to(activePersonGroup.position, { x: "-=0.5", y: "-=0.4", z: "-=0.8", duration: 0.6, ease: "power2.in" })
+                  .to(activePersonGroup.scale, { x: "*=0.6", y: "*=0.6", z: "*=0.6", duration: 0.6, ease: "power2.in" }, "-=0.6");
             } else {
                 tl.to({}, { duration: 1.0 });
             }
