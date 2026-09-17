@@ -165,23 +165,7 @@
         }
     </style>
 </head>
-<body class="relative selection:bg-[#3ea62b] selection:text-white pb-20">
-
-    <!-- Sticky Bottom Bar WhatsApp Oficial -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 bg-[#0f172a]/95 border-t border-slate-800 py-3 px-6 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs">
-            <div class="flex items-center gap-3">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse"></span>
-                <span class="text-slate-200">Suporte Técnico Especializado das <strong>06h às 00h</strong> (365 dias no ano).</span>
-            </div>
-            <div class="flex items-center gap-3">
-                <span class="hidden sm:inline text-slate-400">Prefere atendimento direto?</span>
-                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" onclick="return abrirWhatsappBarra(event)" class="px-4 py-2 sn-btn-green text-white font-bold rounded-lg transition flex items-center gap-2 shadow-lg">
-                    <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 62 98158-0060
-                </a>
-            </div>
-        </div>
-    </div>
+<body class="relative selection:bg-[#3ea62b] selection:text-white">
 
     <!-- Header Oficial SN Sistemas -->
     <header class="sticky top-0 z-50 bg-[#0f172a] border-b border-slate-800 shadow-md">
@@ -197,7 +181,7 @@
                 </div>
             </div>
 
-            <nav class="hidden xl:flex items-center gap-7 text-xs font-bold text-slate-300">
+            <nav class="hidden xl:flex items-center gap-7 text-sm font-bold text-slate-300">
                 <a href="#camera-dive" class="nav-link hover:text-white">Demonstração</a>
                 <a href="#nichos-interativos" class="nav-link hover:text-white flex items-center gap-1">
                     Segmentos
@@ -208,7 +192,7 @@
             </nav>
 
             <div class="flex items-center gap-4 shrink-0">
-                <a href="tel:62981580060" class="hidden md:flex items-center gap-2 text-xs font-extrabold text-white hover:text-[#3ea62b] transition">
+                <a href="tel:62981580060" class="hidden md:flex items-center gap-2 text-sm font-extrabold text-white hover:text-[#3ea62b] transition">
                     <i data-lucide="phone" class="w-4 h-4 text-[#3ea62b]"></i>
                     (62) 98158-0060
                 </a>
@@ -221,119 +205,50 @@
     </header>
 
     <!-- HERO OFICIAL COM FRASE DE IMPACTO -->
-    <section class="relative bg-[#ffffff] py-16 px-6 border-b border-slate-200 overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div class="lg:col-span-6 flex flex-col gap-6">
-                <div class="hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[#2f8520] text-xs font-bold w-fit">
-                    <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span>
-                    SISTEMA ERP ESPECIALISTA EM INDÚSTRIAS E DISTRIBUIDORAS
-                </div>
+    <section class="relative bg-[#ffffff] py-20 px-6 border-b border-slate-200 overflow-hidden">
+        <div class="max-w-3xl mx-auto flex flex-col items-center text-center gap-6">
 
-                <h1 class="hero-anim text-4xl sm:text-5xl font-bold text-[#0f172a] leading-[1.15] tracking-tight">
-                    O seu novo software de <span class="text-[#3ea62b]">gestão inteligente</span> e alta precisão.
-                </h1>
-
-                <p class="hero-anim text-slate-600 text-base leading-relaxed">
-                    O <strong>S7 ERP</strong> automatiza processos críticos, corta desperdícios operacionais e alavanca a produtividade da sua equipe. <strong>Mais de 10 anos no mercado</strong> com tecnologia robusta, FEFO nativo e suporte especializado.
-                </p>
-
-                <div class="hero-anim flex flex-wrap items-center gap-4 pt-2">
-                    <button onclick="openModalDemo('hero')" class="px-8 py-4 sn-btn-green text-white font-bold text-sm rounded-lg shadow-lg flex items-center gap-2">
-                        Solicite uma Demonstração
-                    </button>
-                    <a href="#camera-dive" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-sm rounded-lg transition flex items-center gap-2">
-                        <i data-lucide="play" class="w-4 h-4 text-[#3ea62b] fill-current"></i> Ver Demonstração
-                    </a>
-                </div>
-
-                <div class="hero-anim flex items-center gap-2 -mt-2">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#3ea62b] shrink-0"></i>
-                    <span class="text-[11px] text-slate-500 font-medium">Sem compromisso — resposta em minutos pelo WhatsApp</span>
-                </div>
-
-                <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
-                    <div class="hero-anim">
-                        <span class="text-2xl font-black text-[#0f172a] block" id="stat-users">0</span>
-                        <span class="text-xs text-slate-500 font-medium">Usuários ativos</span>
-                    </div>
-                    <div class="hero-anim">
-                        <span class="text-2xl font-black text-[#3ea62b] block" id="stat-states">0 Estados</span>
-                        <span class="text-xs text-slate-500 font-medium">E no exterior</span>
-                    </div>
-                    <div class="hero-anim">
-                        <span class="text-2xl font-black text-[#0f172a] block" id="stat-companies">0</span>
-                        <span class="text-xs text-slate-500 font-medium">Empresas atendidas</span>
-                    </div>
-                </div>
+            <div class="hero-anim inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-[#2f8520] text-sm font-bold w-fit">
+                <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span>
+                Sistema ERP especialista em indústrias e distribuidoras
             </div>
 
-            <!-- Mockup do S7 ERP -->
-            <div class="lg:col-span-6 relative flex items-center justify-center">
-                <div class="relative w-full max-w-lg">
-                    
-                    <div class="bg-white rounded-2xl p-5 shadow-2xl border border-slate-200 transform -rotate-2 hover:rotate-0 transition duration-500">
-                        <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
-                            <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-red-400"></span>
-                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
-                                <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-                                <span class="text-[11px] font-bold text-slate-400 ml-2">Cockpit DRE & Faturamento S7</span>
-                            </div>
-                            <span class="text-[10px] bg-emerald-50 text-[#2f8520] font-bold px-2 py-0.5 rounded">Tempo Real</span>
-                        </div>
+            <h1 class="hero-anim text-4xl sm:text-5xl font-bold text-[#0f172a] leading-[1.15] tracking-tight">
+                O seu novo software de <span class="text-[#3ea62b]">gestão inteligente</span> e alta precisão.
+            </h1>
 
-                        <div class="grid grid-cols-2 gap-3 mb-3">
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <span class="text-[10px] text-slate-500 font-semibold block">Faturamento Bruto:</span>
-                                <span class="text-base font-extrabold text-[#0f172a] block">R$ 1.444.083,51</span>
-                                <span class="text-[9px] text-[#3ea62b] font-bold mt-1 block">▲ +14.2% meta do mês</span>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                <span class="text-[10px] text-slate-500 font-semibold block">Faturamento Líquido:</span>
-                                <span class="text-base font-extrabold text-[#0284c7] block">R$ 1.274.414,94</span>
-                                <span class="text-[9px] text-slate-400 font-bold mt-1 block">Margem: 18.4%</span>
-                            </div>
-                        </div>
+            <p class="hero-anim text-slate-600 text-lg leading-relaxed max-w-2xl">
+                O <strong>S7 ERP</strong> automatiza processos críticos, corta desperdícios operacionais e alavanca a produtividade da sua equipe. <strong>Mais de 10 anos no mercado</strong> com tecnologia robusta, FEFO nativo e suporte especializado.
+            </p>
 
-                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-2">
-                            <span class="text-[10px] font-bold text-slate-600">Evolução de Faturamento por Rota</span>
-                            <div class="h-16 flex items-end gap-2 justify-around pt-2">
-                                <div class="w-7 bg-[#0084FF] rounded-t" style="height: 45%;"></div>
-                                <div class="w-7 bg-[#003B71] rounded-t" style="height: 70%;"></div>
-                                <div class="w-7 bg-[#3ea62b] rounded-t" style="height: 90%;"></div>
-                                <div class="w-7 bg-[#0284c7] rounded-t" style="height: 60%;"></div>
-                                <div class="w-7 bg-[#ea580c] rounded-t" style="height: 85%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute -bottom-8 -right-4 w-[92%] bg-white rounded-2xl p-4 shadow-2xl border border-slate-200 transform rotate-3 hover:rotate-0 transition duration-500 hidden sm:block">
-                        <div class="flex justify-between text-xs font-bold text-[#0f172a] border-b border-slate-100 pb-2 mb-2">
-                            <span>Top 10 Faturamento x Vendedor</span>
-                            <span class="text-[#3ea62b] font-extrabold">FEFO Validado</span>
-                        </div>
-                        <div class="flex flex-col gap-1.5 text-[11px] text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span>1. Carlos Silva (Panificação)</span>
-                                <span class="font-bold text-[#0f172a]">R$ 94.217,00</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-[#3ea62b] h-full" style="width: 88%;"></div>
-                            </div>
-                            <div class="flex justify-between items-center pt-1">
-                                <span>2. Marcos Souza (Perecíveis)</span>
-                                <span class="font-bold text-[#0f172a]">R$ 82.114,50</span>
-                            </div>
-                            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-[#0284c7] h-full" style="width: 76%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="hero-anim flex flex-wrap items-center justify-center gap-4 pt-2">
+                <button onclick="openModalDemo('hero')" class="px-8 py-4 sn-btn-green text-white font-bold text-base rounded-lg shadow-lg flex items-center gap-2">
+                    Marcar Reunião
+                </button>
+                <a href="#camera-dive" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-base rounded-lg transition flex items-center gap-2">
+                    Ver a Demonstração <i data-lucide="arrow-down" class="w-4 h-4 text-[#3ea62b]"></i>
+                </a>
             </div>
 
+            <div class="hero-anim flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#3ea62b] shrink-0"></i>
+                <span class="text-sm text-slate-500 font-medium">Sem compromisso — resposta em minutos pelo WhatsApp</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 pt-6 mt-2 border-t border-slate-200 w-full max-w-xl">
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#0f172a] block" id="stat-users">0</span>
+                    <span class="text-sm text-slate-500 font-medium">Usuários ativos</span>
+                </div>
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#3ea62b] block" id="stat-states">0 Estados</span>
+                    <span class="text-sm text-slate-500 font-medium">E no exterior</span>
+                </div>
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#0f172a] block" id="stat-companies">0</span>
+                    <span class="text-sm text-slate-500 font-medium">Empresas atendidas</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -768,21 +683,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="hover:bg-slate-50/60 transition">
-                                <td class="p-4 font-bold text-[#0f172a]">Suporte em Finais de Semana e Feriados</td>
-                                <td class="p-4 text-[#2f8520] font-bold bg-emerald-50/30">
-                                    <div class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 shrink-0 text-[#3ea62b]"></i>
-                                        <span>Das 06h às 00h (365 dias)</span>
-                                    </div>
-                                </td>
-                                <td class="p-4 text-rose-500">
-                                    <div class="flex items-center gap-2">
-                                        <i data-lucide="x" class="w-4 h-4 shrink-0 text-rose-500"></i>
-                                        <span>Horário comercial padrão (8h às 18h)</span>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -805,7 +705,7 @@
                         <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Mais de 10 anos especializado em indústria e distribuição
                     </div>
                     <div class="flex items-center gap-2.5 text-xs text-slate-600">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Suporte das 06h às 00h, 365 dias no ano
+                        <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Suporte técnico das 8h às 18h
                     </div>
                     <div class="flex items-center gap-2.5 text-xs text-slate-600">
                         <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Resposta pelo WhatsApp em minutos, sem compromisso
@@ -881,7 +781,7 @@
                     <i data-lucide="phone" class="w-3.5 h-3.5 text-[#3ea62b]"></i> (62) 98158-0060
                 </a>
                 <span class="hidden sm:flex items-center gap-1.5">
-                    <i data-lucide="clock" class="w-3.5 h-3.5 text-[#3ea62b]"></i> 06h às 00h, 365 dias
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Suporte das 8h às 18h
                 </span>
             </div>
             <p>© 2026 SN Sistemas. Todos os direitos reservados.</p>
