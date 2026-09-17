@@ -229,6 +229,11 @@
                     </a>
                 </div>
 
+                <div class="flex items-center gap-2 -mt-2">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#3ea62b] shrink-0"></i>
+                    <span class="text-[11px] text-slate-500 font-medium">Sem compromisso — resposta em minutos pelo WhatsApp</span>
+                </div>
+
                 <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
                     <div>
                         <span class="text-2xl font-black text-[#0f172a] block">+7.000</span>
@@ -472,6 +477,13 @@
                 </div>
 
             </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-slate-600"><strong class="text-[#0f172a]">Gostou do que viu?</strong> Peça uma demonstração ao vivo com os dados reais da sua operação.</p>
+                <button onclick="openModalDemo('camera-dive')" class="px-6 py-3 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md shrink-0">
+                    Agendar Demonstração
+                </button>
+            </div>
         </div>
     </section>
 
@@ -580,61 +592,6 @@
         </div>
     </section>
 
-    <!-- AUDITORIA & QUIZ INTERATIVO B2B -->
-    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="diagnostico">
-        <div class="max-w-4xl mx-auto flex flex-col gap-8">
-            <div class="text-center flex flex-col gap-2">
-                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest animate-pulse">⚡ Diagnóstico Gratuito em 30 Segundos</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a]">Descubra Agora Quanto Sua Operação Está Perdendo</h2>
-                <p class="text-slate-600 text-xs">Preencha abaixo e fale <strong>direto com um especialista pelo WhatsApp</strong> — sem espera, sem robô, sem formulário genérico.</p>
-            </div>
-
-            <form onsubmit="return submitDiagnostico(event)" class="bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
-                <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje? <span class="text-slate-400 font-normal">(opcional)</span></span>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button type="button" onclick="selectDiag('desafio', 'Trocas e perda com produtos vencidos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            🥖 Trocas e perda com produtos vencidos
-                        </button>
-                        <button type="button" onclick="selectDiag('desafio', 'Acerto de motoristas e canhotos lentos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            🚚 Acerto de motoristas & canhotos lentos
-                        </button>
-                        <button type="button" onclick="selectDiag('desafio', 'Vendedores sem catálogo ou estoque online', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            📱 Vendedores sem catálogo ou estoque online
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">Qual seu segmento principal? <span class="text-slate-400 font-normal">(opcional)</span></span>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <button type="button" onclick="selectDiag('segmento', 'Panificação', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Panificação
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Perecíveis & Laticínios', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Perecíveis & Laticínios
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Doces & Chocolates', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Doces & Chocolates
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Atacarejo & Bebidas', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Atacarejo & Bebidas
-                        </button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-slate-200">
-                    <input type="text" id="diag-nome" placeholder="Seu Nome" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                    <input type="tel" id="diag-telefone" placeholder="Seu WhatsApp" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                    <button type="submit" class="px-6 py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center justify-center gap-2 animate-pulse">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i> Falar com Especialista
-                    </button>
-                </div>
-                <p class="text-[10px] text-slate-400 text-center">Resposta imediata, direto no seu WhatsApp. Sem compromisso.</p>
-            </form>
-        </div>
-    </section>
-
     <!-- TABELA COMPARATIVA (S7 ERP vs. ERPs GENÉRICOS) -->
     <section class="py-20 px-6 bg-white border-b border-slate-200" id="tabela-comparativa">
         <div class="max-w-5xl mx-auto flex flex-col gap-10">
@@ -737,10 +694,73 @@
         </div>
     </section>
 
+    <!-- FORMULÁRIO DE DIAGNÓSTICO DIRETO -->
+    <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="diagnostico">
+        <div class="max-w-4xl mx-auto flex flex-col gap-8">
+            <div class="text-center flex flex-col gap-2">
+                <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest animate-pulse">⚡ Diagnóstico Gratuito em 30 Segundos</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-[#0f172a]">Descubra Agora Quanto Sua Operação Está Perdendo</h2>
+                <p class="text-slate-600 text-xs">Preencha abaixo e fale <strong>direto com um especialista pelo WhatsApp</strong> — sem espera, sem robô, sem formulário genérico.</p>
+            </div>
+
+            <form onsubmit="return submitDiagnostico(event)" class="bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
+                <div class="flex flex-col gap-3">
+                    <span class="text-xs font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje? <span class="text-slate-400 font-normal">(opcional)</span></span>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button type="button" onclick="selectDiag('desafio', 'Trocas e perda com produtos vencidos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            🥖 Trocas e perda com produtos vencidos
+                        </button>
+                        <button type="button" onclick="selectDiag('desafio', 'Acerto de motoristas e canhotos lentos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            🚚 Acerto de motoristas & canhotos lentos
+                        </button>
+                        <button type="button" onclick="selectDiag('desafio', 'Vendedores sem catálogo ou estoque online', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
+                            📱 Vendedores sem catálogo ou estoque online
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <span class="text-xs font-bold text-[#0f172a]">Qual seu segmento principal? <span class="text-slate-400 font-normal">(opcional)</span></span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button type="button" onclick="selectDiag('segmento', 'Panificação', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Panificação
+                        </button>
+                        <button type="button" onclick="selectDiag('segmento', 'Perecíveis & Laticínios', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Perecíveis & Laticínios
+                        </button>
+                        <button type="button" onclick="selectDiag('segmento', 'Doces & Chocolates', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Doces & Chocolates
+                        </button>
+                        <button type="button" onclick="selectDiag('segmento', 'Atacarejo & Bebidas', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
+                            Atacarejo & Bebidas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-slate-200">
+                    <input type="text" id="diag-nome" placeholder="Seu Nome" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                    <input type="tel" id="diag-telefone" placeholder="Seu WhatsApp" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                    <button type="submit" class="px-6 py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center justify-center gap-2 animate-pulse">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i> Falar com Especialista
+                    </button>
+                </div>
+                <p class="text-[10px] text-slate-400 text-center">Resposta imediata, direto no seu WhatsApp. Sem compromisso.</p>
+            </form>
+        </div>
+    </section>
 
     <!-- Rodapé -->
-    <footer class="bg-[#0f172a] py-12 px-6 text-xs text-slate-400">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+    <footer class="bg-[#0f172a] text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 py-10 border-b border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-5">
+            <div>
+                <h3 class="text-lg font-black text-white">Ainda com dúvidas sobre o S7 ERP?</h3>
+                <p class="text-slate-400 mt-1">Fale agora com um especialista, sem compromisso.</p>
+            </div>
+            <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" onclick="return abrirWhatsappBarra(event, 'rodape')" class="px-6 py-3.5 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg flex items-center gap-2 shrink-0">
+                <i data-lucide="message-circle" class="w-4 h-4"></i> Falar no WhatsApp
+            </a>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2.5">
                 <span class="font-extrabold text-white text-sm">SN SISTEMAS</span>
                 <span>•</span>
@@ -792,10 +812,10 @@
             }
         })();
 
-        function abrirWhatsappBarra(event) {
+        function abrirWhatsappBarra(event, source) {
             event.preventDefault();
             const mensagem = 'Olá, gostaria de solicitar uma demonstração do S7 ERP' + getUtmContext();
-            gtag('event', 'generate_lead', { source: 'barra_fixa', method: 'whatsapp' });
+            gtag('event', 'generate_lead', { source: source || 'barra_fixa', method: 'whatsapp' });
             window.open(`https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`, '_blank');
             return false;
         }
