@@ -1184,7 +1184,14 @@
 
             const tl = gsap.timeline({
                 onComplete: () => {
-                    revealAppExplanation(serviceKey);
+                    // Força de Vendas tem navegação própria (abas, menu) dentro do celular:
+                    // não cobre a tela com o card de explicação, senão trava a interação
+                    if (serviceKey !== 'forca_vendas') {
+                        revealAppExplanation(serviceKey);
+                    } else {
+                        document.getElementById('dive-phase').innerText = "Navegue pelo app";
+                        document.getElementById('dive-title').innerText = "Toque nas abas ou no ícone de menu para explorar";
+                    }
                     isDemoAnimating = false;
                 }
             });
