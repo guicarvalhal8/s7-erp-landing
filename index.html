@@ -963,21 +963,72 @@
             forca_vendas: {
                 frame: 'frame-phone',
                 html: `
-                    <div class="w-full h-full flex flex-col">
-                        <div class="screen-anim bg-[#0f172a] px-4 pt-5 pb-3 border-b border-slate-800">
-                            <h5 class="text-white font-bold text-sm">FORÇA DE VENDAS</h5>
-                            <span class="text-[#3ea62b] text-xs font-semibold">Supermercado Central</span>
+                    <div class="w-full h-full flex flex-col relative overflow-hidden bg-white">
+                        <div class="screen-anim bg-[#3ea62b] px-3 pt-4 pb-0 relative z-10">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <button type="button" onclick="fvToggleMenu(event)" class="text-white"><i data-lucide="menu" class="w-4 h-4"></i></button>
+                                    <i data-lucide="smartphone" class="w-3.5 h-3.5 text-white"></i>
+                                    <h5 class="text-white font-bold text-xs">S7 Mobile</h5>
+                                </div>
+                                <i data-lucide="filter" class="w-3.5 h-3.5 text-white"></i>
+                            </div>
+                            <div class="flex gap-4 text-[10.5px] font-bold text-white">
+                                <button type="button" onclick="fvSwitchTab('enviados')" id="fv-tab-enviados" class="pb-2 border-b-2 border-white">ENVIADOS</button>
+                                <button type="button" onclick="fvSwitchTab('pendentes')" id="fv-tab-pendentes" class="pb-2 text-white/60 border-b-2 border-transparent">PENDENTES</button>
+                            </div>
                         </div>
-                        <div class="flex-1 p-4 flex flex-col gap-3">
-                            <div class="screen-anim bg-slate-800 rounded-xl p-3 flex gap-3 items-center">
-                                <div class="w-14 h-14 rounded-lg bg-[#ea580c] shrink-0"></div>
-                                <div>
-                                    <h6 class="text-white font-bold text-xs">PÃO FRANCÊS 10KG</h6>
-                                    <span class="text-[#3ea62b] text-[11px] font-semibold">R$ 64,50 • Estoque: 420 cx</span>
+
+                        <div class="flex-1 overflow-y-auto bg-slate-50">
+                            <div id="fv-list-enviados" class="flex flex-col">
+                                <div class="screen-anim border-l-4 border-emerald-400 bg-white m-2 p-2.5 rounded-md shadow-sm">
+                                    <div class="text-[10.5px] font-bold text-slate-800">Mercado Bom Preço</div>
+                                    <div class="text-[9px] text-slate-500">Pedido 5521 • 12 itens</div>
+                                    <div class="text-[10.5px] font-extrabold text-[#2f8520] mt-0.5">R$ 2.340,00</div>
+                                </div>
+                                <div class="screen-anim border-l-4 border-emerald-400 bg-white m-2 p-2.5 rounded-md shadow-sm">
+                                    <div class="text-[10.5px] font-bold text-slate-800">Padaria Trigo Dourado</div>
+                                    <div class="text-[9px] text-slate-500">Pedido 5519 • 8 itens</div>
+                                    <div class="text-[10.5px] font-extrabold text-[#2f8520] mt-0.5">R$ 1.180,50</div>
+                                </div>
+                                <div class="screen-anim border-l-4 border-emerald-400 bg-white m-2 p-2.5 rounded-md shadow-sm">
+                                    <div class="text-[10.5px] font-bold text-slate-800">Supermercado Vitória</div>
+                                    <div class="text-[9px] text-slate-500">Pedido 5516 • 15 itens</div>
+                                    <div class="text-[10.5px] font-extrabold text-[#2f8520] mt-0.5">R$ 3.760,00</div>
                                 </div>
                             </div>
-                            <div class="flex-1"></div>
-                            <div class="screen-anim w-full py-3 bg-[#3ea62b] rounded-lg text-white font-bold text-xs text-center">TRANSMITIR PEDIDO SEFAZ</div>
+                            <div id="fv-list-pendentes" class="hidden flex-col">
+                                <div class="border-l-4 border-amber-400 bg-white m-2 p-2.5 rounded-md shadow-sm">
+                                    <div class="text-[10.5px] font-bold text-slate-800">Distribuidora Central</div>
+                                    <div class="text-[9px] text-slate-500">Pedido 5524 • 6 itens</div>
+                                    <div class="text-[10.5px] font-extrabold text-amber-600 mt-0.5">R$ 940,00</div>
+                                </div>
+                                <div class="border-l-4 border-amber-400 bg-white m-2 p-2.5 rounded-md shadow-sm">
+                                    <div class="text-[10.5px] font-bold text-slate-800">Mercadinho da Praça</div>
+                                    <div class="text-[9px] text-slate-500">Pedido 5523 • 4 itens</div>
+                                    <div class="text-[10.5px] font-extrabold text-amber-600 mt-0.5">R$ 560,00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="fv-drawer" class="hidden absolute inset-0 z-20 bg-black/30" onclick="fvToggleMenu(event)">
+                            <div class="w-[80%] h-full bg-white flex flex-col" onclick="event.stopPropagation()">
+                                <div class="bg-[#3ea62b] p-4 flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-white/25 flex items-center justify-center text-white shrink-0"><i data-lucide="user" class="w-5 h-5"></i></div>
+                                    <div>
+                                        <div class="text-white font-bold text-[10.5px] leading-tight">Roberto Almeida Santos</div>
+                                        <div class="text-white/80 text-[9px] leading-tight">Distribuidora Sabor & Cia</div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col text-[10.5px] font-semibold text-slate-700">
+                                    <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100"><i data-lucide="user" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Clientes</div>
+                                    <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100"><i data-lucide="users" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Pré-Cadastro</div>
+                                    <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100"><i data-lucide="dollar-sign" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Clientes/Preços</div>
+                                    <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100"><i data-lucide="bar-chart" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Relatórios</div>
+                                    <div class="flex items-center gap-3 px-4 py-3 border-b border-slate-100"><i data-lucide="globe" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Comunicação</div>
+                                    <div class="flex items-center gap-3 px-4 py-3"><i data-lucide="settings" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Configurações</div>
+                                </div>
+                            </div>
                         </div>
                     </div>`
             },
@@ -1075,6 +1126,27 @@
                     </div>`
             }
         };
+
+        // Navegação dentro do mockup do S7 Mobile (Força de Vendas): troca de aba e menu lateral
+        function fvSwitchTab(tab) {
+            const tabEnviados = document.getElementById('fv-tab-enviados');
+            const tabPendentes = document.getElementById('fv-tab-pendentes');
+            if (!tabEnviados || !tabPendentes) return;
+            tabEnviados.classList.toggle('border-white', tab === 'enviados');
+            tabEnviados.classList.toggle('border-transparent', tab !== 'enviados');
+            tabEnviados.classList.toggle('text-white/60', tab !== 'enviados');
+            tabPendentes.classList.toggle('border-white', tab === 'pendentes');
+            tabPendentes.classList.toggle('border-transparent', tab !== 'pendentes');
+            tabPendentes.classList.toggle('text-white/60', tab !== 'pendentes');
+            document.getElementById('fv-list-enviados').classList.toggle('hidden', tab !== 'enviados');
+            document.getElementById('fv-list-pendentes').classList.toggle('hidden', tab !== 'pendentes');
+        }
+
+        function fvToggleMenu(event) {
+            if (event) event.stopPropagation();
+            const drawer = document.getElementById('fv-drawer');
+            if (drawer) drawer.classList.toggle('hidden');
+        }
 
         function showAppDemo(serviceKey, btnElement) {
             if (isDemoAnimating) return;
