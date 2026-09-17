@@ -1092,8 +1092,72 @@
 
         let sceneDive, cameraDive, rendererDive;
         let activeDeviceGroup, activeScreenMesh, contactShadowMesh;
+        let activePersonGroup = null;
         let isAnimating = false;
         let isUserInteracting = false;
+
+        // Figura humana estilizada (baixo-poli, sem rosto/roupa detalhada) que interage
+        // com o dispositivo antes do zoom para a explicação. Braço articulado por dois
+        // pivôs (ombro e cotovelo) para poder "erguer e tocar" a tela com GSAP.
+        function createPersonFigure() {
+            const person = new THREE.Group();
+            const skinMat = new THREE.MeshStandardMaterial({ color: 0xc9a888, roughness: 0.65, metalness: 0.02 });
+            const shirtMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.55, metalness: 0.05 });
+
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 20, 20), skinMat);
+            head.position.y = 1.55;
+            head.castShadow = true;
+            person.add(head);
+
+            const torso = new THREE.Mesh(createRoundedBoxGeometry(1.15, 1.6, 0.6, 0.2), shirtMat);
+            torso.position.y = 0.45;
+            torso.castShadow = true;
+            person.add(torso);
+
+            // Braço que se ergue para tocar a tela: ombro (pivô 1) -> braço -> cotovelo (pivô 2) -> antebraço + mão
+            const shoulderPivot = new THREE.Group();
+            shoulderPivot.position.set(0.62, 1.05, 0.12);
+            person.add(shoulderPivot);
+
+            const upperArm = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.12, 0.68, 12), shirtMat);
+            upperArm.position.y = -0.34;
+            upperArm.castShadow = true;
+            shoulderPivot.add(upperArm);
+
+            const elbowPivot = new THREE.Group();
+            elbowPivot.position.y = -0.68;
+            shoulderPivot.add(elbowPivot);
+
+            const forearm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.62, 12), skinMat);
+            forearm.position.y = -0.31;
+            forearm.castShadow = true;
+            elbowPivot.add(forearm);
+
+            const hand = new THREE.Mesh(new THREE.SphereGeometry(0.115, 14, 14), skinMat);
+            hand.position.y = -0.66;
+            hand.castShadow = true;
+            elbowPivot.add(hand);
+
+            // Braço de apoio, parado ao longo do corpo
+            const shoulderPivot2 = new THREE.Group();
+            shoulderPivot2.position.set(-0.62, 1.05, 0.12);
+            person.add(shoulderPivot2);
+            const upperArm2 = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.12, 0.68, 12), shirtMat);
+            upperArm2.position.y = -0.34;
+            shoulderPivot2.add(upperArm2);
+            const forearm2 = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.6, 12), skinMat);
+            forearm2.position.y = -0.66;
+            forearm2.rotation.z = 0.1;
+            shoulderPivot2.add(forearm2);
+
+            // Pose inicial: braço direito relaxado ao lado do corpo
+            shoulderPivot.rotation.z = 0.12;
+            elbowPivot.rotation.z = 0.05;
+
+            person.userData.shoulderPivot = shoulderPivot;
+            person.userData.elbowPivot = elbowPivot;
+            return person;
+        }
 
         function createDeviceModel(serviceKey) {
             const group = new THREE.Group();
@@ -1191,6 +1255,14 @@
             if (activeDeviceGroup) sceneDive.remove(activeDeviceGroup);
             activeDeviceGroup = createDeviceModel(key);
             sceneDive.add(activeDeviceGroup);
+
+            if (activePersonGroup) { sceneDive.remove(activePersonGroup); activePersonGroup = null; }
+            if (key === 'forca_vendas') {
+                activePersonGroup = createPersonFigure();
+                activePersonGroup.position.set(-1.85, -1.2, 0.35);
+                activePersonGroup.rotation.y = 0.35;
+                sceneDive.add(activePersonGroup);
+            }
         }
 
         function triggerServiceAnimation(serviceKey, btnElement) {
@@ -1222,14 +1294,28 @@
             tl.call(() => {
                 dot.className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
                 phase.innerText = "Ato 1: Enquadramento";
-                title.innerText = "Exibindo interface do sistema...";
+                title.innerText = serviceKey === 'forca_vendas'
+                    ? "Vendedor emitindo o pedido em campo..."
+                    : "Exibindo interface do sistema...";
             })
             .set(cameraDive.position, { x: 0, y: 0, z: 9 })
             .set(activeDeviceGroup.rotation, { y: 0.3, x: 0.1 })
             .to(cameraDive.position, { z: 6.2, duration: 1.2, ease: "power2.out", onUpdate: () => cameraDive.lookAt(0, 0, 0) })
-            .to(activeDeviceGroup.rotation, { y: 0, x: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.6")
-            .to({}, { duration: 1.0 })
-            .call(() => {
+            .to(activeDeviceGroup.rotation, { y: 0, x: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.6");
+
+            if (serviceKey === 'forca_vendas' && activePersonGroup) {
+                const shoulder = activePersonGroup.userData.shoulderPivot;
+                const elbow = activePersonGroup.userData.elbowPivot;
+                tl.to(shoulder.rotation, { z: -1.55, x: -0.35, duration: 0.7, ease: "power2.out" }, "-=0.3")
+                  .to(elbow.rotation, { z: -0.55, duration: 0.5, ease: "power2.out" }, "-=0.5")
+                  .to({}, { duration: 0.4 })
+                  .to(activePersonGroup.position, { x: -2.6, y: -1.8, z: -0.5, duration: 0.7, ease: "power2.in" })
+                  .to(activePersonGroup.scale, { x: 0.7, y: 0.7, z: 0.7, duration: 0.7, ease: "power2.in" }, "-=0.7");
+            } else {
+                tl.to({}, { duration: 1.0 });
+            }
+
+            tl.call(() => {
                 dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping";
                 phase.innerText = "Ato 2: Mergulho na Tela";
                 title.innerText = "Cruzando para a inteligência de processos...";
@@ -1259,10 +1345,12 @@
             const overlay = document.getElementById('dive-overlay');
             overlay.classList.add('opacity-0', 'scale-90');
             overlay.classList.remove('opacity-100', 'scale-100');
-            
+
             // Permite que o mouse clique e arraste pelo canvas através do container
             overlay.classList.remove('pointer-events-auto');
             overlay.classList.add('pointer-events-none');
+
+            if (activePersonGroup) activePersonGroup.visible = false;
 
             gsap.to(cameraDive.position, {
                 x: 0,
@@ -1300,6 +1388,8 @@
             overlay.classList.remove('opacity-100', 'scale-100');
             overlay.classList.remove('pointer-events-auto');
             overlay.classList.add('pointer-events-none');
+
+            if (activePersonGroup) activePersonGroup.visible = false;
 
             isUserInteracting = true;
             const container = document.getElementById('dive-container');
