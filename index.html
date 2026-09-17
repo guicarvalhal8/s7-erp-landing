@@ -698,16 +698,16 @@
                     <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span> Diagnóstico gratuito em 30 segundos
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-[#0f172a] leading-tight">Descubra Agora Quanto Sua Operação Está Perdendo</h2>
-                <p class="text-slate-600 text-sm leading-relaxed">Preencha ao lado e fale <strong>direto com um especialista pelo WhatsApp</strong> — sem espera, sem robô, sem formulário genérico.</p>
+                <p class="text-slate-600 text-base leading-relaxed">Escolha seu maior desafio e veja na hora uma estimativa de retorno. Depois é só falar <strong>direto com um especialista pelo WhatsApp</strong>.</p>
 
                 <div class="flex flex-col gap-3 pt-4 border-t border-slate-200">
-                    <div class="flex items-center gap-2.5 text-xs text-slate-600">
+                    <div class="flex items-center gap-2.5 text-sm text-slate-600">
                         <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Mais de 10 anos especializado em indústria e distribuição
                     </div>
-                    <div class="flex items-center gap-2.5 text-xs text-slate-600">
+                    <div class="flex items-center gap-2.5 text-sm text-slate-600">
                         <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Suporte técnico das 8h às 18h
                     </div>
-                    <div class="flex items-center gap-2.5 text-xs text-slate-600">
+                    <div class="flex items-center gap-2.5 text-sm text-slate-600">
                         <i data-lucide="check-circle" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Resposta pelo WhatsApp em minutos, sem compromisso
                     </div>
                 </div>
@@ -715,46 +715,34 @@
 
             <form onsubmit="return submitDiagnostico(event)" class="reveal-up lg:col-span-7 bg-white p-8 rounded-2xl border-2 border-[#3ea62b] shadow-xl flex flex-col gap-6">
                 <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje? <span class="text-slate-400 font-normal">(opcional)</span></span>
+                    <span class="text-sm font-bold text-[#0f172a]">Qual o maior desafio da sua rotina hoje?</span>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <button type="button" onclick="selectDiag('desafio', 'Trocas e perda com produtos vencidos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            🥖 Trocas e perda com produtos vencidos
+                        <button type="button" onclick="selectDesafio('validade', this)" class="diag-btn-desafio p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-sm font-semibold text-slate-700 transition flex items-center gap-2.5">
+                            <i data-lucide="package-x" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Trocas e perda com produtos vencidos
                         </button>
-                        <button type="button" onclick="selectDiag('desafio', 'Acerto de motoristas e canhotos lentos', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            🚚 Acerto de motoristas & canhotos lentos
+                        <button type="button" onclick="selectDesafio('canhoto', this)" class="diag-btn-desafio p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-sm font-semibold text-slate-700 transition flex items-center gap-2.5">
+                            <i data-lucide="truck" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Acerto de motoristas e canhotos lentos
                         </button>
-                        <button type="button" onclick="selectDiag('desafio', 'Vendedores sem catálogo ou estoque online', this)" class="diag-btn-desafio p-3.5 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-xs font-semibold text-slate-700 transition">
-                            📱 Vendedores sem catálogo ou estoque online
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <span class="text-xs font-bold text-[#0f172a]">Qual seu segmento principal? <span class="text-slate-400 font-normal">(opcional)</span></span>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <button type="button" onclick="selectDiag('segmento', 'Panificação', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Panificação
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Perecíveis & Laticínios', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Perecíveis & Laticínios
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Doces & Chocolates', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Doces & Chocolates
-                        </button>
-                        <button type="button" onclick="selectDiag('segmento', 'Atacarejo & Bebidas', this)" class="diag-btn-segmento p-3 rounded-lg border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-center text-xs font-semibold text-slate-700 transition">
-                            Atacarejo & Bebidas
+                        <button type="button" onclick="selectDesafio('vendas', this)" class="diag-btn-desafio p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-[#3ea62b] text-left text-sm font-semibold text-slate-700 transition flex items-center gap-2.5">
+                            <i data-lucide="smartphone" class="w-4 h-4 text-[#3ea62b] shrink-0"></i> Vendedores sem catálogo ou estoque online
                         </button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-slate-200">
-                    <input type="text" id="diag-nome" placeholder="Seu Nome" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                    <input type="tel" id="diag-telefone" placeholder="Seu WhatsApp" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-xs text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
-                    <button type="submit" class="px-6 py-3.5 sn-btn-green text-white font-bold text-sm rounded-lg shadow-lg flex items-center justify-center gap-2 animate-pulse">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i> Falar com Especialista
-                    </button>
+                <div id="diag-resultado" class="hidden p-5 rounded-2xl bg-[#0f172a] text-white flex flex-col gap-1.5">
+                    <span class="text-xs uppercase font-extrabold text-[#3ea62b] tracking-wider">Resultado do Diagnóstico</span>
+                    <h4 class="text-lg font-extrabold text-white" id="diag-res-titulo">—</h4>
+                    <p class="text-sm text-slate-300" id="diag-res-desc">—</p>
                 </div>
-                <p class="text-[10px] text-slate-400 text-center">Resposta imediata, direto no seu WhatsApp. Sem compromisso.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-5 border-t border-slate-200">
+                    <input type="text" id="diag-nome" placeholder="Seu Nome" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                    <input type="tel" id="diag-telefone" placeholder="Seu WhatsApp" required class="bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-sm text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                </div>
+                <button type="submit" class="px-6 py-4 sn-btn-green text-white font-bold text-base rounded-lg shadow-lg flex items-center justify-center gap-2">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> Falar com Especialista
+                </button>
+                <p class="text-xs text-slate-400 text-center">Resposta imediata, direto no seu WhatsApp. Sem compromisso.</p>
             </form>
         </div>
     </section>
@@ -1175,19 +1163,42 @@
         // =========================================================================
         // 3. FORMULÁRIO DE DIAGNÓSTICO DIRETO
         // =========================================================================
-        let diagState = { desafio: null, segmento: null };
-        function selectDiag(type, value, btn) {
-            diagState[type] = value;
-            const groupSelector = '.diag-btn-' + type;
-            document.querySelectorAll(groupSelector).forEach(b => {
-                b.className = b.className.replace(/border-\[#3ea62b\]|bg-\[#0f172a\]|text-white/g, '').trim();
+        const diagResults = {
+            validade: {
+                titulo: "Potencial de Recuperação: R$ 42.000 a R$ 90.000 / mês",
+                desc: "Módulos indicados: WMS (Separação Cega FEFO) + Controle de Lote.",
+                label: "Trocas e perda com produtos vencidos"
+            },
+            canhoto: {
+                titulo: "Potencial de Recuperação: 180 horas e R$ 28.000 / mês",
+                desc: "Módulos indicados: Gestor de Entregas (Canhoto Digital) + Roteirizador IA.",
+                label: "Acerto de motoristas e canhotos lentos"
+            },
+            vendas: {
+                titulo: "Potencial de Crescimento: +35% em Recompras B2B",
+                desc: "Módulos indicados: Força de Vendas Offline + Portal B2B do Lojista.",
+                label: "Vendedores sem catálogo ou estoque online"
+            }
+        };
+        let diagSelectedKey = null;
+
+        function selectDesafio(key, btn) {
+            diagSelectedKey = key;
+            document.querySelectorAll('.diag-btn-desafio').forEach(b => {
+                b.classList.remove('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
                 b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
             });
-
             btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
             btn.classList.add('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
-
             gsap.fromTo(btn, { scale: 0.95 }, { scale: 1, duration: 0.3, ease: 'back.out(3)' });
+
+            const data = diagResults[key];
+            const res = document.getElementById('diag-resultado');
+            document.getElementById('diag-res-titulo').innerText = data.titulo;
+            document.getElementById('diag-res-desc').innerText = data.desc;
+            res.classList.remove('hidden');
+            gsap.fromTo(res, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+            gtag('event', 'diag_result_shown', { desafio: key });
         }
 
         function submitDiagnostico(event) {
@@ -1195,15 +1206,20 @@
             const nome = document.getElementById('diag-nome').value.trim();
             const telefone = document.getElementById('diag-telefone').value.trim();
 
-            let mensagem = `Olá! Quero um diagnóstico gratuito da minha operação.\n\nNome: ${nome}\nWhatsApp: ${telefone}`;
-            if (diagState.desafio) mensagem += `\nMaior desafio: ${diagState.desafio}`;
-            if (diagState.segmento) mensagem += `\nSegmento: ${diagState.segmento}`;
+            let mensagem = `Olá! Fiz o diagnóstico gratuito no site e quero saber mais.\n\nNome: ${nome}\nWhatsApp: ${telefone}`;
+            if (diagSelectedKey) mensagem += `\nDesafio: ${diagResults[diagSelectedKey].label}`;
             mensagem += getUtmContext();
 
             const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
-            gtag('event', 'generate_lead', { source: 'diagnostico', method: 'whatsapp', desafio: diagState.desafio, segmento: diagState.segmento });
+            gtag('event', 'generate_lead', { source: 'diagnostico', method: 'whatsapp', desafio: diagSelectedKey });
             window.open(url, '_blank');
             event.target.reset();
+            document.getElementById('diag-resultado').classList.add('hidden');
+            document.querySelectorAll('.diag-btn-desafio').forEach(b => {
+                b.classList.remove('border-[#3ea62b]', 'bg-[#0f172a]', 'text-white', 'shadow-md');
+                b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+            });
+            diagSelectedKey = null;
             return false;
         }
 
