@@ -130,6 +130,37 @@
             color: #cbd5e1 !important;
         }
 
+        .device-frame {
+            position: relative;
+            background: #0f172a;
+            border: 10px solid #1e293b;
+            box-shadow: 0 25px 60px -15px rgba(0,0,0,0.6);
+            overflow: hidden;
+            margin: 0 auto;
+            transition: width 0.4s ease, height 0.4s ease, border-radius 0.4s ease;
+        }
+        .device-frame.frame-phone {
+            width: 260px;
+            height: 480px;
+            border-radius: 2.25rem;
+        }
+        .device-frame.frame-tablet {
+            width: 420px;
+            height: 320px;
+            border-radius: 1.5rem;
+        }
+        .device-frame.frame-monitor {
+            width: 480px;
+            height: 280px;
+            border-radius: 0.75rem;
+            border-width: 14px;
+        }
+        @media (max-width: 480px) {
+            .device-frame.frame-phone { width: 220px; height: 410px; }
+            .device-frame.frame-tablet { width: 300px; height: 230px; }
+            .device-frame.frame-monitor { width: 300px; height: 175px; }
+        }
+
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -186,7 +217,7 @@
             </div>
 
             <nav class="hidden xl:flex items-center gap-7 text-xs font-bold text-slate-300">
-                <a href="#camera-dive" class="nav-link hover:text-white">Soluções 3D</a>
+                <a href="#camera-dive" class="nav-link hover:text-white">Demonstração</a>
                 <a href="#nichos-interativos" class="nav-link hover:text-white flex items-center gap-1">
                     Segmentos
                     <span class="w-1.5 h-1.5 rounded-full bg-[#3ea62b]"></span>
@@ -231,7 +262,7 @@
                         Solicite uma Demonstração
                     </button>
                     <a href="#camera-dive" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-sm rounded-lg transition flex items-center gap-2">
-                        <i data-lucide="play" class="w-4 h-4 text-[#3ea62b] fill-current"></i> Ver Sistema em 3D
+                        <i data-lucide="play" class="w-4 h-4 text-[#3ea62b] fill-current"></i> Ver Demonstração
                     </a>
                 </div>
 
@@ -325,42 +356,35 @@
         </div>
     </section>
 
-    <!-- NÚCLEO 1: CAMERA DIVE / INFINITE ZOOM NOS 5 APPS NATIVOS -->
+    <!-- NÚCLEO 1: DEMONSTRAÇÃO ANIMADA DOS 5 APPS NATIVOS (HTML/CSS, sem 3D) -->
     <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="camera-dive">
         <div class="max-w-7xl mx-auto flex flex-col gap-10">
             <div class="reveal-up flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <span class="text-sm font-semibold text-[#2f8520] flex items-center gap-1.5">
-                        <i data-lucide="scan-eye" class="w-4 h-4"></i> Demonstração guiada em 3 atos
+                        <i data-lucide="play-circle" class="w-4 h-4"></i> Demonstração animada
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-[#0f172a] mt-1">Conheça os 5 Aplicativos Móveis Nativos</h2>
-                    <p class="text-slate-600 text-xs mt-1">A câmera enquadra o dispositivo (Zoom 1), mergulha na tela (Zoom 2) e revela como a ferramenta protege seu caixa.</p>
+                    <p class="text-slate-600 text-xs mt-1">Selecione um app: a tela anima mostrando o fluxo real de uso e depois revela o impacto operacional comprovado.</p>
                 </div>
 
-                <button onclick="resetGeneralView()" class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-xs font-bold text-[#0f172a] transition flex items-center gap-2 shadow-sm">
-                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Vista Isométrica Geral
+                <button onclick="replayAppDemo()" class="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-xs font-bold text-[#0f172a] transition flex items-center gap-2 shadow-sm">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-[#3ea62b]"></i> Reiniciar Demonstração
                 </button>
             </div>
 
-            <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">1</span>
                     <div>
-                        <h5 class="text-xs font-bold text-[#0f172a]">Enquadramento</h5>
-                        <span class="text-[10px] text-slate-500">A câmera localiza o dispositivo na cena</span>
+                        <h5 class="text-xs font-bold text-[#0f172a]">Simulação da tela</h5>
+                        <span class="text-[10px] text-slate-500">Os elementos do app aparecem em sequência, como no uso real</span>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">2</span>
                     <div>
-                        <h5 class="text-xs font-bold text-[#0f172a]">Mergulho</h5>
-                        <span class="text-[10px] text-slate-500">Zoom na tela, mostrando o app em uso</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
-                    <span class="w-7 h-7 rounded-lg bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">3</span>
-                    <div>
-                        <h5 class="text-xs font-bold text-[#0f172a]">Revelação</h5>
+                        <h5 class="text-xs font-bold text-[#0f172a]">Resultado comprovado</h5>
                         <span class="text-[10px] text-slate-500">O impacto operacional real, com métricas</span>
                     </div>
                 </div>
@@ -372,20 +396,20 @@
                     <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Selecione o Aplicativo para Testar:</span>
 
                     <div class="flex flex-col gap-2.5">
-                        <button onclick="triggerServiceAnimation('forca_vendas', this)" class="dive-btn active p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                        <button onclick="showAppDemo('forca_vendas', this)" class="dive-btn active p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-lg bg-emerald-50 text-[#3ea62b] flex items-center justify-center font-bold shrink-0">
                                     <i data-lucide="smartphone" class="w-4 h-4"></i>
                                 </div>
                                 <div>
                                     <h4 class="text-xs font-bold text-[#0f172a]">1. Força de Vendas</h4>
-                                    <span class="text-[10px] text-slate-500">Smartphone 3D com Catálogo Offline</span>
+                                    <span class="text-[10px] text-slate-500">Smartphone com Catálogo Offline</span>
                                 </div>
                             </div>
                             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
                         </button>
 
-                        <button onclick="triggerServiceAnimation('gestor_entregas', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                        <button onclick="showAppDemo('gestor_entregas', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-lg bg-amber-50 text-[#ea580c] flex items-center justify-center font-bold shrink-0">
                                     <i data-lucide="truck" class="w-4 h-4"></i>
@@ -398,7 +422,7 @@
                             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
                         </button>
 
-                        <button onclick="triggerServiceAnimation('portal_b2b', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                        <button onclick="showAppDemo('portal_b2b', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-lg bg-sky-50 text-[#0284c7] flex items-center justify-center font-bold shrink-0">
                                     <i data-lucide="tablet" class="w-4 h-4"></i>
@@ -411,7 +435,7 @@
                             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
                         </button>
 
-                        <button onclick="triggerServiceAnimation('wms', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                        <button onclick="showAppDemo('wms', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold shrink-0">
                                     <i data-lucide="scan-barcode" class="w-4 h-4"></i>
@@ -424,7 +448,7 @@
                             <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 group-hover:text-[#3ea62b]"></i>
                         </button>
 
-                        <button onclick="triggerServiceAnimation('bi', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
+                        <button onclick="showAppDemo('bi', this)" class="dive-btn p-3.5 rounded-xl border border-slate-200 text-left flex items-center justify-between group transition hover:border-[#3ea62b]">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0">
                                     <i data-lucide="monitor" class="w-4 h-4"></i>
@@ -444,24 +468,18 @@
                     </div>
                 </div>
 
-                <!-- Container 3D do Camera Dive com Área de Arraste Total -->
-                <div id="dive-container" class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-slate-200 bg-[#0f172a] shadow-xl flex items-center justify-center min-h-[520px] select-none">
-                    
+                <!-- Área de demonstração: mockup de tela em HTML/CSS, sem 3D/WebGL -->
+                <div id="dive-container" class="lg:col-span-8 relative rounded-2xl overflow-hidden border border-slate-200 bg-[#0f172a] shadow-xl flex items-center justify-center min-h-[520px] select-none p-8">
+
                     <div class="absolute top-4 left-4 z-20 sn-glass px-3.5 py-1.5 rounded-xl border border-slate-700 flex items-center gap-2.5 shadow-lg pointer-events-none">
                         <span class="w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse" id="dive-status-dot"></span>
                         <div>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block" id="dive-phase">Ato 1: Enquadramento</span>
-                            <h4 class="text-xs font-bold text-white" id="dive-title">Visualizando Dispositivo em 3D</h4>
+                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest block" id="dive-phase">Simulação da tela</span>
+                            <h4 class="text-xs font-bold text-white" id="dive-title">Veja o app em uso...</h4>
                         </div>
                     </div>
 
-                    <!-- Badge informativa para quando o usuário puder girar o mouse -->
-                    <div id="interactive-hint" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 sn-glass px-4 py-2 rounded-lg border border-emerald-500/50 flex items-center gap-2 shadow-2xl opacity-0 pointer-events-none transition-all duration-300">
-                        <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-[#3ea62b] animate-bounce"></i>
-                        <span class="text-xs font-bold text-emerald-300">Clique e arraste em qualquer lugar para girar | Roda para Zoom</span>
-                    </div>
-
-                    <!-- Overlay de Texto Revelado no Ato 3 -->
+                    <!-- Overlay de texto revelado após a simulação da tela -->
                     <div id="dive-overlay" class="absolute inset-0 z-20 flex items-center justify-center p-6 pointer-events-none opacity-0 scale-90 transition-all duration-500">
                         <div class="max-w-lg w-full bg-[#0f172a]/95 border-2 border-[#3ea62b] rounded-3xl p-7 shadow-2xl flex flex-col gap-4 pointer-events-auto backdrop-blur-md">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -474,7 +492,7 @@
                                         <h3 class="text-base font-extrabold text-white" id="dive-card-title">Elimina a Ruptura de Estoque no PDV</h3>
                                     </div>
                                 </div>
-                                <button onclick="revisitDeviceScreen()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="Voltar e explorar dispositivo">
+                                <button onclick="replayAppDemo()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition" title="Ver a simulação novamente">
                                     <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                                 </button>
                             </div>
@@ -496,14 +514,16 @@
 
                             <div class="flex items-center justify-between pt-2 border-t border-slate-800">
                                 <span class="text-[10px] text-slate-400">Nativo ao S7 ERP</span>
-                                <button onclick="revisitDeviceScreen()" class="text-xs font-bold text-[#3ea62b] hover:underline flex items-center gap-1">
-                                    ← Voltar e Mexer no Dispositivo
+                                <button onclick="replayAppDemo()" class="text-xs font-bold text-[#3ea62b] hover:underline flex items-center gap-1">
+                                    ← Ver a Simulação Novamente
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <canvas id="dive-canvas" class="w-full h-full block" style="min-height: 520px;"></canvas>
+                    <div id="device-frame" class="device-frame frame-phone">
+                        <div id="app-screen" class="w-full h-full"></div>
+                    </div>
                 </div>
 
             </div>
@@ -1001,54 +1021,6 @@
             }
         };
 
-        function generateDeviceScreenTexture(serviceKey) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 1024;
-            const ctx = canvas.getContext('2d');
-
-            if (serviceKey === 'forca_vendas') {
-                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 140);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('FORÇA DE VENDAS', 35, 70);
-                ctx.font = '22px sans-serif'; ctx.fillStyle = '#3ea62b'; ctx.fillText('Supermercado Central', 35, 110);
-                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 160, 452, 230);
-                ctx.fillStyle = '#ea580c'; ctx.fillRect(50, 180, 120, 120);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 28px sans-serif'; ctx.fillText('PÃO FRANCÊS 10KG', 190, 220);
-                ctx.fillStyle = '#3ea62b'; ctx.font = '24px sans-serif'; ctx.fillText('R$ 64,50 • Estoque: 420 cx', 190, 260);
-                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 880, 452, 90);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('TRANSMITIR PEDIDO SEFAZ', 60, 935);
-            } else if (serviceKey === 'gestor_entregas') {
-                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 1024);
-                ctx.fillStyle = '#ea580c'; ctx.fillRect(0, 0, 512, 120);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 32px sans-serif'; ctx.fillText('GESTOR DE ENTREGAS GPS', 30, 70);
-                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 150, 452, 380);
-                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 560, 452, 260);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('CANHOTO ELETRÔNICO', 60, 620);
-                ctx.font = '22px sans-serif'; ctx.fillText('Assinatura & Foto OK', 60, 670);
-            } else if (serviceKey === 'portal_b2b') {
-                canvas.width = 1024; canvas.height = 680;
-                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 1024, 680);
-                ctx.fillStyle = '#3ea62b'; ctx.font = 'bold 36px sans-serif'; ctx.fillText('PORTAL DO LOJISTA B2B 24H', 40, 70);
-                for (let i = 0; i < 3; i++) {
-                    ctx.fillStyle = '#1e293b'; ctx.fillRect(40 + (i * 320), 140, 290, 480);
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 24px sans-serif'; ctx.fillText('LOTE #' + (i + 1), 65 + (i * 320), 380);
-                }
-            } else if (serviceKey === 'wms') {
-                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 512, 1024);
-                ctx.fillStyle = '#d97706'; ctx.fillRect(0, 0, 512, 130);
-                ctx.fillStyle = '#000000'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('CONFERÊNCIA WMS', 35, 75);
-                ctx.fillStyle = '#3ea62b'; ctx.fillRect(30, 160, 452, 220);
-                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 34px sans-serif'; ctx.fillText('PALLET VALIDADO (FEFO)', 50, 240);
-            } else if (serviceKey === 'bi') {
-                canvas.width = 1024; canvas.height = 512;
-                ctx.fillStyle = '#0f172a'; ctx.fillRect(0, 0, 1024, 512);
-                ctx.fillStyle = '#3ea62b'; ctx.font = 'bold 30px sans-serif'; ctx.fillText('COCKPIT EXECUTIVO DRE', 35, 50);
-                ctx.fillStyle = '#1e293b'; ctx.fillRect(30, 110, 460, 360);
-                ctx.fillRect(520, 110, 470, 360);
-            }
-            return new THREE.CanvasTexture(canvas);
-        }
-
         // Gera uma geometria de caixa com cantos arredondados (evita o visual "duro" de caixas retas)
         function createRoundedBoxGeometry(width, height, depth, radius, segments = 6) {
             const w = width / 2 - radius;
@@ -1076,379 +1048,183 @@
             return geometry;
         }
 
-        // Textura radial suave usada como sombra de contato sob os dispositivos flutuantes
-        function generateContactShadowTexture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256; canvas.height = 256;
-            const ctx = canvas.getContext('2d');
-            const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-            gradient.addColorStop(0, 'rgba(0,0,0,0.45)');
-            gradient.addColorStop(0.6, 'rgba(0,0,0,0.18)');
-            gradient.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 256, 256);
-            return new THREE.CanvasTexture(canvas);
-        }
+        // =========================================================================
+        // DEMONSTRAÇÃO ANIMADA DOS 5 APPS (HTML/CSS + GSAP, sem 3D/WebGL)
+        // =========================================================================
+        let isDemoAnimating = false;
+        let currentDemoKey = 'forca_vendas';
 
-        let sceneDive, cameraDive, rendererDive;
-        let activeDeviceGroup, activeScreenMesh, contactShadowMesh;
-        let activePersonGroup = null;
-        let isAnimating = false;
-        let isUserInteracting = false;
-
-        // Figura humana estilizada (baixo-poli, sem rosto/roupa detalhada) que interage
-        // com o dispositivo antes do zoom para a explicação. Braço de peça única (um só
-        // pivô no ombro) para reduzir a chance de erro e ficar visualmente legível: pele
-        // e camisa em cores bem contrastantes entre si e com o fundo escuro da cena.
-        function createPersonFigure() {
-            const person = new THREE.Group();
-            const skinMat = new THREE.MeshStandardMaterial({ color: 0xe0ac76, roughness: 0.55, metalness: 0.02 });
-            const shirtMat = new THREE.MeshStandardMaterial({ color: 0x3ea62b, roughness: 0.5, metalness: 0.05 });
-
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.34, 20, 20), skinMat);
-            head.position.y = 1.15;
-            head.castShadow = true;
-            person.add(head);
-
-            const torso = new THREE.Mesh(createRoundedBoxGeometry(0.95, 1.25, 0.55, 0.18), shirtMat);
-            torso.position.y = 0.35;
-            torso.castShadow = true;
-            person.add(torso);
-
-            // Braço que se ergue para tocar a tela: um único pivô no ombro, sem cotovelo
-            const shoulderPivot = new THREE.Group();
-            shoulderPivot.position.set(0.55, 0.78, 0.08);
-            person.add(shoulderPivot);
-
-            const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 1.0, 12), skinMat);
-            arm.position.y = -0.5;
-            arm.castShadow = true;
-            shoulderPivot.add(arm);
-
-            const hand = new THREE.Mesh(new THREE.SphereGeometry(0.115, 14, 14), skinMat);
-            hand.position.y = -1.02;
-            hand.castShadow = true;
-            shoulderPivot.add(hand);
-
-            // Braço de apoio, parado ao longo do corpo
-            const armRest = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 0.9, 12), skinMat);
-            armRest.position.set(-0.55, 0.05, 0.08);
-            armRest.rotation.z = 0.12;
-            armRest.castShadow = true;
-            person.add(armRest);
-
-            // Pose inicial: braço direito relaxado ao lado do corpo
-            shoulderPivot.rotation.z = 0.1;
-
-            person.userData.shoulderPivot = shoulderPivot;
-            return person;
-        }
-
-        function createDeviceModel(serviceKey) {
-            const group = new THREE.Group();
-
-            if (serviceKey === 'forca_vendas' || serviceKey === 'gestor_entregas') {
-                const body = new THREE.Mesh(createRoundedBoxGeometry(2.5, 5.0, 0.25, 0.09), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.35, metalness: 0.15 }));
-                body.castShadow = true;
-                group.add(body);
-                const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.7), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture(serviceKey), transparent: true }));
-                screen.position.z = 0.13;
-                group.add(screen);
-                activeScreenMesh = screen;
-            } else if (serviceKey === 'portal_b2b') {
-                const body = new THREE.Mesh(createRoundedBoxGeometry(5.2, 3.6, 0.2, 0.07), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.15 }));
-                body.castShadow = true;
-                group.add(body);
-                const screen = new THREE.Mesh(new THREE.PlaneGeometry(4.9, 3.3), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('portal_b2b'), transparent: true }));
-                screen.position.z = 0.11;
-                group.add(screen);
-                activeScreenMesh = screen;
-            } else if (serviceKey === 'wms') {
-                const body = new THREE.Mesh(createRoundedBoxGeometry(2.6, 4.8, 0.45, 0.14), new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.45, metalness: 0.1 }));
-                body.castShadow = true;
-                group.add(body);
-                const screen = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 4.0), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('wms'), transparent: true }));
-                screen.position.z = 0.23;
-                group.add(screen);
-                activeScreenMesh = screen;
-                const laser = new THREE.Mesh(new THREE.ConeGeometry(0.8, 2.5, 32), new THREE.MeshBasicMaterial({ color: 0xef4444, transparent: true, opacity: 0.35 }));
-                laser.rotation.x = -Math.PI / 2;
-                laser.position.set(0, 3.2, 0);
-                group.add(laser);
-            } else if (serviceKey === 'bi') {
-                const monitor = new THREE.Mesh(createRoundedBoxGeometry(5.6, 3.0, 0.15, 0.06), new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.4, metalness: 0.2 }));
-                monitor.position.y = 0.5;
-                monitor.castShadow = true;
-                group.add(monitor);
-                const screen = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 2.8), new THREE.MeshBasicMaterial({ map: generateDeviceScreenTexture('bi'), transparent: true }));
-                screen.position.set(0, 0.5, 0.09);
-                group.add(screen);
-                activeScreenMesh = screen;
-                const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.4, 24), new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5, metalness: 0.3 }));
-                stand.position.set(0, -0.6, 0);
-                stand.castShadow = true;
-                group.add(stand);
+        const appScreenTemplates = {
+            forca_vendas: {
+                frame: 'frame-phone',
+                html: `
+                    <div class="w-full h-full flex flex-col">
+                        <div class="screen-anim bg-[#0f172a] px-4 pt-5 pb-3 border-b border-slate-800">
+                            <h5 class="text-white font-bold text-sm">FORÇA DE VENDAS</h5>
+                            <span class="text-[#3ea62b] text-xs font-semibold">Supermercado Central</span>
+                        </div>
+                        <div class="flex-1 p-4 flex flex-col gap-3">
+                            <div class="screen-anim bg-slate-800 rounded-xl p-3 flex gap-3 items-center">
+                                <div class="w-14 h-14 rounded-lg bg-[#ea580c] shrink-0"></div>
+                                <div>
+                                    <h6 class="text-white font-bold text-xs">PÃO FRANCÊS 10KG</h6>
+                                    <span class="text-[#3ea62b] text-[11px] font-semibold">R$ 64,50 • Estoque: 420 cx</span>
+                                </div>
+                            </div>
+                            <div class="flex-1"></div>
+                            <div class="screen-anim w-full py-3 bg-[#3ea62b] rounded-lg text-white font-bold text-xs text-center">TRANSMITIR PEDIDO SEFAZ</div>
+                        </div>
+                    </div>`
+            },
+            gestor_entregas: {
+                frame: 'frame-phone',
+                html: `
+                    <div class="w-full h-full flex flex-col">
+                        <div class="screen-anim bg-[#ea580c] px-4 py-4">
+                            <h5 class="text-white font-bold text-sm">GESTOR DE ENTREGAS GPS</h5>
+                        </div>
+                        <div class="flex-1 p-4 flex flex-col gap-3">
+                            <div class="screen-anim relative bg-slate-800 rounded-xl h-32 overflow-hidden">
+                                <svg viewBox="0 0 200 100" class="w-full h-full">
+                                    <path id="route-path" d="M10,80 Q60,10 100,50 T190,20" fill="none" stroke="#3ea62b" stroke-width="3" stroke-dasharray="300" stroke-dashoffset="300"/>
+                                    <circle cx="10" cy="80" r="4" fill="#3ea62b"/>
+                                    <circle cx="190" cy="20" r="4" fill="#ea580c"/>
+                                </svg>
+                            </div>
+                            <div class="screen-anim bg-[#3ea62b] rounded-xl p-3">
+                                <h6 class="text-white font-bold text-xs">CANHOTO ELETRÔNICO</h6>
+                                <span class="text-white/90 text-[11px]">Assinatura & Foto OK ✓</span>
+                            </div>
+                        </div>
+                    </div>`
+            },
+            portal_b2b: {
+                frame: 'frame-tablet',
+                html: `
+                    <div class="w-full h-full flex flex-col p-4">
+                        <h5 class="screen-anim text-[#3ea62b] font-bold text-sm mb-3">PORTAL DO LOJISTA B2B 24H</h5>
+                        <div class="flex-1 grid grid-cols-3 gap-2">
+                            <div class="screen-anim bg-slate-800 rounded-lg flex items-center justify-center"><span class="text-white font-bold text-xs">LOTE #1</span></div>
+                            <div class="screen-anim bg-slate-800 rounded-lg flex items-center justify-center"><span class="text-white font-bold text-xs">LOTE #2</span></div>
+                            <div class="screen-anim bg-slate-800 rounded-lg flex items-center justify-center"><span class="text-white font-bold text-xs">LOTE #3</span></div>
+                        </div>
+                    </div>`
+            },
+            wms: {
+                frame: 'frame-phone',
+                html: `
+                    <div class="w-full h-full flex flex-col">
+                        <div class="screen-anim bg-[#d97706] px-4 py-4">
+                            <h5 class="text-[#0f172a] font-bold text-sm">CONFERÊNCIA WMS</h5>
+                        </div>
+                        <div class="flex-1 p-4 flex flex-col gap-4 items-center justify-center">
+                            <div class="screen-anim relative w-28 h-28 rounded-lg bg-slate-800 overflow-hidden">
+                                <div id="scan-line" class="absolute left-0 right-0 h-0.5 bg-[#3ea62b]" style="top:0; box-shadow: 0 0 8px 2px rgba(62,166,43,0.7);"></div>
+                            </div>
+                            <div class="screen-anim w-full bg-[#3ea62b] rounded-xl p-3 flex items-center gap-2 justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                                <span class="text-white font-bold text-xs">PALLET VALIDADO (FEFO)</span>
+                            </div>
+                        </div>
+                    </div>`
+            },
+            bi: {
+                frame: 'frame-monitor',
+                html: `
+                    <div class="w-full h-full flex flex-col p-4">
+                        <h5 class="screen-anim text-[#3ea62b] font-bold text-sm mb-3">COCKPIT EXECUTIVO DRE</h5>
+                        <div class="flex-1 grid grid-cols-2 gap-3">
+                            <div class="screen-anim bg-slate-800 rounded-lg p-3 flex items-end gap-2 h-full">
+                                <div class="bar-1 bg-[#0284c7] rounded-t w-full" style="height:4%"></div>
+                                <div class="bar-2 bg-[#3ea62b] rounded-t w-full" style="height:4%"></div>
+                                <div class="bar-3 bg-[#ea580c] rounded-t w-full" style="height:4%"></div>
+                            </div>
+                            <div class="screen-anim bg-slate-800 rounded-lg p-3 flex items-end gap-2 h-full">
+                                <div class="bar-4 bg-[#3ea62b] rounded-t w-full" style="height:4%"></div>
+                                <div class="bar-5 bg-[#0284c7] rounded-t w-full" style="height:4%"></div>
+                                <div class="bar-6 bg-[#ea580c] rounded-t w-full" style="height:4%"></div>
+                            </div>
+                        </div>
+                    </div>`
             }
-            return group;
-        }
+        };
 
-        function initDive3D() {
-            const canvas = document.getElementById('dive-canvas');
-            const w = canvas.clientWidth || 700;
-            const h = canvas.clientHeight || 520;
-
-            sceneDive = new THREE.Scene();
-            sceneDive.background = new THREE.Color(0x0f172a);
-
-            cameraDive = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
-            cameraDive.position.set(0, 0, 10);
-
-            rendererDive = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-            rendererDive.setSize(w, h);
-            rendererDive.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            rendererDive.shadowMap.enabled = true;
-            rendererDive.shadowMap.type = THREE.PCFSoftShadowMap;
-
-            const hemi = new THREE.HemisphereLight(0xbfdbfe, 0x0f172a, 0.55);
-            sceneDive.add(hemi);
-            const ambient = new THREE.AmbientLight(0xffffff, 0.35);
-            sceneDive.add(ambient);
-            const direct = new THREE.DirectionalLight(0xffffff, 1.3);
-            direct.position.set(5, 10, 8);
-            direct.castShadow = true;
-            direct.shadow.mapSize.set(1024, 1024);
-            direct.shadow.camera.near = 1;
-            direct.shadow.camera.far = 25;
-            sceneDive.add(direct);
-            const rim = new THREE.DirectionalLight(0x3ea62b, 0.4);
-            rim.position.set(-6, 2, -6);
-            sceneDive.add(rim);
-
-            contactShadowMesh = new THREE.Mesh(
-                new THREE.PlaneGeometry(4.5, 4.5),
-                new THREE.MeshBasicMaterial({ map: generateContactShadowTexture(), transparent: true, depthWrite: false })
-            );
-            contactShadowMesh.rotation.x = -Math.PI / 2;
-            contactShadowMesh.position.y = -2.7;
-            sceneDive.add(contactShadowMesh);
-
-            loadDeviceModel('forca_vendas');
-            setupDiveInteraction();
-        }
-
-        function loadDeviceModel(key) {
-            if (activeDeviceGroup) sceneDive.remove(activeDeviceGroup);
-            activeDeviceGroup = createDeviceModel(key);
-            sceneDive.add(activeDeviceGroup);
-
-            if (activePersonGroup) { sceneDive.remove(activePersonGroup); activePersonGroup = null; }
-            if (key === 'forca_vendas') {
-                activePersonGroup = createPersonFigure();
-                activePersonGroup.scale.set(0.6, 0.6, 0.6);
-                activePersonGroup.position.set(-2.5, -1.9, -1.4);
-                activePersonGroup.rotation.y = 0.5;
-                sceneDive.add(activePersonGroup);
-            }
-        }
-
-        function triggerServiceAnimation(serviceKey, btnElement) {
-            if (isAnimating) return;
-            isAnimating = true;
-            isUserInteracting = false;
-            
-            const container = document.getElementById('dive-container');
-            container.style.cursor = 'default';
-            document.getElementById('interactive-hint').classList.add('opacity-0');
+        function showAppDemo(serviceKey, btnElement) {
+            if (isDemoAnimating) return;
+            isDemoAnimating = true;
+            currentDemoKey = serviceKey;
 
             document.querySelectorAll('.dive-btn').forEach(b => b.classList.remove('active'));
-            btnElement.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
 
             const overlay = document.getElementById('dive-overlay');
             overlay.classList.add('opacity-0', 'scale-90');
-            overlay.classList.remove('opacity-100', 'scale-100');
-            overlay.classList.remove('pointer-events-none');
-            overlay.classList.add('pointer-events-auto');
+            overlay.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+            overlay.classList.add('pointer-events-none');
 
-            loadDeviceModel(serviceKey);
+            const frame = document.getElementById('device-frame');
+            frame.classList.remove('frame-phone', 'frame-tablet', 'frame-monitor');
+            frame.classList.add(appScreenTemplates[serviceKey].frame);
 
-            const dot = document.getElementById('dive-status-dot');
-            const phase = document.getElementById('dive-phase');
-            const title = document.getElementById('dive-title');
+            const screen = document.getElementById('app-screen');
+            screen.innerHTML = appScreenTemplates[serviceKey].html;
+            lucide.createIcons();
 
-            const tl = gsap.timeline({ onComplete: () => { isAnimating = false; } });
+            document.getElementById('dive-status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+            document.getElementById('dive-phase').innerText = "Simulação da tela";
+            document.getElementById('dive-title').innerText = "Veja o app em uso...";
 
-            tl.call(() => {
-                dot.className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
-                phase.innerText = "Ato 1: Enquadramento";
-                title.innerText = serviceKey === 'forca_vendas'
-                    ? "Vendedor emitindo o pedido em campo..."
-                    : "Exibindo interface do sistema...";
-            })
-            .set(cameraDive.position, { x: 0, y: 0, z: 9 })
-            .set(activeDeviceGroup.rotation, { y: 0.3, x: 0.1 })
-            .to(cameraDive.position, { z: 6.2, duration: 1.2, ease: "power2.out", onUpdate: () => cameraDive.lookAt(0, 0, 0) })
-            .to(activeDeviceGroup.rotation, { y: 0, x: 0, duration: 0.8, ease: "power2.inOut" }, "-=0.6");
+            const items = screen.querySelectorAll('.screen-anim');
+            gsap.set(items, { opacity: 0, y: 14 });
 
-            if (serviceKey === 'forca_vendas' && activePersonGroup) {
-                const shoulder = activePersonGroup.userData.shoulderPivot;
-                tl.to(shoulder.rotation, { z: -1.9, x: -0.3, duration: 0.7, ease: "power2.out" }, "-=0.3")
-                  .to({}, { duration: 0.5 })
-                  .to(activePersonGroup.position, { x: "-=0.5", y: "-=0.4", z: "-=0.8", duration: 0.6, ease: "power2.in" })
-                  .to(activePersonGroup.scale, { x: "*=0.6", y: "*=0.6", z: "*=0.6", duration: 0.6, ease: "power2.in" }, "-=0.6");
-            } else {
-                tl.to({}, { duration: 1.0 });
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    revealAppExplanation(serviceKey);
+                    isDemoAnimating = false;
+                }
+            });
+            tl.to(items, { opacity: 1, y: 0, duration: 0.45, stagger: 0.22, ease: "power2.out" });
+
+            if (serviceKey === 'gestor_entregas') {
+                const path = screen.querySelector('#route-path');
+                if (path) tl.to(path, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, "-=0.3");
+            }
+            if (serviceKey === 'wms') {
+                const scan = screen.querySelector('#scan-line');
+                if (scan) tl.fromTo(scan, { top: '2%' }, { top: '90%', duration: 0.6, ease: "power1.inOut", repeat: 1, yoyo: true }, "-=0.4");
+            }
+            if (serviceKey === 'bi') {
+                const heights = ['58%', '85%', '42%'];
+                for (let i = 1; i <= 6; i++) {
+                    const bar = screen.querySelector('.bar-' + i);
+                    if (bar) tl.to(bar, { height: heights[(i - 1) % 3], duration: 0.6, ease: "power2.out" }, "-=0.5");
+                }
             }
 
-            tl.call(() => {
-                dot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping";
-                phase.innerText = "Ato 2: Mergulho na Tela";
-                title.innerText = "Cruzando para a inteligência de processos...";
-            })
-            .to(cameraDive.position, { z: 2.1, duration: 1.1, ease: "power3.in" })
-            .to(activeScreenMesh.material, { opacity: 0.15, duration: 0.4, ease: "power1.in" }, "-=0.3")
-            .call(() => {
-                dot.className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
-                phase.innerText = "Ato 3: Resolução do Gargalo";
-                title.innerText = "Como este app protege seu caixa";
-
-                const data = serviceDatabase[serviceKey];
-                document.getElementById('dive-card-title').innerText = data.cardTitle;
-                document.getElementById('dive-card-desc').innerText = data.desc;
-                document.getElementById('dive-card-badge').innerText = data.badge;
-                document.getElementById('dive-metric-lbl-1').innerText = data.m1Lbl;
-                document.getElementById('dive-metric-val-1').innerText = data.m1Val;
-                document.getElementById('dive-metric-lbl-2').innerText = data.m2Lbl;
-                document.getElementById('dive-metric-val-2').innerText = data.m2Val;
-
-                overlay.classList.remove('opacity-0', 'scale-90');
-                overlay.classList.add('opacity-100', 'scale-100');
-            });
+            tl.to({}, { duration: 0.5 });
         }
 
-        function revisitDeviceScreen() {
+        function revealAppExplanation(serviceKey) {
+            const data = serviceDatabase[serviceKey];
+            document.getElementById('dive-status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#3ea62b] animate-pulse";
+            document.getElementById('dive-phase').innerText = "Resultado comprovado";
+            document.getElementById('dive-title').innerText = "Como este app protege seu caixa";
+            document.getElementById('dive-card-title').innerText = data.cardTitle;
+            document.getElementById('dive-card-desc').innerText = data.desc;
+            document.getElementById('dive-card-badge').innerText = data.badge;
+            document.getElementById('dive-metric-lbl-1').innerText = data.m1Lbl;
+            document.getElementById('dive-metric-val-1').innerText = data.m1Val;
+            document.getElementById('dive-metric-lbl-2').innerText = data.m2Lbl;
+            document.getElementById('dive-metric-val-2').innerText = data.m2Val;
+
             const overlay = document.getElementById('dive-overlay');
-            overlay.classList.add('opacity-0', 'scale-90');
-            overlay.classList.remove('opacity-100', 'scale-100');
-
-            // Permite que o mouse clique e arraste pelo canvas através do container
-            overlay.classList.remove('pointer-events-auto');
-            overlay.classList.add('pointer-events-none');
-
-            if (activePersonGroup) activePersonGroup.visible = false;
-
-            gsap.to(cameraDive.position, {
-                x: 0,
-                y: 0,
-                z: 6.2,
-                duration: 1.0,
-                ease: "power2.out",
-                onUpdate: () => cameraDive.lookAt(0, 0, 0),
-                onComplete: () => {
-                    isUserInteracting = true;
-                    const container = document.getElementById('dive-container');
-                    container.style.cursor = 'grab';
-                    document.getElementById('interactive-hint').classList.remove('opacity-0');
-                }
-            });
-
-            gsap.to(activeDeviceGroup.rotation, {
-                x: 0.1,
-                y: -0.2,
-                duration: 0.8
-            });
-
-            gsap.to(activeScreenMesh.material, {
-                opacity: 1.0,
-                duration: 0.6
-            });
-
-            document.getElementById('dive-phase').innerText = "Interação Livre";
-            document.getElementById('dive-title').innerText = "Explore o dispositivo em 360° com o mouse";
+            overlay.classList.remove('opacity-0', 'scale-90', 'pointer-events-none');
+            overlay.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
         }
 
-        function resetGeneralView() {
-            const overlay = document.getElementById('dive-overlay');
-            overlay.classList.add('opacity-0', 'scale-90');
-            overlay.classList.remove('opacity-100', 'scale-100');
-            overlay.classList.remove('pointer-events-auto');
-            overlay.classList.add('pointer-events-none');
-
-            if (activePersonGroup) activePersonGroup.visible = false;
-
-            isUserInteracting = true;
-            const container = document.getElementById('dive-container');
-            container.style.cursor = 'grab';
-            document.getElementById('interactive-hint').classList.remove('opacity-0');
-
-            gsap.to(cameraDive.position, { x: 3, y: 2, z: 8.5, duration: 1.4, ease: "power2.inOut", onUpdate: () => cameraDive.lookAt(0, 0, 0) });
-            gsap.to(activeDeviceGroup.rotation, { y: 0.5, x: 0.2, duration: 1.2 });
-            gsap.to(activeScreenMesh.material, { opacity: 1.0, duration: 0.6 });
-
-            document.getElementById('dive-phase').innerText = "Visão Geral";
-            document.getElementById('dive-title').innerText = "Explore o modelo 3D com o mouse";
-        }
-
-        // Sistema de Controle com o Mouse com Área Total e Sensibilidade Otimizada
-        function setupDiveInteraction() {
-            const targetArea = document.getElementById('dive-container');
-            let isDragging = false;
-            let prevMousePos = { x: 0, y: 0 };
-
-            targetArea.addEventListener('mousedown', (e) => {
-                if (!isUserInteracting || !activeDeviceGroup) return;
-                isDragging = true;
-                targetArea.style.cursor = 'grabbing';
-                prevMousePos = { x: e.clientX, y: e.clientY };
-            });
-
-            window.addEventListener('mouseup', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    if (isUserInteracting) targetArea.style.cursor = 'grab';
-                }
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging || !activeDeviceGroup || !isUserInteracting) return;
-                const deltaX = e.clientX - prevMousePos.x;
-                const deltaY = e.clientY - prevMousePos.y;
-
-                // Sensibilidade dobrada para 0.016 para rotação fluida e imediata
-                activeDeviceGroup.rotation.y += deltaX * 0.016;
-                activeDeviceGroup.rotation.x += deltaY * 0.016;
-
-                activeDeviceGroup.rotation.x = Math.max(-1.3, Math.min(1.3, activeDeviceGroup.rotation.x));
-                prevMousePos = { x: e.clientX, y: e.clientY };
-            });
-
-            // Touch mobile em toda a área
-            targetArea.addEventListener('touchstart', (e) => {
-                if (!isUserInteracting || !activeDeviceGroup) return;
-                if (e.touches.length === 1) {
-                    isDragging = true;
-                    prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                }
-            }, { passive: true });
-
-            window.addEventListener('touchmove', (e) => {
-                if (!isDragging || !activeDeviceGroup || !isUserInteracting || e.touches.length !== 1) return;
-                const deltaX = e.touches[0].clientX - prevMousePos.x;
-                const deltaY = e.touches[0].clientY - prevMousePos.y;
-
-                activeDeviceGroup.rotation.y += deltaX * 0.02;
-                activeDeviceGroup.rotation.x += deltaY * 0.02;
-                prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }, { passive: true });
-
-            window.addEventListener('touchend', () => { isDragging = false; });
-
-            // Zoom suave com a roda do mouse
-            targetArea.addEventListener('wheel', (e) => {
-                if (!isUserInteracting) return;
-                e.preventDefault();
-                cameraDive.position.z += e.deltaY * 0.006;
-                cameraDive.position.z = Math.max(3.2, Math.min(13.0, cameraDive.position.z));
-            }, { passive: false });
+        function replayAppDemo() {
+            const activeBtn = document.querySelector('.dive-btn.active');
+            showAppDemo(currentDemoKey, activeBtn);
         }
 
         // =========================================================================
@@ -2135,21 +1911,6 @@
         function globalRenderLoop() {
             requestAnimationFrame(globalRenderLoop);
 
-            // Gira e flutua suavemente apenas se o usuário não estiver mexendo manualmente
-            if (activeDeviceGroup && !isUserInteracting && cameraDive && cameraDive.position.z > 3.0 && !isAnimating) {
-                activeDeviceGroup.rotation.y += 0.003;
-                activeDeviceGroup.position.y = Math.sin(Date.now() * 0.0011) * 0.12;
-            }
-            if (contactShadowMesh && activeDeviceGroup) {
-                const bob = activeDeviceGroup.position.y;
-                const scale = 1.0 - bob * 0.12;
-                contactShadowMesh.scale.set(scale, scale, 1);
-                contactShadowMesh.material.opacity = 0.85 - Math.abs(bob) * 0.6;
-            }
-            if (rendererDive && sceneDive && cameraDive) {
-                rendererDive.render(sceneDive, cameraDive);
-            }
-
             nichoAnimatedElements.forEach(item => {
                 if (item.speed) {
                     item.mesh.position.x += item.speed;
@@ -2232,14 +1993,6 @@
 
         // Redimensionamento
         window.addEventListener('resize', () => {
-            const cDive = document.getElementById('dive-canvas');
-            if (cDive && rendererDive && cameraDive) {
-                const w = cDive.clientWidth || 700;
-                const h = cDive.clientHeight || 520;
-                cameraDive.aspect = w / h;
-                cameraDive.updateProjectionMatrix();
-                rendererDive.setSize(w, h);
-            }
             const cNicho = document.getElementById('nicho-canvas');
             if (cNicho && rendererNicho && cameraNicho) {
                 const w = cNicho.clientWidth || 600;
@@ -2252,13 +2005,12 @@
 
         // Inicialização
         window.onload = () => {
-            initDive3D();
             initNicho3D();
             globalRenderLoop();
             setTimeout(() => {
                 const first = document.querySelector('.dive-btn');
-                if(first) triggerServiceAnimation('forca_vendas', first);
-            }, 600);
+                showAppDemo('forca_vendas', first);
+            }, 400);
         };
     </script>
 </body>
