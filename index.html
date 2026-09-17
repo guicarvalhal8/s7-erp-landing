@@ -158,7 +158,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <span class="hidden sm:inline text-slate-400">Prefere atendimento direto?</span>
-                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" onclick="gtag('event', 'generate_lead', { source: 'barra_fixa', method: 'whatsapp' })" class="px-4 py-2 sn-btn-green text-white font-extrabold rounded-full uppercase tracking-wider transition flex items-center gap-2 shadow-lg">
+                <a href="https://wa.me/5562981580060?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20uma%20demonstra%C3%A7%C3%A3o%20do%20S7%20ERP" target="_blank" onclick="return abrirWhatsappBarra(event)" class="px-4 py-2 sn-btn-green text-white font-extrabold rounded-full uppercase tracking-wider transition flex items-center gap-2 shadow-lg">
                     <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp 62 98158-0060
                 </a>
             </div>
@@ -774,6 +774,48 @@
     <script>
         gsap.registerPlugin(ScrollToPlugin);
         lucide.createIcons();
+
+        // =========================================================================
+        // 0. CAPTURA DE UTM (persiste durante a sessão, mesmo navegando pela âncora)
+        // =========================================================================
+        (function captureUtms() {
+            const params = new URLSearchParams(window.location.search);
+            const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            const found = {};
+            let hasAny = false;
+            keys.forEach(k => {
+                const v = params.get(k);
+                if (v) { found[k] = v; hasAny = true; }
+            });
+            if (hasAny) {
+                sessionStorage.setItem('sn_utms', JSON.stringify(found));
+            }
+        })();
+
+        function abrirWhatsappBarra(event) {
+            event.preventDefault();
+            const mensagem = 'Olá, gostaria de solicitar uma demonstração do S7 ERP' + getUtmContext();
+            gtag('event', 'generate_lead', { source: 'barra_fixa', method: 'whatsapp' });
+            window.open(`https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`, '_blank');
+            return false;
+        }
+
+        function getUtmContext() {
+            try {
+                const raw = sessionStorage.getItem('sn_utms');
+                if (!raw) return '';
+                const utms = JSON.parse(raw);
+                const parts = [];
+                if (utms.utm_source) parts.push(`Origem: ${utms.utm_source}`);
+                if (utms.utm_medium) parts.push(`Mídia: ${utms.utm_medium}`);
+                if (utms.utm_campaign) parts.push(`Campanha: ${utms.utm_campaign}`);
+                if (utms.utm_content) parts.push(`Conteúdo: ${utms.utm_content}`);
+                if (utms.utm_term) parts.push(`Termo: ${utms.utm_term}`);
+                return parts.length ? `\n\n${parts.join(' | ')}` : '';
+            } catch (e) {
+                return '';
+            }
+        }
 
         // 1. DADOS DOS 5 APPS
         const serviceDatabase = {
@@ -1937,6 +1979,7 @@
             let mensagem = `Olá! Quero um diagnóstico gratuito da minha operação.\n\nNome: ${nome}\nWhatsApp: ${telefone}`;
             if (diagState.desafio) mensagem += `\nMaior desafio: ${diagState.desafio}`;
             if (diagState.segmento) mensagem += `\nSegmento: ${diagState.segmento}`;
+            mensagem += getUtmContext();
 
             const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
             gtag('event', 'generate_lead', { source: 'diagnostico', method: 'whatsapp', desafio: diagState.desafio, segmento: diagState.segmento });
@@ -1959,7 +2002,7 @@
             const email = document.getElementById('demo-email').value.trim();
             const telefone = document.getElementById('demo-telefone').value.trim();
 
-            const mensagem = `Olá! Gostaria de agendar uma demonstração do S7 ERP.\n\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${telefone}`;
+            const mensagem = `Olá! Gostaria de agendar uma demonstração do S7 ERP.\n\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${telefone}` + getUtmContext();
             const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
 
             gtag('event', 'generate_lead', { source: modalSource, method: 'whatsapp' });
