@@ -663,11 +663,12 @@
                         <div class="screen-anim bg-[#3ea62b] px-4 pt-4 pb-0">
                             <h5 class="text-white font-bold text-sm mb-3">Gestor de Entrega</h5>
                             <div class="flex gap-5 text-[11px] font-bold text-white">
-                                <span class="pb-2 border-b-2 border-white">RESUMO</span>
-                                <span class="pb-2 text-white/60">ENTREGAS</span>
+                                <button type="button" onclick="geSwitchTab('resumo')" id="ge-tab-resumo" class="pb-2 border-b-2 border-white">RESUMO</button>
+                                <button type="button" onclick="geSwitchTab('entregas')" id="ge-tab-entregas" class="pb-2 text-white/60 border-b-2 border-transparent">ENTREGAS</button>
                             </div>
                         </div>
-                        <div class="flex-1 p-3.5 flex flex-col gap-3">
+
+                        <div id="ge-view-resumo" class="flex-1 p-3.5 flex flex-col gap-3">
                             <div class="screen-anim flex flex-col gap-1.5">
                                 <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wide">Informação do Carregamento</span>
                                 <div class="bg-white rounded-lg p-3 flex flex-col gap-2 border border-slate-200">
@@ -695,6 +696,33 @@
                                             <span class="text-[8.5px] text-slate-400 mt-0.5">de 3 pedidos</span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="ge-view-entregas" class="hidden flex-1 overflow-y-auto p-2.5 flex flex-col gap-2">
+                            <div class="border-l-4 border-emerald-400 bg-white p-2.5 rounded-md shadow-sm">
+                                <div class="text-[10.5px] font-bold text-slate-800">Mercado Vitória Ltda</div>
+                                <div class="text-[9px] text-slate-500">Bairro Novo Mundo</div>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span class="text-[8.5px] text-slate-500">Nota 40451 • Pedido 5545</span>
+                                    <span class="text-[10px] font-extrabold text-[#2f8520]">R$ 1.102,00</span>
+                                </div>
+                            </div>
+                            <div class="border-l-4 border-emerald-400 bg-white p-2.5 rounded-md shadow-sm">
+                                <div class="text-[10.5px] font-bold text-slate-800">Salão Armond's</div>
+                                <div class="text-[9px] text-slate-500">Centro</div>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span class="text-[8.5px] text-slate-500">Nota 40450 • Pedido 5544</span>
+                                    <span class="text-[10px] font-extrabold text-[#2f8520]">R$ 973,08</span>
+                                </div>
+                            </div>
+                            <div class="border-l-4 border-amber-400 bg-white p-2.5 rounded-md shadow-sm">
+                                <div class="text-[10.5px] font-bold text-slate-800">Colégio Batista</div>
+                                <div class="text-[9px] text-slate-500">Jardim Marileusa</div>
+                                <div class="flex items-center justify-between mt-1">
+                                    <span class="text-[8.5px] text-slate-500">Nota 40452 • Pedido 5546</span>
+                                    <span class="text-[10px] font-extrabold text-amber-600">R$ 870,00</span>
                                 </div>
                             </div>
                         </div>
@@ -854,6 +882,21 @@
             navHistorico.classList.toggle('text-white/60', view !== 'historico');
             document.getElementById('pb-view-catalogo').classList.toggle('hidden', view !== 'catalogo');
             document.getElementById('pb-view-historico').classList.toggle('hidden', view !== 'historico');
+        }
+
+        // Navegação dentro do mockup do Gestor de Entregas: troca entre resumo e lista de entregas
+        function geSwitchTab(tab) {
+            const tabResumo = document.getElementById('ge-tab-resumo');
+            const tabEntregas = document.getElementById('ge-tab-entregas');
+            if (!tabResumo || !tabEntregas) return;
+            tabResumo.classList.toggle('border-white', tab === 'resumo');
+            tabResumo.classList.toggle('border-transparent', tab !== 'resumo');
+            tabResumo.classList.toggle('text-white/60', tab !== 'resumo');
+            tabEntregas.classList.toggle('border-white', tab === 'entregas');
+            tabEntregas.classList.toggle('border-transparent', tab !== 'entregas');
+            tabEntregas.classList.toggle('text-white/60', tab !== 'entregas');
+            document.getElementById('ge-view-resumo').classList.toggle('hidden', tab !== 'resumo');
+            document.getElementById('ge-view-entregas').classList.toggle('hidden', tab !== 'entregas');
         }
 
         function showAppDemo(serviceKey, btnElement) {
