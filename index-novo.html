@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S7 ERP | SN Sistemas - Especialista em Indústria & Distribuição</title>
+
+    <!-- SEO -->
+    <meta name="description" content="S7 ERP da SN Sistemas: automação comercial de campo, roteirização e entregas, portal B2B, WMS com regra FEFO e BI executivo para indústria e distribuição de perecíveis.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.snsistemas.com.br/s7-erp">
+
+    <!-- Open Graph / WhatsApp / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="S7 ERP | SN Sistemas - Especialista em Indústria & Distribuição">
+    <meta property="og:description" content="Automação comercial, roteirização de entregas, portal B2B, WMS com regra FEFO e BI executivo em um único ERP para indústria e distribuição.">
+    <meta property="og:url" content="https://www.snsistemas.com.br/s7-erp">
+    <meta property="og:image" content="https://www.snsistemas.com.br/assets/og-s7-erp.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="S7 ERP | SN Sistemas - Especialista em Indústria & Distribuição">
+    <meta name="twitter:description" content="Automação comercial, roteirização de entregas, portal B2B, WMS com regra FEFO e BI executivo em um único ERP para indústria e distribuição.">
+    <meta name="twitter:image" content="https://www.snsistemas.com.br/assets/og-s7-erp.jpg">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJL7Z1XD66"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CJL7Z1XD66');
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@1.46.0"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+        :root {
+            --sn-green: #3ea62b;
+            --sn-green-dark: #2f8520;
+            --sn-navy: #0f172a;
+            --sn-navy-light: #1e293b;
+            --sn-blue: #0284c7;
+            --sn-orange: #ea580c;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, button, .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .sn-btn-green {
+            background-color: var(--sn-green);
+            transition: all 0.25s ease;
+        }
+        .sn-btn-green:hover {
+            background-color: var(--sn-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(62, 166, 43, 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+            white-space: nowrap;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--sn-green);
+            transition: width 0.25s ease;
+            border-radius: 2px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="relative selection:bg-[#3ea62b] selection:text-white">
+
+    <!-- Header Oficial SN Sistemas -->
+    <header class="sticky top-0 z-50 bg-[#0f172a] border-b border-slate-800 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+            <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-10 h-10 bg-[#3ea62b] rounded-xl flex items-center justify-center font-black text-white text-xl tracking-tighter shadow-md">
+                    SN
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-extrabold text-white tracking-tight leading-tight">SN <span class="text-[#3ea62b]">SISTEMAS</span></span>
+                    <span class="text-[11px] uppercase tracking-widest text-slate-400 font-bold">S7 ERP Especialista</span>
+                </div>
+            </div>
+
+            <nav class="hidden xl:flex items-center gap-7 text-sm font-bold text-slate-300">
+                <!-- links de navegação entram conforme as seções forem criadas -->
+            </nav>
+
+            <div class="flex items-center gap-4 shrink-0">
+                <a href="tel:62981580060" class="hidden md:flex items-center gap-2 text-sm font-extrabold text-white hover:text-[#3ea62b] transition">
+                    <i data-lucide="phone" class="w-4 h-4 text-[#3ea62b]"></i>
+                    (62) 98158-0060
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- SEÇÕES ENTRAM AQUI, UMA POR VEZ                            -->
+    <!-- ========================================================= -->
+
+    <!-- Rodapé -->
+    <footer class="bg-[#0f172a] text-sm text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2.5">
+                <span class="font-extrabold text-white text-sm">SN SISTEMAS</span>
+                <span>•</span>
+                <span>S7 ERP Especialista em Gestão</span>
+            </div>
+            <p>© 2026 SN Sistemas. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+    </script>
+</body>
+</html>
