@@ -41,6 +41,7 @@
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@1.46.0"></script>
 
@@ -322,7 +323,7 @@
     <!-- NÚCLEO 1: CAMERA DIVE / INFINITE ZOOM NOS 5 APPS NATIVOS -->
     <section class="py-20 px-6 bg-[#f8fafc] border-b border-slate-200" id="camera-dive">
         <div class="max-w-7xl mx-auto flex flex-col gap-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div class="reveal-up flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
                     <span class="text-xs font-bold text-[#3ea62b] uppercase tracking-widest flex items-center gap-1.5">
                         <i data-lucide="scan-eye" class="w-4 h-4"></i> Demonstração Guiada em 3 Atos
@@ -336,8 +337,32 @@
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[560px]">
-                
+            <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
+                    <span class="w-7 h-7 rounded-full bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">1</span>
+                    <div>
+                        <h5 class="text-xs font-bold text-[#0f172a]">Enquadramento</h5>
+                        <span class="text-[10px] text-slate-500">A câmera localiza o dispositivo na cena</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
+                    <span class="w-7 h-7 rounded-full bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">2</span>
+                    <div>
+                        <h5 class="text-xs font-bold text-[#0f172a]">Mergulho</h5>
+                        <span class="text-[10px] text-slate-500">Zoom na tela, mostrando o app em uso</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-slate-200">
+                    <span class="w-7 h-7 rounded-full bg-emerald-50 text-[#3ea62b] text-xs font-black flex items-center justify-center shrink-0">3</span>
+                    <div>
+                        <h5 class="text-xs font-bold text-[#0f172a]">Revelação</h5>
+                        <span class="text-[10px] text-slate-500">O impacto operacional real, com métricas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-up grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[560px]">
+
                 <div class="lg:col-span-4 flex flex-col justify-between gap-3 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
                     <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Selecione o Aplicativo para Testar:</span>
 
@@ -478,7 +503,7 @@
 
             </div>
 
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="reveal-up bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p class="text-xs text-slate-600"><strong class="text-[#0f172a]">Gostou do que viu?</strong> Peça uma demonstração ao vivo com os dados reais da sua operação.</p>
                 <button onclick="openModalDemo('camera-dive')" class="px-6 py-3 sn-btn-green text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md shrink-0">
                     Agendar Demonstração
@@ -792,7 +817,7 @@
 
     <!-- SCRIPTS THREE.JS + GSAP -->
     <script>
-        gsap.registerPlugin(ScrollToPlugin);
+        gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
         lucide.createIcons();
 
         // =========================================================================
@@ -828,6 +853,33 @@
             animateCounter('stat-states', 24, { suffix: ' Estados' });
             animateCounter('stat-companies', 700, { prefix: '+' });
         })();
+
+        // =========================================================================
+        // REVEAL AO ROLAR (reutilizado por todas as seções abaixo do hero)
+        // =========================================================================
+        function initScrollReveal() {
+            gsap.utils.toArray('.reveal-up').forEach((el) => {
+                gsap.fromTo(el, { opacity: 0, y: 28 }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 88%' }
+                });
+            });
+            gsap.utils.toArray('.reveal-stagger').forEach((group) => {
+                const kids = gsap.utils.toArray(group.children);
+                gsap.fromTo(kids, { opacity: 0, y: 24 }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: group, start: 'top 88%' }
+                });
+            });
+        }
+        initScrollReveal();
 
         // =========================================================================
         // 0. CAPTURA DE UTM (persiste durante a sessão, mesmo navegando pela âncora)
