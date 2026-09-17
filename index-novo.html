@@ -128,7 +128,7 @@
             </div>
 
             <nav class="hidden xl:flex items-center gap-7 text-sm font-bold text-slate-300">
-                <!-- links de navegação entram conforme as seções forem criadas -->
+                <a href="#demonstracao" class="nav-link hover:text-white">Demonstração</a>
             </nav>
 
             <div class="flex items-center gap-4 shrink-0">
@@ -136,13 +136,84 @@
                     <i data-lucide="phone" class="w-4 h-4 text-[#3ea62b]"></i>
                     (62) 98158-0060
                 </a>
+                <button onclick="openModalDemo('header')" class="px-6 py-2.5 sn-btn-green text-white font-bold text-sm rounded-lg transition shadow-md flex items-center gap-2">
+                    Marcar Reunião
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- HERO -->
+    <section class="relative bg-white py-16 px-6 border-b border-slate-200 overflow-hidden">
+        <div class="max-w-3xl mx-auto flex flex-col items-center text-center gap-5">
+
+            <div class="hero-anim inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-[#2f8520] text-sm font-bold w-fit">
+                <span class="w-2 h-2 rounded-full bg-[#3ea62b] animate-pulse"></span>
+                Especialista em indústria e distribuição
+            </div>
+
+            <h1 class="hero-anim text-4xl sm:text-5xl font-bold text-[#0f172a] leading-[1.15] tracking-tight">
+                O seu novo software de <span class="text-[#3ea62b]">gestão inteligente</span>.
+            </h1>
+
+            <p class="hero-anim text-slate-600 text-lg leading-relaxed max-w-xl">
+                Automatize sua operação e corte desperdícios com o S7 ERP — <strong>mais de 10 anos</strong> especializado no seu setor.
+            </p>
+
+            <div class="hero-anim flex flex-wrap items-center justify-center gap-4 pt-1">
+                <button onclick="openModalDemo('hero')" class="px-8 py-4 sn-btn-green text-white font-bold text-base rounded-lg shadow-lg flex items-center gap-2">
+                    Marcar Reunião
+                </button>
+                <a href="#demonstracao" class="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-[#0f172a] font-bold text-base rounded-lg transition flex items-center gap-2">
+                    Ver a Demonstração <i data-lucide="arrow-down" class="w-4 h-4 text-[#3ea62b]"></i>
+                </a>
+            </div>
+
+            <div class="hero-anim flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#3ea62b] shrink-0"></i>
+                <span class="text-sm text-slate-500 font-medium">Sem compromisso — resposta em minutos pelo WhatsApp</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 pt-5 mt-1 border-t border-slate-200 w-full max-w-xl">
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#0f172a] block" id="stat-users">0</span>
+                    <span class="text-sm text-slate-500 font-medium">Usuários ativos</span>
+                </div>
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#3ea62b] block" id="stat-states">0 Estados</span>
+                    <span class="text-sm text-slate-500 font-medium">E no exterior</span>
+                </div>
+                <div class="hero-anim">
+                    <span class="text-2xl sm:text-3xl font-black text-[#0f172a] block" id="stat-companies">0</span>
+                    <span class="text-sm text-slate-500 font-medium">Empresas atendidas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ========================================================= -->
-    <!-- SEÇÕES ENTRAM AQUI, UMA POR VEZ                            -->
+    <!-- PRÓXIMAS SEÇÕES ENTRAM AQUI, UMA POR VEZ                   -->
     <!-- ========================================================= -->
+
+    <!-- Modal de Agendamento -->
+    <div id="modal-demo" class="fixed inset-0 z-50 bg-[#0f172a]/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 relative flex flex-col gap-4 shadow-2xl">
+            <button onclick="closeModalDemo()" class="absolute top-4 right-4 text-slate-400 hover:text-[#0f172a]"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div>
+                <span class="text-sm font-bold text-[#3ea62b] uppercase tracking-wider">SN Sistemas Oficial</span>
+                <h3 class="text-lg font-bold text-[#0f172a] mt-1">Marcar Reunião Gratuita</h3>
+                <p class="text-sm text-slate-600 mt-1">Fale com um especialista sobre a sua operação.</p>
+            </div>
+            <form onsubmit="return submitDemoForm(event)" class="flex flex-col gap-3">
+                <input type="text" id="demo-nome" placeholder="Seu Nome Completo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="email" id="demo-email" placeholder="Seu E-mail Corporativo" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <input type="tel" id="demo-telefone" placeholder="WhatsApp para Contato" required class="bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm text-[#0f172a] focus:border-[#3ea62b] focus:outline-none">
+                <button type="submit" class="w-full py-3.5 sn-btn-green text-white font-bold text-sm rounded-lg shadow-md">
+                    Confirmar e Abrir WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Rodapé -->
     <footer class="bg-[#0f172a] text-sm text-slate-400">
@@ -159,6 +230,105 @@
     <script>
         lucide.createIcons();
         gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+
+        // =========================================================================
+        // CAPTURA DE UTM (persiste durante a sessão)
+        // =========================================================================
+        (function captureUtms() {
+            const params = new URLSearchParams(window.location.search);
+            const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            const found = {};
+            let hasAny = false;
+            keys.forEach(k => {
+                const v = params.get(k);
+                if (v) { found[k] = v; hasAny = true; }
+            });
+            if (hasAny) sessionStorage.setItem('sn_utms', JSON.stringify(found));
+        })();
+
+        function getUtmContext() {
+            try {
+                const raw = sessionStorage.getItem('sn_utms');
+                if (!raw) return '';
+                const utms = JSON.parse(raw);
+                const parts = [];
+                if (utms.utm_source) parts.push(`Origem: ${utms.utm_source}`);
+                if (utms.utm_medium) parts.push(`Mídia: ${utms.utm_medium}`);
+                if (utms.utm_campaign) parts.push(`Campanha: ${utms.utm_campaign}`);
+                return parts.length ? `\n\n${parts.join(' | ')}` : '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        // =========================================================================
+        // ANIMAÇÃO DE ENTRADA DO HERO + CONTADORES
+        // =========================================================================
+        (function animateHero() {
+            const items = gsap.utils.toArray('.hero-anim');
+            gsap.set(items, { opacity: 0, y: 20 });
+            gsap.to(items, { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out', delay: 0.15 });
+
+            function animateCounter(id, end, { prefix = '', suffix = '' } = {}) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const obj = { val: 0 };
+                gsap.to(obj, {
+                    val: end, duration: 1.4, delay: 0.5, ease: 'power2.out',
+                    onUpdate: () => { el.textContent = prefix + Math.round(obj.val).toLocaleString('pt-BR') + suffix; }
+                });
+            }
+            animateCounter('stat-users', 7000, { prefix: '+' });
+            animateCounter('stat-states', 24, { suffix: ' Estados' });
+            animateCounter('stat-companies', 700, { prefix: '+' });
+        })();
+
+        // =========================================================================
+        // REVEAL AO ROLAR (reutilizado pelas próximas seções)
+        // =========================================================================
+        function initScrollReveal() {
+            gsap.utils.toArray('.reveal-up').forEach((el) => {
+                gsap.fromTo(el, { opacity: 0, y: 28 }, {
+                    opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 88%' }
+                });
+            });
+            gsap.utils.toArray('.reveal-stagger').forEach((group) => {
+                const kids = gsap.utils.toArray(group.children);
+                gsap.fromTo(kids, { opacity: 0, y: 24 }, {
+                    opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out',
+                    scrollTrigger: { trigger: group, start: 'top 88%' }
+                });
+            });
+        }
+        initScrollReveal();
+
+        // =========================================================================
+        // MODAL DE AGENDAMENTO
+        // =========================================================================
+        let modalSource = 'desconhecida';
+        function openModalDemo(source) {
+            modalSource = source || 'desconhecida';
+            document.getElementById('modal-demo').style.display = 'flex';
+            gtag('event', 'demo_modal_open', { source: modalSource });
+        }
+        function closeModalDemo() { document.getElementById('modal-demo').style.display = 'none'; }
+
+        function submitDemoForm(event) {
+            event.preventDefault();
+            const nome = document.getElementById('demo-nome').value.trim();
+            const email = document.getElementById('demo-email').value.trim();
+            const telefone = document.getElementById('demo-telefone').value.trim();
+
+            const mensagem = `Olá! Gostaria de marcar uma reunião sobre o S7 ERP.\n\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${telefone}` + getUtmContext();
+            const url = `https://wa.me/5562981580060?text=${encodeURIComponent(mensagem)}`;
+
+            gtag('event', 'generate_lead', { source: modalSource, method: 'whatsapp' });
+            window.open(url, '_blank');
+            event.target.reset();
+            closeModalDemo();
+            return false;
+        }
     </script>
 </body>
 </html>
