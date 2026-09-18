@@ -130,15 +130,15 @@
             border-radius: 1.5rem;
         }
         .device-frame.frame-monitor {
-            width: 480px;
-            height: 280px;
+            width: 520px;
+            height: 320px;
             border-radius: 0.75rem;
             border-width: 14px;
         }
         @media (max-width: 480px) {
             .device-frame.frame-phone { width: 220px; height: 410px; }
             .device-frame.frame-tablet { width: 300px; height: 230px; }
-            .device-frame.frame-monitor { width: 300px; height: 175px; }
+            .device-frame.frame-monitor { width: 300px; height: 185px; }
         }
 
         ::-webkit-scrollbar {
@@ -1001,23 +1001,172 @@
             bi: {
                 frame: 'frame-monitor',
                 html: `
-                    <div class="w-full h-full flex flex-col p-4">
-                        <h5 class="screen-anim text-[#3ea62b] font-bold text-sm mb-3">COCKPIT EXECUTIVO DRE</h5>
-                        <div class="flex-1 grid grid-cols-2 gap-3">
-                            <div class="screen-anim bg-slate-800 rounded-lg p-3 flex items-end gap-2 h-full">
-                                <div class="bar-1 bg-[#0284c7] rounded-t w-full" style="height:4%"></div>
-                                <div class="bar-2 bg-[#3ea62b] rounded-t w-full" style="height:4%"></div>
-                                <div class="bar-3 bg-[#ea580c] rounded-t w-full" style="height:4%"></div>
+                    <div class="w-full h-full flex bg-[#eef1f6] relative overflow-hidden text-slate-700">
+                        <div class="screen-anim w-8 sm:w-9 h-full bg-gradient-to-b from-[#7c3aed] to-[#5b21b6] flex flex-col items-center py-2.5 gap-1.5 shrink-0">
+                            <div class="w-6 h-6 rounded-md bg-white/15 flex items-center justify-center text-white font-black text-[8px] mb-1.5">SN</div>
+                            <button type="button" onclick="biSwitchView('home')" id="bi-nav-home" class="bi-nav-btn w-6 h-6 rounded-lg flex items-center justify-center bg-white/20 text-white transition"><i data-lucide="home" class="w-3.5 h-3.5"></i></button>
+                            <button type="button" onclick="biSwitchView('geral')" id="bi-nav-geral" class="bi-nav-btn w-6 h-6 rounded-lg flex items-center justify-center text-white/60 transition"><i data-lucide="bar-chart" class="w-3.5 h-3.5"></i></button>
+                            <button type="button" onclick="biSwitchView('supervisor')" id="bi-nav-supervisor" class="bi-nav-btn w-6 h-6 rounded-lg flex items-center justify-center text-white/60 transition"><i data-lucide="users" class="w-3.5 h-3.5"></i></button>
+                            <button type="button" onclick="biSwitchView('cliente')" id="bi-nav-cliente" class="bi-nav-btn w-6 h-6 rounded-lg flex items-center justify-center text-white/60 transition"><i data-lucide="user" class="w-3.5 h-3.5"></i></button>
+                            <button type="button" onclick="biSwitchView('produto')" id="bi-nav-produto" class="bi-nav-btn w-6 h-6 rounded-lg flex items-center justify-center text-white/60 transition"><i data-lucide="package" class="w-3.5 h-3.5"></i></button>
+                            <button type="button" onclick="biSwitchView('geral')" class="mt-auto w-6 h-6 rounded-lg flex items-center justify-center text-white/60 transition"><i data-lucide="refresh-cw" class="w-3 h-3"></i></button>
+                        </div>
+
+                        <div class="flex-1 h-full relative overflow-hidden">
+
+                            <div id="bi-view-home" class="absolute inset-0">
+                                <div class="h-full flex flex-col items-center justify-center gap-2.5 text-center px-4 bg-gradient-to-br from-[#5b21b6] via-[#0891b2] to-[#3ea62b]">
+                                    <span class="text-white/90 font-extrabold text-[9px] tracking-widest uppercase">Dashboard Comercial</span>
+                                    <div class="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center">
+                                        <i data-lucide="bar-chart" class="w-5 h-5 text-white"></i>
+                                    </div>
+                                    <button type="button" onclick="biSwitchView('geral')" class="px-4 py-1.5 rounded-full bg-white text-[#0891b2] text-[8.5px] font-extrabold shadow">INICIAR</button>
+                                </div>
                             </div>
-                            <div class="screen-anim bg-slate-800 rounded-lg p-3 flex items-end gap-2 h-full">
-                                <div class="bar-4 bg-[#3ea62b] rounded-t w-full" style="height:4%"></div>
-                                <div class="bar-5 bg-[#0284c7] rounded-t w-full" style="height:4%"></div>
-                                <div class="bar-6 bg-[#ea580c] rounded-t w-full" style="height:4%"></div>
+
+                            <div id="bi-view-geral" class="hidden absolute inset-0">
+                                <div class="h-full flex flex-col p-2 gap-1.5">
+                                    <div class="flex items-center justify-between shrink-0">
+                                        <span class="text-[7.5px] font-extrabold text-slate-500 tracking-wide">DASHBOARD COMERCIAL</span>
+                                        <div class="flex gap-1">
+                                            <span class="text-[6px] bg-white border border-slate-300 rounded px-1.5 py-0.5 text-slate-500 font-semibold">Todos</span>
+                                            <span class="text-[6px] bg-white border border-slate-300 rounded px-1.5 py-0.5 text-slate-500 font-semibold">2026</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-1.5 flex-1 min-h-0">
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">FAT. POR DEPARTAMENTO</span>
+                                            <span class="text-[7px] font-extrabold text-slate-700">Líquido: R$ 4,82 Mi</span>
+                                            <span class="text-[6px] text-slate-500">Linha Padaria · R$ 4,51 Mi</span>
+                                            <span class="text-[6px] text-slate-500">Linha Varejo · R$ 298 Mil</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col items-center justify-center gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400 self-start">FAT. X DEVOLUÇÕES</span>
+                                            <div class="w-9 h-9 rounded-full shrink-0" style="background: conic-gradient(#0891b2 0 96%, #f59e0b 96% 100%)"></div>
+                                            <span class="text-[6px] text-slate-500">96% faturamento líquido</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden justify-center">
+                                            <span class="text-[6px] font-extrabold text-slate-400">POR VENDEDOR</span>
+                                            <div class="flex items-center gap-1"><div class="h-1.5 rounded bg-[#7c3aed]" style="width:85%"></div><span class="text-[5.5px] text-slate-500 shrink-0">890 Mil</span></div>
+                                            <div class="flex items-center gap-1"><div class="h-1.5 rounded bg-[#7c3aed]/70" style="width:58%"></div><span class="text-[5.5px] text-slate-500 shrink-0">612 Mil</span></div>
+                                            <div class="flex items-center gap-1"><div class="h-1.5 rounded bg-[#7c3aed]/50" style="width:40%"></div><span class="text-[5.5px] text-slate-500 shrink-0">459 Mil</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex items-end gap-1.5 h-14 shrink-0">
+                                        <div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full rounded-t bg-[#0891b2]" style="height:60%"></div><span class="text-[5.5px] text-slate-400">ago</span></div>
+                                        <div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full rounded-t bg-[#0891b2]" style="height:68%"></div><span class="text-[5.5px] text-slate-400">set</span></div>
+                                        <div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full rounded-t bg-[#0891b2]" style="height:55%"></div><span class="text-[5.5px] text-slate-400">out</span></div>
+                                        <div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full rounded-t bg-[#0891b2]" style="height:72%"></div><span class="text-[5.5px] text-slate-400">nov</span></div>
+                                        <div class="flex-1 flex flex-col items-center gap-0.5"><div class="w-full rounded-t bg-[#3ea62b]" style="height:88%"></div><span class="text-[5.5px] text-slate-400">dez</span></div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div id="bi-view-supervisor" class="hidden absolute inset-0">
+                                <div class="h-full flex flex-col p-2 gap-1.5">
+                                    <span class="text-[7.5px] font-extrabold text-slate-500 tracking-wide shrink-0">DETALHAMENTO POR SUPERVISOR</span>
+                                    <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shrink-0">
+                                        <div class="grid grid-cols-4 bg-[#7c3aed] text-white text-[5.5px] font-extrabold px-1.5 py-1">
+                                            <span>SUPERVISOR</span><span>FAT. BRUTO</span><span>FAT. LÍQ.</span><span>CRESC.</span>
+                                        </div>
+                                        <div class="grid grid-cols-4 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100">
+                                            <span class="truncate">R. Almeida</span><span>R$ 139 Mil</span><span>R$ 139 Mil</span><span class="text-emerald-600 font-bold">▲ 9,1%</span>
+                                        </div>
+                                        <div class="grid grid-cols-4 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100">
+                                            <span class="truncate">F. Lima</span><span>R$ 310 Mil</span><span>R$ 309 Mil</span><span class="text-red-500 font-bold">▼ 8,8%</span>
+                                        </div>
+                                        <div class="grid grid-cols-4 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100">
+                                            <span class="truncate">P. Henrique</span><span>R$ 21 Mil</span><span>R$ 21 Mil</span><span class="text-emerald-600 font-bold">▲ 22,3%</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-1.5 flex-1 min-h-0">
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">TOP VENDEDOR</span>
+                                            <span class="text-[6px] text-slate-500">R. Almeida · R$ 139 Mil</span>
+                                            <span class="text-[6px] text-slate-500">F. Lima · R$ 118 Mil</span>
+                                            <span class="text-[6px] text-slate-500">Venda Direta · R$ 72 Mil</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col items-center justify-center gap-1">
+                                            <span class="text-[6px] font-extrabold text-slate-400 self-start">DEVOL. POR VENDEDOR</span>
+                                            <span class="text-[6px] text-slate-400 text-center">Sem devoluções no período</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">POR CIDADE</span>
+                                            <span class="text-[6px] text-slate-500">Goiânia - GO · R$ 905 Mil</span>
+                                            <span class="text-[6px] text-slate-500">Aparecida - GO · R$ 209 Mil</span>
+                                            <span class="text-[6px] text-slate-500">Anápolis - GO · R$ 88 Mil</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="bi-view-cliente" class="hidden absolute inset-0">
+                                <div class="h-full flex flex-col p-2 gap-1.5">
+                                    <div class="flex items-center justify-between shrink-0">
+                                        <span class="text-[7.5px] font-extrabold text-slate-500 tracking-wide">DETALHAMENTO POR CLIENTE</span>
+                                        <span class="text-[6px] bg-white border border-slate-300 rounded px-1.5 py-0.5 text-slate-500 font-semibold">Todos</span>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-1.5 flex-1 min-h-0">
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">TOP FATURAMENTO</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Mercado Bom Preço · R$ 367 Mil</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Padaria Trigo Dourado · R$ 237 Mil</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Distrib. Sabor & Cia · R$ 179 Mil</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">TICKET MÉDIO</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Mercado Bom Preço · R$ 11,5 Mil</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Supermercado Vitória · R$ 8,1 Mil</span>
+                                            <span class="text-[6px] text-slate-500 truncate">Mercadinho da Praça · R$ 4,8 Mil</span>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 p-1.5 flex flex-col gap-1 overflow-hidden">
+                                            <span class="text-[6px] font-extrabold text-slate-400">POR REGIÃO</span>
+                                            <span class="text-[6px] text-slate-500">Região Central · R$ 928 Mil</span>
+                                            <span class="text-[6px] text-slate-500">Região Norte · R$ 163 Mil</span>
+                                            <span class="text-[6px] text-slate-500">Região Sul · R$ 147 Mil</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="bi-view-produto" class="hidden absolute inset-0">
+                                <div class="h-full flex flex-col p-2 gap-1.5">
+                                    <span class="text-[7.5px] font-extrabold text-slate-500 tracking-wide shrink-0">DETALHAMENTO POR PRODUTO</span>
+                                    <div class="grid grid-cols-2 gap-1.5 flex-1 min-h-0">
+                                        <div class="bg-white rounded-lg border border-slate-200 overflow-hidden flex flex-col">
+                                            <div class="bg-[#7c3aed] text-white text-[5.5px] font-extrabold px-1.5 py-1 grid grid-cols-3">
+                                                <span>NOTA</span><span>QTD.</span><span>VALOR</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100"><span>0018</span><span>1</span><span>R$ 88,00</span></div>
+                                            <div class="grid grid-cols-3 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100"><span>0019</span><span>10</span><span>R$ 750,00</span></div>
+                                            <div class="grid grid-cols-3 px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100"><span>0020</span><span>7</span><span>R$ 630,00</span></div>
+                                        </div>
+                                        <div class="bg-white rounded-lg border border-slate-200 overflow-hidden flex flex-col">
+                                            <div class="bg-[#7c3aed] text-white text-[5.5px] font-extrabold px-1.5 py-1">MIX CLIENTES</div>
+                                            <div class="px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100 truncate">2917 · Posto Zonta</div>
+                                            <div class="px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100 truncate">2981 · Conveniência Vulcânia</div>
+                                            <div class="px-1.5 py-1 text-[6px] text-slate-600 border-t border-slate-100 truncate">2301 · Conveniência VSM</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>`
             }
         };
+
+        function biSwitchView(view) {
+            ['home', 'geral', 'supervisor', 'cliente', 'produto'].forEach(v => {
+                const el = document.getElementById('bi-view-' + v);
+                if (el) el.classList.toggle('hidden', v !== view);
+                const nav = document.getElementById('bi-nav-' + v);
+                if (!nav) return;
+                nav.classList.toggle('bg-white/20', v === view);
+                nav.classList.toggle('text-white', v === view);
+                nav.classList.toggle('text-white/60', v !== view);
+            });
+        }
 
         function fvSwitchTab(tab) {
             const tabEnviados = document.getElementById('fv-tab-enviados');
@@ -1119,14 +1268,6 @@
                 const scan = screen.querySelector('#scan-line');
                 if (scan) tl.fromTo(scan, { top: '2%' }, { top: '90%', duration: 0.6, ease: "power1.inOut", repeat: 1, yoyo: true }, "-=0.4");
             }
-            if (serviceKey === 'bi') {
-                const heights = ['58%', '85%', '42%'];
-                for (let i = 1; i <= 6; i++) {
-                    const bar = screen.querySelector('.bar-' + i);
-                    if (bar) tl.to(bar, { height: heights[(i - 1) % 3], duration: 0.6, ease: "power2.out" }, "-=0.5");
-                }
-            }
-
             tl.to({}, { duration: 0.5 });
         }
 
