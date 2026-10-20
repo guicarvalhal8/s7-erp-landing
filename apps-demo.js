@@ -173,9 +173,21 @@ const FV_MOTIVOS = ['Estabelecimento fechado', 'Comprador ausente', 'Estoque aba
 
 let fv = null;
 
+// Pedidos fictícios já feitos (antes = minutos atrás), só para a tela inicial não começar vazia
+const FV_PEDIDOS_INICIAIS = [
+    { cliente: 3140, pgto: '7 DIAS', cob: 'BOLETO', itens: 3, total: 418.60, antes: 18, enviado: false },
+    { cliente: 3121, pgto: 'A VISTA', cob: 'PIX', itens: 2, total: 196.80, antes: 55, enviado: false },
+    { cliente: 3118, pgto: '28 DIAS', cob: 'BOLETO', itens: 6, total: 1284.30, antes: 99, enviado: true },
+    { cliente: 3112, pgto: 'A VISTA', cob: 'DINHEIRO', itens: 4, total: 352.40, antes: 143, enviado: true },
+    { cliente: 3127, pgto: '14 DIAS', cob: 'BOLETO', itens: 5, total: 879.50, antes: 186, enviado: true },
+    { cliente: 3134, pgto: 'A VISTA', cob: 'PIX', itens: 2, total: 148.20, antes: 224, enviado: true }
+];
+
 function fvStart() {
+    const pedidos = FV_PEDIDOS_INICIAIS.map(p => ({ cliente: p.cliente, emp: '1', pgto: p.pgto, cob: p.cob, modelo: 'D1',
+        itens: p.itens, total: p.total, emissao: fvEmissao(fvAgora(p.antes)), enviado: p.enviado }));
     fv = { tela: 'home', aba: 'enviados', drawer: false, menuCli: null, sheet: null, buscaCli: null, busca: null,
-        cliente: null, pedAba: 'pedido', form: null, itens: [], item: null, pedidos: [], enviando: false, aviso: null, passo: 'menu' };
+        cliente: null, pedAba: 'pedido', form: null, itens: [], item: null, pedidos, enviando: false, aviso: null, passo: 'menu' };
     fvRender(true);
 }
 
@@ -193,9 +205,13 @@ function fvEsc(t) {
     return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 }
 
-function fvAgora() {
-    const d = new Date(), z = n => String(n).padStart(2, '0');
+function fvAgora(minutosAtras) {
+    const d = new Date(Date.now() - (minutosAtras || 0) * 60000), z = n => String(n).padStart(2, '0');
     return { data: `${z(d.getDate())}/${z(d.getMonth() + 1)}/${d.getFullYear()}`, hora: `${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}` };
+}
+
+function fvEmissao(t) {
+    return t.data + ' ' + t.hora;
 }
 
 function fvAvisar(texto) {
@@ -291,7 +307,7 @@ function fvAcao(acao, arg) {
             if (!fv.itens.length) { fvAvisar('Insira ao menos um item no pedido'); break; }
             const agora = fvAgora();
             fv.pedidos.unshift({ cliente: fv.cliente, emp: fv.form.empresa.split(' - ')[0], pgto: fv.form.pgto, cob: fv.form.cobranca,
-                modelo: fv.form.modelo, itens: fv.itens.length, total: fvTotalPedido(fv.itens), emissao: agora.data + ' ' + agora.hora, enviado: false });
+                modelo: fv.form.modelo, itens: fv.itens.length, total: fvTotalPedido(fv.itens), emissao: fvEmissao(agora), enviado: false });
             fv.tela = 'home'; fv.aba = 'pendentes'; fv.itens = [];
             fv.passo = 'comunicar';
             fvAvisar('Pedido salvo em Pendentes');
