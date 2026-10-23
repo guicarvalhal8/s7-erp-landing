@@ -124,7 +124,7 @@
         .topbar { position: sticky; top: 0; z-index: 40; background: var(--surface); }
         .topbar__in { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--mx); height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
         .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.01em; }
-        .brand__mark { width: 36px; height: 36px; display: grid; place-items: center; background: var(--accent); color: var(--ink); font-weight: 700; font-size: 1rem; }
+        .brand__mark { height: 36px; width: auto; display: block; }
         .topnav { display: none; align-items: center; gap: 28px; }
         .topnav a, .tel { color: var(--ink); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 8px; font-size: var(--step-small); font-weight: 500; transition: text-decoration-color 0.2s ease; }
         .topnav a:hover, .tel:hover { text-decoration-color: var(--accent); }
@@ -787,7 +787,7 @@
     <header class="topbar" id="topo">
         <div class="topbar__in">
             <a class="brand" href="#topo" aria-label="SN Sistemas, início">
-                <span class="brand__mark" aria-hidden="true">SN</span>
+                <img class="brand__mark" src="assets/logo-sn.png" alt="" aria-hidden="true" width="44" height="36">
                 <span>SN Sistemas</span>
             </a>
             <nav class="topnav" aria-label="Principal">
